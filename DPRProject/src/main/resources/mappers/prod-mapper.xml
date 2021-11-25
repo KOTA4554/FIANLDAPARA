@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="prod">
+
+   <select id="selectProd" parameterType="int" resultType="Product">
+      SELECT * FROM PRODUCT_DETAIL WHERE PRODUCTNO = #{prodNo}
+   </select>
+   
+   <select id="selectSeller" parameterType="int" resultType="Seller">
+      SELECT * FROM SELLER WHERE SELLERID IN (SELECT SELLERID FROM PRODUCT WHERE PRODUCTNO = #{prodNo})
+   </select>
+   
+   <select id="loadImage" parameterType="int" resultType="string">
+   SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{prodNo} 
+   </select>
+   
+   <update id="viewcount" parameterType="int" >
+        UPDATE PRODUCT_DETAIL SET PRODUCTCOUNT = PRODUCTCOUNT+1 WHERE PRODUCTNO = #{prodNo}
+   </update>
+   
+   <select id="review" parameterType="int" resultType="Review">
+   SELECT * FROM REVIEW WHERE DETAILNO IN (SELECT DETAILNO FROM ORDERDETAIL WHERE PRODUCTNO = #{prodNo})
+   </select>
+
+<select id="random" resultType="Product">   
+   SELECT * FROM(SELECT * FROM PRODUCT_DETAIL ORDER BY DBMS_RANDOM.RANDOM) WHERE ROWNUM &lt; 5
+</select>
+   
+   <select id="randomImage" parameterType="int" resultType="string">
+   SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{randomNo} AND IMAGECATEGORYNO = 0 
+   </select>
+   
+   <insert id="qnaInsert" parameterType="QnA" >
+   INSERT INTO QNA VALUES(SEQ_QNA.NEXTVAL, #{userId}, #{productNo}, #{qTitle}, #{qContent}, SYSDATE, 'Y')
+   </insert>
+   
+   <select id="qna" parameterType="int" resultType="QnA">
+   SELECT * FROM QNA WHERE PRODUCTNO = #{prodNo} AND QSTATUS = 'Y'
+   </select>
+   
+
+</mapper>

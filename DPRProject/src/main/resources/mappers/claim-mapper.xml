@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="claimSQL">
+
+   <resultMap id="resultOrder" type="Order">
+      <result column="orderAddress"  property="orderAddress"  typeHandler="MyTypeHandler"/>
+   </resultMap>
+
+   <select id="selectOrder" parameterType="string" resultMap="resultOrder">
+      SELECT * FROM "ORDER" WHERE USERID = #{ userId } ORDER BY ORDERNO DESC
+   </select>
+   
+   <select id="selectOrderDetail" parameterType="string" resultType="OrderDetail">
+      SELECT * FROM ORDERDETAIL
+      WHERE ORDERNO IN (SELECT ORDERNO 
+                         FROM "ORDER"
+                         WHERE USERID = #{ userId })
+        ORDER BY DETAILNO DESC
+   </select>
+   
+   <select id="selectSeller" parameterType="int" resultType="Seller">
+      SELECT *
+      FROM SELLER
+      WHERE SELLERID = (SELECT SELLERID
+                        FROM PRODUCT_DETAIL
+                        WHERE PRODUCTNO = (SELECT PRODUCTNO
+                                           FROM ORDERDETAIL
+                                           WHERE DETAILNO = #{ detailNo }))
+   </select>
+   
+   <select id="selectProductName" parameterType="int" resultType="string">
+      SELECT PRODUCTNAME FROM PRODUCT_DETAIL WHERE PRODUCTNO = #{ productNo }
+   </select>
+   
+   <insert id="insertClaim" parameterType="Claim">
+      INSERT INTO "CLAIMINFO" VALUES( SEQ_CLAIM.nextval, #{detailNo}, 0, #{claimContent}, SYSDATE, null)
+   </insert>
+   
+   <insert id="insertClaim1" parameterType="Claim">
+      INSERT INTO "CLAIMINFO" VALUES( SEQ_CLAIM.nextval, #{detailNo}, 1, #{claimContent}, SYSDATE, null)
+   </insert>
+   <insert id="insertClaim2" parameterType="Claim">
+      INSERT INTO "CLAIMINFO" VALUES( SEQ_CLAIM.nextval, #{detailNo}, 2, #{claimContent}, SYSDATE, null)
+   </insert>
+   
+   <select id="selectClaimList" parameterType="string" resultType="Claim">
+       SELECT *
+      FROM CLAIMINFO
+      WHERE DETAILNO IN (SELECT DETAILNO
+                                 FROM ORDERDETAIL
+                                    WHERE PRODUCTNO IN (SELECT PRODUCTNO
+                                                                                   FROM PRODUCT_DETAIL
+                                                                                   WHERE SELLERID = #{sellerId}))
+      ORDER BY CLAIMNO DESC
+   </select>
+   
+   <select id="selectCproduct" parameterType="int" resultType="Product">
+      SELECT *
+      FROM PRODUCT_DETAIL
+      WHERE PRODUCTNO = (SELECT PRODUCTNO
+                                     FROM ORDERDETAIL
+                                     WHERE DETAILNO = (select DETAILNO
+                                                               FROM CLAIMINFO
+                                                               WHERE CLAIMNO = #{claimNo}))
+   </select>
+   <update id="completeClaim" parameterType="int">
+      UPDATE CLAIMINFO 
+      SET     CLAIMCODE = CASE 
+            WHEN CLAIMCODE = 0 THEN 3
+            WHEN CLAIMCODE = 1 THEN 4
+            WHEN CLAIMCODE = 2 THEN 5
+            ELSE CLAIMCODE END,
+            COMPLETECLAIM = CASE
+            WHEN COMPLETECLAIM = NULL THEN SYSDATE
+            ELSE SYSDATE END
+            WHERE CLAIMNO = #{claimNo}
+   </update>
+   
+   <select id="searchClaim" parameterType="map" resultType="Claim">
+      SELECT *
+      FROM CLAIMINFO
+      WHERE DETAILNO IN (SELECT DETAILNO
+                     FROM ORDERDETAIL
+                       WHERE PRODUCTNO IN (SELECT PRODUCTNO
+                                             FROM PRODUCT_DETAIL DETAIL
+                                    LEFT JOIN CATEGORY2 CG2 ON (DETAIL.CATEGORYNO2 = CG2.CATEGORYNO2)
+                                    LEFT JOIN "CATEGORY" CG ON (CG2.CATEGORYNO = CG.CATEGORYNO)
+                                             WHERE SELLERID = #{sellerId}
+                                             <if test="productName != null and productName != ''">
+                                                   AND PRODUCTNAME LIKE '%' || #{productName} || '%'
+                                             </if>
+                                             <if test="productBrand != null and productBrand != ''">
+                                                   AND PRODUCTBRAND LIKE '%' || #{productBrand} || '%'
+                                             </if>
+                                             <if test="productNo != null and productNo != -1">
+                                                   AND PRODUCTNO = #{productNo}
+                                             </if>
+                                             <if test="categoryNo != null and categoryNo != 999">
+                                       AND CG.CATEGORYNO = #{categoryNo}
+                                    </if>
+                                    <if test="categoryNo2 != null and categoryNo2 != 999">
+                                       AND CG2.CATEGORYNO2 = #{categoryNo2}
+                                    </if>
+                                    <if test="claimCode != 6">
+                                                   AND CLAIMCODE = #{claimCode}
+                                             </if>
+                                             )) 
+                                    ORDER BY CLAIMNO DESC
+
+   </select>
+   
+   
+</mapper>

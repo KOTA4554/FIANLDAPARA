@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="deliverySQL">
+	
+	<select id="selectDelList" parameterType="string" resultType="Delivery">
+		SELECT * FROM ORDERDETAIL OD
+		LEFT JOIN "ORDER" O ON OD.ORDERNO = O.ORDERNO
+		LEFT JOIN DELIVERY D ON OD.DELIVERYNO = D.DELIVERYNO
+		LEFT JOIN PRODUCT_DETAIL DETAIL ON OD.PRODUCTNO = DETAIL.PRODUCTNO
+		WHERE SELLERID = #{sellerId}
+		ORDER BY PAYMENTCODE DESC
+		<!-- 결제 완료된 리스트만 불러오는 조건 추가 필요 -->
+	</select>
+	
+	<select id="selectTotalOrder" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM ORDERDETAIL OD
+		LEFT JOIN "ORDER" O ON OD.ORDERNO = O.ORDERNO
+		LEFT JOIN DELIVERY D ON OD.DELIVERYNO = D.DELIVERYNO
+		LEFT JOIN PRODUCT_DETAIL DETAIL ON OD.PRODUCTNO = DETAIL.PRODUCTNO
+		WHERE SELLERID = #{sellerId}
+		ORDER BY PAYMENTCODE DESC
+	</select>
+	
+</mapper>

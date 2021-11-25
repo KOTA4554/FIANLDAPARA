@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orderSQL">
+
+	<insert id="orderInsert" parameterType="Order">
+		INSERT INTO "ORDER" VALUES (SEQ_ORDERNO.NEXTVAL, #{ userId }, SYSDATE,
+				#{ orderAddress, typeHandler=MyTypeHandler }, #{ orderReceiver }, 
+				#{ orderRequest }, #{ orderPhone })
+	</insert>
+	
+	<insert id="orderDetailInsert" parameterType="OrderDetail">
+		<selectKey keyProperty="orderNo" resultType="_int" order="BEFORE">
+			SELECT SEQ_ORDERNO.CURRVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO ORDERDETAIL VALUES(SEQ_ORDERDETAIL.NEXTVAL, #{ orderNo }, #{ productNo }, 
+				NULL, 1, 2, #{ detailAmount }, #{ detailPrice }, #{ detailSize }, DEFAULT)
+	</insert>
+	
+	<select id="selectProduct" parameterType="int" resultType="Product">
+		SELECT * FROM PRODUCT_DETAIL WHERE PRODUCTNO = #{ productNo }
+	</select>
+	
+	<select id="selectImg" parameterType="int" resultType="string">
+		SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = 0 
+	</select>
+</mapper>

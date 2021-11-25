@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cart">
+
+
+<insert id="addCart" parameterType="Cart">
+INSERT INTO "CART" VALUES(#{userId},#{productNo},#{cartAmount},#{sizeName})
+</insert>
+
+<select id="cartList" parameterType="String" resultType="Cart">
+SELECT * FROM CART WHERE USERID = #{userId}
+</select>   
+
+<update id="changeAmountP" parameterType="Cart">
+UPDATE CART SET CARTAMOUNT = CARTAMOUNT+1 WHERE USERID = #{userId} AND PRODUCTNO = #{productNo}
+</update>
+
+<update id="changeAmountM" parameterType="Cart">
+UPDATE CART SET CARTAMOUNT = CARTAMOUNT-1 WHERE USERID = #{userId} AND PRODUCTNO = #{productNo}
+</update>
+
+<select id="loadImage" parameterType="int" resultType="string">
+SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = 0 
+</select>
+
+</mapper>

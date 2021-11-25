@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+/*
+  myPageOrderList CSS
+  author : 김용주
+*/
+
+/*------myPage reviewArea------*/
+/*------------------------------*/
+
+#reviewArea {
+  width: 850px;
+}
+
+#reviewTitle {
+  border-bottom: 2px solid lightgray;
+}
+
+#productArea {
+  padding: 20px 0;
+  border-bottom: 2px solid lightgray;
+}
+
+#reviewForm {
+  padding-top: 10px;
+  font-size: 12pt;
+}
+
+#starArea span {
+  padding-right: 15px;
+}
+
+#starArea i {
+  color: rgb(84, 84, 107);
+}
+
+#imgArea {
+  padding: 15px 0 20px 0;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+#imgArea span {
+  padding-bottom: 10px;
+}
+
+#imgBtn {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  background: lightgray;
+  align-items: center;
+  justify-content: center;
+  font-size: 25pt;
+}
+
+#btnArea {
+  display: flex;
+  justify-content: center;
+}
+
+#reviewBtn {
+  color: white;
+  background-color: #d10024;
+  border: none;
+  width: 100px;
+  height: 40px;
+  font-size: 13pt;
+  border-radius: 3px;
+}
+
+.text {
+  font-weight: bold;
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+	<!-- #1 Mybatis settings -->
+ 	<settings>
+ 		<setting name="jdbcTypeForNull" value="NULL"/>
+ 		<setting name="cacheEnabled" value="true"/>
+ 		<setting name="mapUnderscoreToCamelCase" value="true"/>
+ 	</settings>
+
+
+	<!-- #2 Java full package class access to alias -->
+
+ 	<typeAliases>
+ 		<typeAlias alias="Order" type="com.kh.dpr.order.model.vo.Order"/>
+ 		<typeAlias alias="OrderDetail" type="com.kh.dpr.order.model.vo.OrderDetail"/>
+ 		<typeAlias alias="MyTypeHandler" type="com.kh.dpr.common.MyTypeHandler"/>
+		<typeAlias alias="Review" type="com.kh.dpr.review.model.vo.Review"/>
+ 		<typeAlias alias="Claim" type="com.kh.dpr.claim.model.vo.Claim"/>
+		<typeAlias alias="Delivery" type="com.kh.dpr.order.model.vo.Delivery"/>
+    	<typeAlias alias="Cart" type="com.kh.dpr.cart.model.vo.Cart"/>
+   		<typeAlias alias="Seller" type="com.kh.dpr.seller.model.vo.Seller"/>
+    	<typeAlias alias="ProductImage" type="com.kh.dpr.product.model.vo.ProductImage"/>
+ 		<typeAlias alias="Member" type="com.kh.dpr.member.model.vo.Member"/>
+ 		<typeAlias alias="Product" type="com.kh.dpr.product.model.vo.Product"/>
+ 		<typeAlias alias="Review" type="com.kh.dpr.review.model.vo.Review"/>
+ 		<typeAlias alias="SearchCondition" type="com.kh.dpr.seller.model.vo.SearchCondition"/>
+		<typeAlias alias="QnA" type="com.kh.dpr.qna.model.vo.QnA"/>
+ 	</typeAliases>
+ 	
+ 	<!-- 데이터를 DB로 전달할 때, 바구기를 희망하는 자료형을 찾아서
+ 		 변환해주는 기능을 수행하는 객체 -->
+ 	<typeHandlers>
+ 		<package name="com.kh.dpr.common"/>
+ 	</typeHandlers>
+
+
+ 	
+ </configuration>
