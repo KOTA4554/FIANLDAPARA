@@ -1,0 +1,180 @@
+@charset "UTF-8";
+
+/*
+  myPageOrderList CSS
+  author : 김용주
+*/
+
+/*------myPage head------*/
+/*-----------------------*/
+#myPage {
+  padding: 30px 0;
+}
+
+#section-header {
+  height: 40px;
+}
+
+/*------myPage sidemenu------*/
+/*------------------------------*/
+
+#myPageBody {
+  display: flex;
+  justify-content: space-between;
+}
+
+#sideMenu {
+  float: left;
+  width: 200px;
+}
+
+#infoDiv {
+  background: rgb(84, 84, 107);
+  text-align: center;
+  display: flex;
+  height: 150px;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+#infoDiv div {
+  font-size: 14pt;
+  font-weight: bold;
+  color: white;
+}
+
+#myInfoBtn {
+  background: none;
+  border: none;
+  color: white;
+}
+
+#sideMenuList {
+  background: lightgray;
+  height: 700px;
+  padding-left: 15px;
+}
+
+.listTitle {
+  font-weight: bold;
+  font-size: 12pt;
+  padding-top: 30px;
+}
+
+.menu {
+  font-size: 11pt;
+  padding-top: 10px;
+}
+
+/*------myPage orderListArea------*/
+/*------------------------------*/
+
+#orderListArea {
+  width: 850px;
+}
+
+#deliCountSection {
+  background: lightgray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  height: 150px;
+}
+
+#deliCountTable {
+  width: 350px;
+  text-align: center;
+}
+
+#deliCountTable tr:first-child {
+  font-size: 12pt;
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
+.iconTr {
+  font-size: 20pt;
+}
+
+.iconTr span {
+  font-size: 30pt;
+}
+
+#searchDate {
+  padding-right: 20px;
+}
+
+#btnArea {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+.dateBtn {
+  width: 75px;
+  border: 1px solid rgb(87, 87, 87);
+  background: white;
+  border-radius: 5px;
+}
+
+.dateBtn:hover {
+  background: #d10024;
+  border: 1px solid #d10024;
+  color: white;
+}
+
+#searchBtn {
+  border: 2px solid #d10024;
+  background: #d10024;
+  color: white;
+  border-radius: 3px;
+}
+
+#orderList {
+  padding-top: 25px;
+}
+
+.ordersArea {
+  padding-top: 20px;
+}
+
+.orderAreaHead {
+  display: flex;
+  justify-content: space-between;
+}
+
+.orderDate {
+  font-size: 12pt;
+  font-weight: bold;
+}
+
+.orderTable {
+  width: 100%;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+}
+
+.productImg {
+  width: 120px;
+  height: 120px;
+}
+
+.qnaBtn {
+  background: none;
+  border: 1px solid lightgray;
+}
+
+.btnArea2 {
+  width: 160px;
+}
+
+.btnArea2 button {
+  width: 150px;
+  height: 30px;
+  background: none;
+  border: 1px solid lightgray;
+  margin: 3px 0;
+}
+

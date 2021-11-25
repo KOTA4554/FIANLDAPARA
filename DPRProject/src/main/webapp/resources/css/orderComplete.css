@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+/*
+  orderComplete CSS
+  author : 김용주
+*/
+
+/*------orderComplete head------*/
+/*------------------------------*/
+#orderComplete-section {
+  padding: 30px 0;
+}
+
+#section-header {
+  height: 40px;
+  border-bottom: 2px solid darkgray;
+}
+
+#orderTitle {
+  float: left;
+}
+
+#pageNav {
+  float: right;
+}
+
+#pageNav label {
+  font-weight: normal;
+}
+
+.fa-chevron-right {
+  padding: 0 5px;
+}
+
+#pageNav label:nth-child(8),
+i:nth-child(7) {
+  color: #d10024;
+  font-weight: bold;
+}
+
+/*------orderComplete body------*/
+/*------------------------------*/
+
+#section-body {
+  text-align: center;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#completeMsg {
+  font-size: 16pt;
+}
+
+#completeMsg i {
+  font-size: 40pt;
+  padding-bottom: 20px;
+  color: #d10024;
+}
+
+#moveBtn button {
+  width: 300px;
+  height: 35px;
+  font-size: 13pt;
+  margin: 10px 0;
+  border: none;
+  border-radius: 3px;
+}
+
+#goHome {
+  background-color: #d10024;
+  color: white;
+}
+
+#goOrderDetail {
+  background-color: lightgray;
+}

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="manageSQL">
+
+   <update id="insertProduct" parameterType="Product">
+      UPDATE PRODUCT_DETAIL SET CATEGORYNO2 = #{categoryNo2}, SELLERID = #{sellerId}, PRODUCTNAME = #{productName},
+                          PRODUCTSTATUS = 'Y', PRODUCTINFO = #{productInfo}, PRODUCTSTARTDATE = #{productStartdate}, 
+                          PRODUCTENDDATE = #{productEnddate}, PRODUCTCONTENT = #{productContent}, 
+                          PRODUCTPRICE = #{productPrice}, PRODUCTBRAND = #{productBrand}
+      WHERE PRODUCTNO = #{productNo}
+   </update>
+   
+   <insert id="insertImage" parameterType="ProductImage">
+      <!-- 이미 컨트롤러에서 지정 
+      <selectKey keyProperty="productNo" resultType="_int" order="BEFORE">
+         SELECT SEQ_BOARDNO.CURRVAL FROM DUAL      
+      </selectKey> 
+      -->
+      INSERT INTO PRODUCTIMAGE VALUES( SEQ_PRODUCTIMAGENO.NEXTVAL, #{productNo}, #{imageCategoryNo},
+                               #{productOldImage}, #{productNewImage} )
+   </insert>
+   
+   <insert id="insertTempProduct">
+      INSERT INTO PRODUCT_DETAIL VALUES( SEQ_PRODUCT.NEXTVAL, NULL, #{sellerId}, NULL, NULL, NULL, 'N', NULL,
+                                 NULL, NULL, NULL, NULL, NULL)
+   </insert>
+   
+   <select id="selectTempProduct" resultType="int">
+      SELECT nvl(MAX(PRODUCTNO), 1) FROM PRODUCT_DETAIL
+   </select>
+   
+   <insert id="insertOption" parameterType="Product">
+      INSERT INTO PRODUCT_OPTION VALUES( SEQ_OPTIONNO.NEXTVAL, #{productNo}, #{sizeId}, #{productAmount}, 'Y')
+   </insert>
+   
+   <select id="selectProductList" parameterType="string" resultType="Product">
+      SELECT DETAIL.*,
+            (SELECT COUNT(*) FROM PRODUCT_OPTION WHERE PRODUCTNO = DETAIL.PRODUCTNO) OPTIONCOUNT,
+            (SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = DETAIL.PRODUCTNO AND IMAGECATEGORYNO = 0) MAINIMAGE,
+            (SELECT CATEGORYNAME || ' > ' || CATEGORYNAME2 FROM "CATEGORY" C1 
+             INNER JOIN "CATEGORY2" C2 ON C1.CATEGORYNO = C2.CATEGORYNO 
+             WHERE C2.CATEGORYNO2 = DETAIL.CATEGORYNO2) CATEGORYNAME         
+      FROM PRODUCT_DETAIL DETAIL
+      WHERE SELLERID = #{sellerId}
+      ORDER BY PRODUCTNO DESC
+   </select>
+   
+   <select id="selectTotalProduct" parameterType="string" resultType="int">
+      SELECT COUNT(*) FROM PRODUCT_DETAIL WHERE SELLERID = #{sellerId}
+   </select>
+   
+
+   <!--get  reviewList , yongjoo -->
+   <select id="selectReviewList" parameterType="string" resultType="Review">
+      SELECT *
+      FROM REVIEW
+      WHERE DETAILNO IN (SELECT DETAILNO
+                                 FROM ORDERDETAIL
+                                    WHERE PRODUCTNO IN (SELECT PRODUCTNO
+                                                                   FROM PRODUCT_DETAIL
+                                                                   WHERE SELLERID = #{sellerId})) 
+      ORDER BY REVIEWNO DESC
+   </select>
+   
+   <select id="selectRproduct" parameterType="int" resultType="Product">
+      SELECT *
+      FROM PRODUCT_DETAIL
+      WHERE PRODUCTNO = (SELECT PRODUCTNO
+                                     FROM ORDERDETAIL
+                                     WHERE DETAILNO = (select DETAILNO
+                                                               FROM REVIEW
+                                                               WHERE REVIEWNO = #{reviewNo}))
+   </select>
+                                                               
+
+   <select id="searchProductList" parameterType="map" resultType="Product">
+      SELECT DETAIL.*, CG.CATEGORYNAME || ' > ' || CG2.CATEGORYNAME2 "CATEGORYNAME",
+             (SELECT COUNT(*) FROM PRODUCT_OPTION WHERE PRODUCTNO = DETAIL.PRODUCTNO) OPTIONCOUNT,
+               (SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = DETAIL.PRODUCTNO AND IMAGECATEGORYNO = 0) MAINIMAGE
+      FROM PRODUCT_DETAIL DETAIL
+      LEFT JOIN CATEGORY2 CG2 ON (DETAIL.CATEGORYNO2 = CG2.CATEGORYNO2)
+      LEFT JOIN "CATEGORY" CG ON (CG2.CATEGORYNO = CG.CATEGORYNO)
+      WHERE SELLERID = #{sellerId}
+      <if test="searchNm != null and searchNm != ''">
+         AND PRODUCTNAME LIKE '%' || #{searchNm} || '%' 
+      </if>
+      <if test="searchCate2 != null and searchCate2 != 999">
+         AND CG2.CATEGORYNO2 = #{searchCate2}
+      </if>
+      <if test="searchCate1 != null and searchCate1 != 999">
+         AND CG.CATEGORYNO = #{searchCate1}
+      </if>
+      <if test="startDate != null">
+      <![CDATA[
+         AND PRODUCTSTARTDATE >= #{startDate}
+      ]]>
+      </if>
+      <if test="endDate != null">
+      <![CDATA[
+         AND PRODUCTENDDATE <= #{endDate}
+      ]]>
+      </if>
+      <if test="searchBrand != null and searchBrand != ''">
+         AND PRODUCTBRAND LIKE '%' || #{searchBrand} || '%'
+      </if>
+      <if test="searchPno != null and searchPno != -1">
+         AND PRODUCTNO = #{searchPno}
+      </if>
+      <choose>
+         <when test="saleState == 1">
+         <![CDATA[
+            AND PRODUCTSTARTDATE > SYSDATE
+         ]]>
+         </when>
+         <when test="saleState == 2">
+         <![CDATA[
+            AND PRODUCTSTARTDATE <= SYSDATE AND PRODUCTENDDATE >= SYSDATE
+         ]]>
+         </when>
+         <when test="saleState == 3">
+         <![CDATA[
+            AND PRODUCTENDDATE < SYSDATE
+         ]]>
+         </when>
+      </choose>      
+      ORDER BY PRODUCTNO DESC
+   </select>
+   
+   <select id="selectSearchedProduct" parameterType="map" resultType="int">
+      SELECT COUNT(*)
+      FROM PRODUCT_DETAIL DETAIL
+      LEFT JOIN CATEGORY2 CG2 ON (DETAIL.CATEGORYNO2 = CG2.CATEGORYNO2)
+      LEFT JOIN "CATEGORY" CG ON (CG2.CATEGORYNO = CG.CATEGORYNO)
+      WHERE SELLERID = #{sellerId}
+      <if test="searchNm != null and searchNm != ''">
+         AND PRODUCTNAME LIKE '%' || #{searchNm} || '%' 
+      </if>
+      <if test="searchCate2 != null and searchCate2 != 999">
+         AND CG2.CATEGORYNO2 = #{searchCate2}
+      </if>
+      <if test="searchCate1 != null and searchCate1 != 999">
+         AND CG.CATEGORYNO = #{searchCate1}
+      </if>
+      <if test="startDate != null">
+      <![CDATA[
+         AND PRODUCTSTARTDATE >= #{startDate}
+      ]]>
+      </if>
+      <if test="endDate != null">
+      <![CDATA[
+         AND PRODUCTENDDATE <= #{endDate}
+      ]]>
+      </if>
+      <if test="searchBrand != null and searchBrand != ''">
+         AND PRODUCTBRAND LIKE '%' || #{searchBrand} || '%'
+      </if>
+      <if test="searchPno != null and searchPno != -1">
+         AND PRODUCTNO = #{searchPno}
+      </if>
+      <choose>
+         <when test="saleState == 1">
+         <![CDATA[
+            AND PRODUCTSTARTDATE > SYSDATE
+         ]]>
+         </when>
+         <when test="saleState == 2">
+         <![CDATA[
+            AND PRODUCTSTARTDATE <= SYSDATE AND PRODUCTENDDATE >= SYSDATE
+         ]]>
+         </when>
+         <when test="saleState == 3">
+         <![CDATA[
+            AND PRODUCTENDDATE < SYSDATE
+         ]]>
+         </when>
+      </choose>   
+      ORDER BY PRODUCTNO DESC
+
+   </select>
+   
+   <select id="selectOneProduct" parameterType="int" resultType="Product">
+      SELECT * FROM PRODUCT_DETAIL DETAIL 
+      LEFT JOIN CATEGORY2 CG2 ON DETAIL.CATEGORYNO2 = CG2.CATEGORYNO2
+      LEFT JOIN "CATEGORY" CG ON CG2.CATEGORYNO = CG.CATEGORYNO
+      WHERE DETAIL.PRODUCTNO = #{productNo}
+   </select>
+   
+   <select id="selectOptionList" parameterType="int" resultType="Product">
+      SELECT * FROM PRODUCT_OPTION 
+      LEFT JOIN PRODUCT_DETAIL USING (PRODUCTNO)
+      LEFT JOIN "SIZE" USING (SIZEID)
+      WHERE PRODUCTNO = #{productNo}
+   </select>
+   
+   <select id="selectImageList" parameterType="int" resultType="ProductImage">
+      SELECT * FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo}
+   </select>
+   
+   <update id="updateOption" parameterType="Product">
+      UPDATE PRODUCT_OPTION SET PRODUCTAMOUNT = #{productAmount} WHERE OPTIONNO = #{optionNo}
+   </update>
+   
+   <select id="selectImage" parameterType="map" resultType="ProductImage">
+      SELECT * FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = #{category}
+   </select>
+   
+   <delete id="deleteImage" parameterType="map">
+      DELETE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = #{category} 
+   </delete>
+   
+   <!-- 추가 -->
+   <!-- get searchRivew yongjoo -->
+   <select id="selectSearchReview" parameterType="map" resultType="Review">
+      SELECT *
+      FROM REVIEW
+      WHERE DETAILNO IN (SELECT DETAILNO
+                     FROM ORDERDETAIL
+                       WHERE PRODUCTNO IN (SELECT PRODUCTNO
+                                             FROM PRODUCT_DETAIL DETAIL
+                                    LEFT JOIN CATEGORY2 CG2 ON (DETAIL.CATEGORYNO2 = CG2.CATEGORYNO2)
+                                    LEFT JOIN "CATEGORY" CG ON (CG2.CATEGORYNO = CG.CATEGORYNO)
+                                             WHERE SELLERID = #{sellerId}
+                                             <if test="productName != null || productName != ''">
+                                                   AND PRODUCTNAME LIKE '%' || #{productName} || '%'
+                                             </if>
+                                             <if test="productBrand != null || productBrand != ''">
+                                                   AND PRODUCTBRAND LIKE '%' || #{productBrand} || '%'
+                                             </if>
+                                             <if test="productNo != null and productNo != -1">
+                                                   AND PRODUCTNO = #{productNo}
+                                             </if>
+                                             <if test="categoryNo != null and categoryNo != 999">
+                                       AND CG.CATEGORYNO = #{categoryNo}
+                                    </if>
+                                    <if test="categoryNo2 != null and categoryNo2 != 999">
+                                       AND CG2.CATEGORYNO2 = #{categoryNo2}
+                                    </if>
+                                             )) 
+      ORDER BY REVIEWNO DESC
+   </select>
+   
+   <!-- getQnAList by yongjoo -->
+   <select id="selectQnaList" parameterType="string" resultType="QnA">
+      SELECT *
+      FROM QNA
+      WHERE PRODUCTNO IN (SELECT PRODUCTNO
+                           FROM PRODUCT_DETAIL
+                           WHERE SELLERID = #{sellerId}) 
+      ORDER BY QNO DESC
+   </select>
+   
+   <select id="selectQproduct" parameterType="int" resultType="Product">
+      SELECT *
+      FROM PRODUCT_DETAIL
+      WHERE PRODUCTNO = (SELECT PRODUCTNO
+                     FROM QNA
+                     WHERE QNO = #{qno})
+   </select>
+   
+   <select id="selectSearchQna" parameterType="map" resultType="Qna">
+      SELECT *
+      FROM QNA
+      WHERE PRODUCTNO IN (SELECT PRODUCTNO
+                              FROM PRODUCT_DETAIL DETAIL
+                     LEFT JOIN CATEGORY2 CG2 ON (DETAIL.CATEGORYNO2 = CG2.CATEGORYNO2)
+                     LEFT JOIN "CATEGORY" CG ON (CG2.CATEGORYNO = CG.CATEGORYNO)
+                              WHERE SELLERID = #{sellerId}
+                              <if test="productName != null || productName != ''">
+                               AND PRODUCTNAME LIKE '%' || #{productName} || '%'
+                            </if>
+                            <if test="productBrand != null || productBrand != ''">
+                               AND PRODUCTBRAND LIKE '%' || #{productBrand} || '%'
+                            </if>
+                            <if test="productNo != null and productNo != -1">
+                               AND PRODUCTNO = #{productNo}
+                            </if>
+                            <if test="categoryNo != null and categoryNo != 999">
+                        AND CG.CATEGORYNO = #{categoryNo}
+                     </if>
+                     <if test="categoryNo2 != null and categoryNo2 != 999">
+                        AND CG2.CATEGORYNO2 = #{categoryNo2}
+                     </if>
+                            ) 
+      ORDER BY QNO DESC
+   </select>
+   
+</mapper>

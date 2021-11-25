@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sellerSQL">
+   
+   <insert id="insertSeller" parameterType="Seller">
+      INSERT INTO SELLER VALUES (#{sellerId}, #{sellerPw}, #{sellerNo}, #{sellerCompany}, #{sellerName},
+                           #{sellerAddress}, #{sellerPhone}, DEFAULT, 'Y', NULL)
+   </insert>
+   
+   <select id="checkSellerDuplicate" parameterType="string" resultType="int">
+      SELECT COUNT(*) FROM SELLER WHERE SELLERID = #{sellerId} 
+   </select>
+   
+   <select id="selectOneSeller" parameterType="string" resultType="Seller">
+      SELECT * FROM SELLER WHERE SELLERID = #{sellerId} AND SELLERSTATUS = 'Y'
+   </select>
+   
+   <update id="updateSeller" parameterType="Seller">
+      UPDATE SELLER SET SELLERNO = #{sellerNo}, SELLERCOMPANY = #{sellerCompany}, SELLERNAME = #{sellerName}, SELLERADDRESS = #{sellerAddress}, SELLERPHONE = #{sellerPhone} WHERE SELLERID = #{sellerId} 
+   </update>
+   
+   <delete id="deleteSeller" parameterType="string">
+      UPDATE SELLER SET SELLERSTATUS = 'N', SELLERDROPDATE = SYSDATE WHERE SELLERID = #{sellerId}
+   </delete>
+   
+   <!-- <select id="loginMember" parameterType="Member" resultType="Member">
+      SELECT * FROM MEMBER
+      WHERE USERID = #{ userId } AND PASSWORD = #{ password }
+   </select> -->
+   <!-- Access to #{ field } -->
+</mapper>

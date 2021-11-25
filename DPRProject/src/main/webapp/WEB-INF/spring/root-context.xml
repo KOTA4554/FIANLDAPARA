@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- #1 DBCP Connection -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<!-- <property name="url" value="jdbc:oracle:thin:@1.212.197.133:49164:xe"/> -->
+		<property name="username" value="DPR"/>
+		<property name="password" value="DPR"/>
+	</bean>
+	
+	<!-- #2 MyBatis Session create -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/> 
+		<property name="mapperLocations" value="classpath*:mappers/*.xml" /> 
+		<property name="configLocation" value="classpath:mybatis-config.xml"/> 
+	</bean>
+	
+	<!-- #3 SqlSessionTemplate define by mybatis factory -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryBean"/>
+	</bean>
+	
+	<!-- #4 transaction manager define -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- #5 서비스 별 트랜잭션 처리 -->
+	<!-- <aop:config proxy-target-class="true">
+		<aop:pointcut expression="execution(* com.kh.spring..*ServiceImpl.*(..))" id="txPointcut" />
+		<aop:advisor id="transactionAdvisor" advice-ref="txAdvice" pointcut-ref="txPointcut" />
+	</aop:config> -->
+	
+	<!-- #6 트랜잭션 처리를 위한 Advice 등록 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<!-- 트랜잭션을 처리할 메소드 별 상세 설정 -->
+		<tx:attributes>
+			<tx:method name="select*" rollback-for="Exception" read-only="true"/>
+			<tx:method name="insert*" rollback-for="Exception"/>
+			<tx:method name="update*" rollback-for="Exception"/>
+			<tx:method name="delete*" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- #7 aop 선언 : servlet-context 에서! -->
+	<!-- <context:component-scan base-package="com.kh.spring"> 처럼.. -->
+	<!-- <aop:aspectj-autoproxy/> -->	
+	
+</beans>

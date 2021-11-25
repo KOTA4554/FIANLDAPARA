@@ -1,0 +1,285 @@
+@charset "UTF-8";
+
+/*------order head------*/
+/*----------------------*/
+#order-section {
+  padding: 30px 0;
+}
+
+#section-header {
+  height: 50px;
+}
+
+#orderTitle {
+  float: left;
+}
+
+#pageNav {
+  float: right;
+}
+
+#pageNav label {
+  font-weight: normal;
+}
+
+.fa-chevron-right {
+  padding: 0 5px;
+}
+
+#pageNav label:nth-child(5),
+i:nth-child(4) {
+  color: #d10024;
+  font-weight: bold;
+}
+
+/*------order info------*/
+/*----------------------*/
+.infoHead {
+  border-bottom: 2px solid darkgrey;
+}
+
+#infoTable td {
+  padding-top: 10px;
+  padding-right: 50px;
+}
+
+#infoTable p {
+  color: #d10024;
+  display: inline-block;
+  font-weight: bold;
+}
+
+/*----delivery info----*/
+/*---------------------*/
+#deliveryTable td {
+  padding-top: 10px;
+  padding-right: 15px;
+}
+
+#deliveryTable p {
+  color: #d10024;
+  display: inline-block;
+  font-weight: bold;
+}
+
+#directInput {
+	display : none;
+}
+
+#postNoBtn {
+  background: dimgrey;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  height: 26px;
+}
+
+#postNoBtn:hover {
+  background: rgb(82, 82, 82);
+}
+
+/*------pay info------*/
+/*--------------------*/
+#payTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+#payTable th {
+  text-align: center;
+  border-bottom: 1px solid lightgray;
+  font-size: 12pt;
+}
+
+#payTable td {
+  border-right: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+}
+
+#payTable tr:nth-child(2) td:last-child {
+  border-right: none;
+}
+
+#payTable tr:nth-child(2) > td:nth-child(2) {
+  border-bottom: none;
+}
+
+#payTable tr:nth-child(3) > td {
+  border-bottom: none;
+}
+
+#productImage {
+  width: 120px;
+  height: 120px;
+}
+
+#billTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#billTable th {
+  text-align: center;
+  border-top: 2px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  font-size: 12pt;
+}
+
+#billTable td {
+  border-bottom: 1px solid lightgray;
+  font-size: 25px;
+  height: 100px;
+}
+
+#billTable label {
+  font-weight : normal;
+}
+
+#billTable span {
+  color: #d10024;
+}
+
+#totalPrice {
+  color: #d10024;
+}
+
+#payTable input {
+	border : none;
+	text-align : center;
+
+}
+
+#payTable input:focus {
+	outline : none;
+}
+
+#payTable [id="productBrand"], #payTable [name="productName"], #payTable [name="detailSize"] {
+	text-align : left;
+}
+
+#productBrand {
+	font-weight : bold;
+}
+
+/*-----order footer-----*/
+/*----------------------*/
+
+
+/*-----pay method-----*/
+/*----------------------*/
+#payMethod {
+  float: left;
+  border: 1px solid lightgray;
+  width: 450px;
+  padding: 10px 0;
+}
+
+#payMethod-head {
+  border-bottom: 2px solid darkgrey;
+  padding-left: 10px;
+}
+
+#payMethod-section {
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#payMethod-section p {
+  border: 1px solid lightgray;
+  width: 150px;
+  height: 50px;
+  text-align: center;
+  padding: 15px 0;
+  margin: 0;
+}
+
+/*-----agreement-----*/
+/*----------------------*/
+#agreement {
+  float: right;
+}
+
+#checkArea {
+  border: 1px solid lightgray;
+  width: 450px;
+  padding-top: 10px;
+  margin-bottom: 5px;
+}
+
+#agrHead {
+  border-bottom: 2px solid darkgrey;
+  padding-left: 10px;
+}
+
+.agr,
+#agrCheck {
+  padding: 5px 10px;
+}
+
+.agr {
+  border-bottom: 1px solid rgb(236, 236, 236);
+  background: rgb(240, 240, 240);;
+  display: flex;
+  justify-content: space-between;
+}
+
+.agr:hover {
+  cursor: pointer;
+}
+
+.agr p {
+  margin: 0;
+}
+
+#allCheck {
+  font-size: 15px;
+}
+
+.check label {
+  font-weight: normal;
+}
+
+#payBtn {
+  width: 450px;
+  height: 50px;
+  background: #d10024;
+  border: none;
+  color: white;
+  font-size: 15pt;
+}
+
+.agrContentList {
+  border-bottom: 1px solid lightgray;
+  padding: 0 5px;
+  background: rgb(240, 240, 240);
+}
+
+#agrContent1 {
+  white-space: pre-wrap;
+  overflow-y: scroll;
+  height: 300px;
+  padding: 5px 10px;
+  border: none;
+  display: none;
+}
+
+#agrContent2 {
+  white-space: pre-wrap;
+  overflow-y: scroll;
+  height: 300px;
+  padding: 5px 10px;
+  border: none;
+  display: none;
+}
+
+.agrContentTable,
+.agrContentTable td,
+.agrContentTable th {
+  border: 1px solid lightgray;
+  text-align: center;
+}

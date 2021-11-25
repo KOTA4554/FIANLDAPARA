@@ -1,0 +1,136 @@
+@charset "UTF-8";
+  .first{
+            border : 1px solid black;
+            background : white;
+            width : 1889px;
+            height: 500px;
+            float:left;
+        }
+        .second{
+            border : 1px black;
+            background : white;
+            width : 1889px;
+            height: 500px;
+            float : left;
+        }
+        .third{
+            border : 1px black;
+            background : white;
+            width : 1889px;
+            height: 500px;
+            float : left;
+        }
+       
+        .float {
+            width : 1889px;
+            height: 1500px;
+            border : 3px solid ;
+            
+         }
+
+        
+         .a1{
+            display: block;
+            text-align: center;
+            background-color: white;
+            color: black;
+            font-size: 20pt;
+            padding: 4px 10px;
+        }
+        
+        .firstPar{
+           display:flex;
+           justify-content: center;
+        }
+
+        .container{
+            display:flex;
+            flex-direction: column;
+        }
+
+       
+        .first{
+           
+            width : 263px;
+            height: 409px;
+            border: 1px solid #aaa;
+            background-color: white;
+            margin-top : 50px;
+            margin-left:  20px;
+            margin-right: 20px;
+            margin-bottom : 50px;
+            
+            
+
+            
+            
+        }
+        .second{
+           
+            width : 263px;
+            height: 409px;
+            border: 1px;
+            background-color: indianred;
+        }
+        .title{
+    
+            width : 1200px;
+            height: 50px;
+            border:1px;
+          	padding-top:60px;
+          	padding-bottom:25px;
+            
+        }
+
+        .productimg{
+            width: 250px;
+            height : 204px;
+            margin:15px;
+        }
+        .productinfo{
+            width:250px;
+            height:40px;
+        }
+
+        .productcategory{
+            width: 263px;
+            height:20px;
+            text-align: center;
+            margin-bottom : 5px;
+            font-size: 14px;
+              font-weight:bold;
+              color: #8D99AE;
+              }
+            
+        
+        .productname{
+            width: 263px;
+            height:20px;
+            text-align: center;
+              margin-bottom : 5px;
+               font-size: 14px;
+               font-weight:bold;
+                   color: #2B2D42;
+        }
+        .productprice{
+            width:263px;
+            height:20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight:bold;
+                color: #D10024;
+        }
+        
+        .menu > ul > li > ul {
+		width:120px;
+		display:none;
+		font-size:14px;
+		
+		
+	}
+        
+        .menu > ul > li:hover> ul {
+        	display:block;
+        }
+        
+        
