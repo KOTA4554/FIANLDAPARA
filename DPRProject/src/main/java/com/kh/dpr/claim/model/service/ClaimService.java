@@ -18,7 +18,7 @@ public interface ClaimService  {
     Order selectOneOrder(String userId); 
 
 
-    OrderDetail selectOneDetail(String userId); 
+    OrderDetail selectOneDetail(int detailNo); 
 
 
     Seller selectSeller(int detailNo); 
@@ -46,6 +46,9 @@ public interface ClaimService  {
 
 
    List<Claim> selectSearchClaim(Map<String, Object> map);
+
+
+String selectProdImg(int productNo);
 
 
 

@@ -11,11 +11,8 @@
       SELECT * FROM "ORDER" WHERE USERID = #{ userId } ORDER BY ORDERNO DESC
    </select>
    
-   <select id="selectOrderDetail" parameterType="string" resultType="OrderDetail">
-      SELECT * FROM ORDERDETAIL
-      WHERE ORDERNO IN (SELECT ORDERNO 
-                         FROM "ORDER"
-                         WHERE USERID = #{ userId })
+   <select id="selectOrderDetail" parameterType="int" resultType="OrderDetail">
+      SELECT * FROM ORDERDETAIL WHERE DETAILNO = #{detailNo}
         ORDER BY DETAILNO DESC
    </select>
    
@@ -31,6 +28,10 @@
    
    <select id="selectProductName" parameterType="int" resultType="string">
       SELECT PRODUCTNAME FROM PRODUCT_DETAIL WHERE PRODUCTNO = #{ productNo }
+   </select>
+   
+   <select id="selectProdImg" parameterType="int" resultType="string">
+   	  SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo}
    </select>
    
    <insert id="insertClaim" parameterType="Claim">

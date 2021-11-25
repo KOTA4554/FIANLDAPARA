@@ -105,4 +105,10 @@ public class MypageController {
 		return "common/msg";
 	}
 	
+	@RequestMapping("/mypage/delivery.do")
+	public String delivery() {
+		
+		return "myPage/delivery";
+	}
+	
 }

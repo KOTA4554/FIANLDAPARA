@@ -116,7 +116,7 @@
 									</div>
 									<table class="<order></order>Table">
 										<tr>
-											<td rowspan="4" class="productImg"><img src="" alt="상품이미지" width=100 height=100></td>
+											<td rowspan="4" class="productImg"><img src="${pageContext.request.contextPath}/resources/productUpload/${prodImg}" alt="상품이미지" width=100 height=100></td>
 											<td style="width : 450px; font-weight: bold;">
 												${seller3.sellerCompany}
 												<input type="hidden" name="productNo" value="${orderDetail.productNo}" /> <!-- orderDetail.getProductNo -->
@@ -144,7 +144,7 @@
 											<td>${ prodName }</td>
 										</tr>
 										<tr>
-											<td>옵션 : ${ orderDetai.detailSize }</td>
+											<td>옵션 : ${ orderDetail.detailSize }</td>
 										</tr>
 										<tr>
 											<td>${ orderDetail.detailPrice }원 ${ orderDetail.detailAmount }개</td>
