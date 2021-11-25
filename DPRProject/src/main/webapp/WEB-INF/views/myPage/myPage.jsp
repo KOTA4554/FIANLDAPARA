@@ -127,8 +127,8 @@
 												<button type="button" class="qnaBtn">문의하기</button>
 											</td>
 											<td rowspan="4" align="center" class="btnArea2">
-												<button type="button">배송 조회</button>
-												<button type="button" onclick="goClaim(${orderDetailList[status.index].productNo});">취소, 교환, 반품 신청</button>
+												<button type="button" onclick="delivery();">배송 조회</button>
+												<button type="button" onclick="goClaim(${orderDetailList[status.index].detailNo});">취소, 교환, 반품 신청</button>
 												<!-- processCode가 4 인 orderDetail일 경우 -->
 												<c:if test="${ orderDetailList[status.index].processCode == 1 }">
 													<button type="button" onclick="complete(${orderDetailList[status.index].detailNo});">구매 확정</button>
@@ -166,6 +166,10 @@
 </body>
 	<!-- script -->
 	<script>
+	
+		function delivery(){
+			location.href="${pageContext.request.contextPath}/mypage/delivery.do"
+		}
 
 		function goMyInfo(){
 			location.href="${pageContext.request.contextPath}/myPage/myInfo.do";
@@ -181,8 +185,8 @@
 			
 		}
 		
-		function goClaim(productNo){
-			location.href="${pageContext.request.contextPath}/claim/claim.do?productNo=" + productNo + "";
+		function goClaim(detailNo){
+			location.href="${pageContext.request.contextPath}/claim/claim.do?detailNo=" + detailNo + "";
 		}
 		
 		function complete(detailNo){

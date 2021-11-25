@@ -28,9 +28,9 @@ public class ClaimDAOImpl implements ClaimDAO {
    }
 
    @Override
-   public OrderDetail selectOrderDetail(String userId) {
+   public OrderDetail selectOrderDetail(int detailNo) {
       
-      return sqlSession.selectOne("claimSQL.selectOrderDetail", userId);
+      return sqlSession.selectOne("claimSQL.selectOrderDetail", detailNo);
    }
 
    @Override
@@ -86,6 +86,12 @@ public class ClaimDAOImpl implements ClaimDAO {
       // TODO Auto-generated method stub
       return sqlSession.selectList("claimSQL.searchClaim",map);
    }
+
+@Override
+public String selectProdImg(int productNo) {
+	// TODO Auto-generated method stub
+	return sqlSession.selectOne("claimSQL.selectProdImg",productNo);
+}
 
    
 
