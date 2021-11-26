@@ -23,7 +23,7 @@
    
    <insert id="insertTempProduct">
       INSERT INTO PRODUCT_DETAIL VALUES( SEQ_PRODUCT.NEXTVAL, NULL, #{sellerId}, NULL, NULL, NULL, 'N', NULL,
-                                 NULL, NULL, NULL, NULL, NULL)
+                                 NULL, NULL, NULL, NULL, NULL, NULL)
    </insert>
    
    <select id="selectTempProduct" resultType="int">
