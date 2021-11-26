@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.dpr.product.model.vo.Product;
+import com.kh.dpr.statistic.model.vo.MonthRevenue;
 
 @Repository
 public class StatisticDAOImpl implements StatisticDAO {
@@ -30,6 +31,24 @@ public class StatisticDAOImpl implements StatisticDAO {
 	public List<Product> selectTop4(String sellerId) {
 		
 		return sqlSession.selectList("statisticSQL.selectTop4", sellerId);
+	}
+
+	@Override
+	public int selectUserMan(String sellerId) {
+		
+		return sqlSession.selectOne("statisticSQL.selectUserMan", sellerId);
+	}
+
+	@Override
+	public int selectUserWoman(String sellerId) {
+
+		return sqlSession.selectOne("statisticSQL.selectUserWoman", sellerId);
+	}
+
+	@Override
+	public List<MonthRevenue> selectMonthRevenue(String sellerId) {
+		
+		return sqlSession.selectList("statisticSQL.selectMonthRevenue", sellerId);
 	}
 
 }
