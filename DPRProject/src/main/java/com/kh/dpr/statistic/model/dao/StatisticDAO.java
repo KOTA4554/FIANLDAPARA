@@ -12,4 +12,7 @@ public interface StatisticDAO {
 
 	List<Product> selectTop4(String sellerId);
 
+	int selectUserMan(String sellerId);
+	
+	int selectUserWoman(String sellerId);
 }

@@ -32,4 +32,16 @@ public class StatisticServiceImpl implements StatisticService {
 		return statisticDAO.selectTop4(sellerId);
 	}
 
+	@Override
+	public int selectUserMan(String sellerId) {
+		
+		return statisticDAO.selectUserMan(sellerId);
+	}
+
+	@Override
+	public int selectUserWoman(String sellerId) {
+		
+		return statisticDAO.selectUserWoman(sellerId);
+	}
+
 }

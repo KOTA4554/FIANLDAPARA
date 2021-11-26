@@ -20,4 +20,30 @@
 		WHERE <![CDATA[ROWNUM < 5]]>
 	</select>
 	
+	<select id="selectUserMan" parameterType="string" resultType="int">
+		SELECT COUNT(*)
+		FROM "USER"
+		WHERE USERID IN (SELECT USERID
+		                 FROM "ORDER"
+   		                 WHERE ORDERNO IN (SELECT ORDERNO
+		                                   FROM ORDERDETAIL
+		                                   WHERE PRODUCTNO IN (SELECT PRODUCTNO
+		                                                       FROM PRODUCT
+		                                                       WHERE SELLERID = #{sellerId})))
+		 AND USERGENDER = 'M'
+	</select>
+	
+	<select id="selectUserWoman" parameterType="string" resultType="int">
+		SELECT COUNT(*)
+		FROM "USER"
+		WHERE USERID IN (SELECT USERID
+		                 FROM "ORDER"
+   		                 WHERE ORDERNO IN (SELECT ORDERNO
+		                                   FROM ORDERDETAIL
+		                                   WHERE PRODUCTNO IN (SELECT PRODUCTNO
+		                                                       FROM PRODUCT
+		                                                       WHERE SELLERID = #{sellerId})))
+		 AND USERGENDER = 'F'
+	</select>
+	
 </mapper>

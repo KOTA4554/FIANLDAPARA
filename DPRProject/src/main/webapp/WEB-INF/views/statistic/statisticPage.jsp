@@ -424,14 +424,20 @@ li {
       config1
     );
     
- // productStar Rate
+ 	// Gender Rate
+ 	
+ 	// 남여 인원수
+ 	
+ 	var maleRate = '${userMan}';
+ 	var femaleRate = '${userWoman}';
+ 	
 	var config1 = {
         type: 'doughnut',
         data: {
         labels: ['남성','여성'],
         datasets: [{
             label: '구매자 성비',
-            data: [40, 60],
+            data: [maleRate, femaleRate],
             backgroundColor: [
                 'rgba(4, 160, 196, 0.6)', 'rgba(255, 148, 0, 0.6)' 
 

@@ -31,11 +31,12 @@ public class StatisticController {
 		
 		String sellerId = seller.getSellerId();
 		
-		// 총 매출액 가져오기
-		int totalRevenue = 0;
 		
 		// 판매자가 올린 상품 리스트
 		List<Product> prodList = statisticService.selectProductList(sellerId);
+
+		// 총 매출액 가져오기
+		int totalRevenue = 0;
 		
 		//상품별 매출액, 판매량
 		List<Integer> productRevenueList = new ArrayList<Integer>();
@@ -62,7 +63,10 @@ public class StatisticController {
 		
 		// 평점 top4 상품
 		List<Product> top4List = statisticService.selectTop4(sellerId);
-		System.out.println("top4List : " + top4List);
+		
+		// 구매자 성비
+		int userMan = statisticService.selectUserMan(sellerId);
+		int userWoman = statisticService.selectUserWoman(sellerId);
 		
 		// 상품별 총 매출액, 판매량, 상품명 전달
 		model.addAttribute("productNameList", productNameList);
@@ -71,6 +75,10 @@ public class StatisticController {
 		
 		// 평점 top4 상품 전달
 		model.addAttribute("top4List", top4List);
+		
+		// 구매자 성비 전달
+		model.addAttribute("userMan", userMan);
+		model.addAttribute("userWoman", userWoman);
 		
 		return "statistic/statisticPage";
 	}

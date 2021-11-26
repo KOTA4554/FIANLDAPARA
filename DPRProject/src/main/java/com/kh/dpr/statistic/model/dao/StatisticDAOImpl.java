@@ -32,4 +32,16 @@ public class StatisticDAOImpl implements StatisticDAO {
 		return sqlSession.selectList("statisticSQL.selectTop4", sellerId);
 	}
 
+	@Override
+	public int selectUserMan(String sellerId) {
+		
+		return sqlSession.selectOne("statisticSQL.selectUserMan", sellerId);
+	}
+
+	@Override
+	public int selectUserWoman(String sellerId) {
+
+		return sqlSession.selectOne("statisticSQL.selectUserWoman", sellerId);
+	}
+
 }
