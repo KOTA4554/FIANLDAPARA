@@ -199,7 +199,7 @@ li {
 				<td class="qnaRowTitle">${qna.getQTitle()}</td>
 				<td class="qnaRowId">${qna.userId}</td>
 				<td class="qnaRowDate">${qna.qdate}</td>
-				<td class="qnaRowDate">${qna.qStatus}</td>
+				<td class="qnaRowDate">${qna.getQStatus()}</td>
 	
 			</tr>
 		</c:forEach>
