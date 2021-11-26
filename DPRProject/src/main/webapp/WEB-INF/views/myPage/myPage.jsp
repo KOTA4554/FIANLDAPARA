@@ -128,7 +128,19 @@
 											</td>
 											<td rowspan="4" align="center" class="btnArea2">
 
-												<button type="button" onclick="delivery();">배송 조회</button>
+												<form action="http://info.sweettracker.co.kr/tracking/5" method="post" target="_blank">
+		                                          <div class="form-group">
+		                                            <input type="hidden" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY" value="3SlDxD7VoJflx2sI2jOO1Q">
+		                                          </div>
+		                                          <div class="form-group">
+		                                            <input type="hidden" class="form-control" name="t_code" id="t_code" placeholder="택배사 코드" value="${deliveryList[status.index].deliveryCode2}">
+		                                          </div>
+		                                          <div class="form-group">
+		                                            <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호" value="${deliveryList[status.index].deliveryNo}">
+		                                          </div>
+		                                       <button type="submit">배송 조회</button>
+		                                      </form>
+
 												<button type="button" onclick="goClaim(${orderDetailList[status.index].detailNo});">취소, 교환, 반품 신청</button>
 
 												<!-- processCode가 4 인 orderDetail일 경우 -->
@@ -168,11 +180,6 @@
 </body>
 	<!-- script -->
 	<script>
-	
-		function delivery(){
-			location.href="${pageContext.request.contextPath}/mypage/delivery.do"
-		}
-
 		function goMyInfo(){
 			location.href="${pageContext.request.contextPath}/myPage/myInfo.do";
 		}

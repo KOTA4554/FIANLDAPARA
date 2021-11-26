@@ -2,6 +2,7 @@ package com.kh.dpr.myPage.model.dao;
 
 import java.util.List;
 
+import com.kh.dpr.myPage.model.vo.DeliveryAPI;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
 import com.kh.dpr.product.model.vo.Product;
@@ -21,5 +22,7 @@ public interface MyPageDAO {
 	String selectImg(int productNo);
 
 	int updateComplete(int detailNo);
+
+	DeliveryAPI selectDelivery(int detailNo);
 	
 }

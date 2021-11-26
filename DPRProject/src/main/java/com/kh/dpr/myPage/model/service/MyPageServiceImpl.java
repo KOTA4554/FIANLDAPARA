@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.dpr.myPage.model.dao.MyPageDAO;
+import com.kh.dpr.myPage.model.vo.DeliveryAPI;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
 import com.kh.dpr.product.model.vo.Product;
@@ -52,6 +53,12 @@ public class MyPageServiceImpl implements MyPageService {
 	public int updateComplete(int detailNo) {
 		
 		return myPageDAO.updateComplete(detailNo);
+	}
+
+	@Override
+	public DeliveryAPI selectDelivery(int detailNo) {
+		// TODO Auto-generated method stub
+		return myPageDAO.selectDelivery(detailNo);
 	}
 
 }

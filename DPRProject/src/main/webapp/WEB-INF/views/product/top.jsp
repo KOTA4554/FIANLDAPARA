@@ -119,7 +119,10 @@
         </div>
         
          </c:forEach>
-        
+        	
+        <div class="firstpar">
+      	  <c:out value="${pageBar}" escapeXml="false"/>
+        </div>
         </div>
     </div>
 		<!-- /SECTION -->

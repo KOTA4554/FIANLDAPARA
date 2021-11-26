@@ -48,6 +48,10 @@ public class ClaimController {
       String prodName = ClaimService.selectProduct(productNo);
       String prodImg = ClaimService.selectProdImg(productNo);
       
+      System.out.println(seller3);
+      System.out.println(productNo);
+      
+      
       
       model.addAttribute("prodImg",prodImg);
       model.addAttribute("orderDetail", orderDetail);
