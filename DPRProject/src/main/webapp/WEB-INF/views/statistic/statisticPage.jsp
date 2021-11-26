@@ -301,13 +301,31 @@ li {
     );
 	
  	// product SaleRate
+ 	
+ 	// 상품별 총 매출액, 판매량, 상품명
+ 	var productNameList = new Array();
+ 	var productSaleAmount = new Array();
+ 	var productRevenueList = new Array();
+ 	
+ 	<c:forEach var="prodName" items="${productNameList}" varStatus="status">
+ 		productNameList.push("${prodName}");
+ 	</c:forEach>
+	
+ 	<c:forEach var="prodAmount" items="${productSaleAmount}">
+ 		productSaleAmount.push("${prodAmount}");
+ 	</c:forEach>
+ 	
+ 	<c:forEach var="prodRevenue" items="${productRevenueList}">
+ 		productRevenueList.push("${prodRevenue}");
+	</c:forEach>
+ 	
 	var config1 = {
         type: 'line',
         data: {
-        labels: ['구찌후드티', '프라다니트','자라블레이저','톰브라운셔츠','구찌슬렉스','루이비통팬츠','캘빈클라임팬티'],
+        labels: productNameList,
         datasets: [{
             label: '상품 별 총 매출액(만원)',
-            data: [100, 470, 300, 430, 700, 210, 45],
+            data: productRevenueList,
             backgroundColor: [
                 'rgba(255, 135, 36, 0)'
 
@@ -323,7 +341,7 @@ li {
             tension: 0.25
         	}, {
             label: '상품 별 총 판매량',
-            data: [30, 45, 100, 20, 10, 23, 75],
+            data: productSaleAmount,
             backgroundColor: [
                 'rgba(28, 197, 79, 0.8)'
 

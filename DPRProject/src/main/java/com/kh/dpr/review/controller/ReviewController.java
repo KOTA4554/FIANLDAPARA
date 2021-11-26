@@ -81,6 +81,9 @@ public class ReviewController {
 		String msg = "";
 		
 		if(result > 0) {
+			int productNo = reviewService.selectProductNo(review.getDetailNo());
+			System.out.println(productNo);
+			int result2 = reviewService.updateScore(productNo);
 			msg = "리뷰 등록 완료!";
 		} else {
 			msg = "리뷰 등록 실패!";
