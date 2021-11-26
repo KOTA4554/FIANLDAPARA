@@ -34,6 +34,20 @@
     color: white;
     font-size: 18px;
 }
+
+.stateTitles {
+    padding: 5px 20px;
+    border-bottom: 1px solid lightgray;
+    background: linear-gradient( 45deg, #D10024 60%, rgb(255, 99, 99) );
+    color: white;
+}
+
+.stateTitleName {
+       margin-top: 5px;
+       margin-bottom: 0px;
+       font-size: 18px;
+       font-weight: 700;
+}
 tr>th:not(.sectionTitles, .optionTh){
 	text-align: center;
 	padding: 15px 20px;
@@ -112,7 +126,10 @@ li {
 .prodRowPrice { width: 100px; text-align: center; }
 .prodRowStart, .prodRowEnd { width: 100px; text-align:center; }
 .prodRowOptionCnt { width: 70px; text-align:center; }
-.prodRowCateNm {}
+
+.chart{
+	margin :50px 0;
+}
 
 </style>
 
@@ -185,20 +202,36 @@ li {
 	
 	<div class="charArea">
 		<!--차트가 그려질 부분-->
-		<div>
-			<canvas id="myChart" width="1100" height="500"></canvas>	
+		<div class=chart>
+			<div class="stateTitles">
+	            <div class="stateTitleName">월별 매출액</div>
+	        </div>
+				<canvas id="myChart" width="1100" height="500"></canvas>
 		</div>
 		
-		<div>
+		<div class=chart>
+			<div class="stateTitles">
+					<div class="stateTitleName">상품 별 총 매출액, 총 판매량</div>
+			</div>
+		
 			<canvas id="productSaleRate" width="1100" height="400"></canvas>	
 		</div>
 		
-		<div>
-			<canvas id="productStar" width="300" height="300"></canvas>	
-		</div>
+		<div class=chart id="charArea2" style="display:flex; justify-content: space-between;">
 		
-		<div>
-			<canvas id="genderRate" width="300" height="300"></canvas>	
+			<div>
+				<div class="stateTitles">
+						<div class="stateTitleName">상품 평점 TOP4</div>
+				</div>
+				<canvas id="productStar" width="500" height="500"></canvas>	
+			</div>
+			
+			<div>
+				<div class="stateTitles">
+						<div class="stateTitleName">구매자 성비</div>
+				</div>
+				<canvas id="genderRate" width="500" height="500"></canvas>	
+			</div>
 		</div>
 		
 	</div>
@@ -242,11 +275,11 @@ li {
             label: '월 별 매출액(만원)',
             data: [700, 600, 900, 1200, 700, 800, 1700, 2200, 1800, 1500, 2000],
             backgroundColor: [
-                'rgba(13, 126, 206, 0.2)',
+                'rgba(13, 126, 206, 0.2)'
 
             ],
             borderColor: [
-                'rgba(13, 126, 206, 1)',
+                'rgba(13, 126, 206, 1)'
 
             ],
             pointBackgroundColor: [
@@ -256,7 +289,9 @@ li {
             tension: 0.25
         	}]
     	},
-        options: {}
+        options: {
+        	responsive: false
+        }
    	};
 
 
@@ -266,40 +301,71 @@ li {
     );
 	
  	// product SaleRate
+ 	
+ 	// 상품별 총 매출액, 판매량, 상품명
+ 	var productNameList = new Array();
+ 	var productSaleAmount = new Array();
+ 	var productRevenueList = new Array();
+ 	
+ 	<c:forEach var="prodName" items="${productNameList}" varStatus="status">
+ 		productNameList.push("${prodName}");
+ 	</c:forEach>
+	
+ 	<c:forEach var="prodAmount" items="${productSaleAmount}">
+ 		productSaleAmount.push("${prodAmount}");
+ 	</c:forEach>
+ 	
+ 	<c:forEach var="prodRevenue" items="${productRevenueList}">
+ 		productRevenueList.push("${prodRevenue}");
+	</c:forEach>
+ 	
 	var config1 = {
         type: 'line',
         data: {
-        labels: ['구찌후드티', '프라다니트','자라블레이저','톰브라운셔츠','구찌슬렉스','루이비통팬츠','캘빈클라임팬티'],
+        labels: productNameList,
         datasets: [{
             label: '상품 별 총 매출액(만원)',
-            data: [100, 470, 300, 430, 700, 210, 45],
+            data: productRevenueList,
             backgroundColor: [
-                'rgba(255, 135, 36, 0.8)',
+                'rgba(255, 135, 36, 0)'
 
             ],
             borderColor: [
-                'rgba(255, 135, 36, 1)',
+                'rgba(255, 135, 36, 1)'
 
+            ],
+            pointBackgroundColor: [
+                'rgba(255, 99, 132, 1)'
             ],
             borderWidth: 2,
             tension: 0.25
         	}, {
             label: '상품 별 총 판매량',
-            data: [30, 45, 100, 20, 10, 23, 75],
+            data: productSaleAmount,
             backgroundColor: [
-                'rgba(28, 197, 79, 0.8)',
+                'rgba(28, 197, 79, 0.8)'
 
             ],
             borderColor: [
-                'rgba(28, 197, 79, 1)',
+                'rgba(28, 197, 79, 1)'
 
+            ],
+            pointBackgroundColor: [
+                'rgba(255, 99, 132, 1)'
             ],
             type: 'bar',
             borderWidth: 2,
             tension: 0.25
         	}]
     	},
-        options: {}
+        options: {
+        	responsive: false,
+            scales: {
+                y: {
+                  stacked: true
+                }
+              }
+        }
    	};
 
 
@@ -308,7 +374,84 @@ li {
       config1
     );
     
-	
+ 	// productStar Rate
+	var config1 = {
+        type: 'bar',
+        data: {
+        labels: ['구찌후드티', '프라다니트','자라블레이저','톰브라운셔츠'],
+        datasets: [{
+            label: '상품 평점 TOP4',
+            data: [4.8, 4.7, 4.5, 4.0, 3.9],
+            backgroundColor: [
+                'rgba(191, 5, 0, 0.6)'
+
+            ],
+            borderColor: [
+                'rgba(191, 5, 0, 1)'
+
+            ],
+            pointBackgroundColor: [
+                'rgba(191, 5, 0, 1)'
+            ],
+            borderWidth: 2,
+            tension: 0.25
+        	}]
+    	},
+        options: {
+        	responsive: false,
+            scales: {
+                y: {
+                  stacked: true
+                }
+              }
+        }
+   	};
+
+
+    var productStar = new Chart(
+      document.getElementById('productStar'),
+      config1
+    );
+    
+ // productStar Rate
+	var config1 = {
+        type: 'doughnut',
+        data: {
+        labels: ['남성','여성'],
+        datasets: [{
+            label: '구매자 성비',
+            data: [40, 60],
+            backgroundColor: [
+                'rgba(4, 160, 196, 0.6)', 'rgba(255, 148, 0, 0.6)' 
+
+            ],
+            borderColor: [
+            	'rgba(4, 160, 196, 1)', 'rgba(255, 148, 0, 1)'
+
+            ],
+            pointBackgroundColor: [
+            	'rgba(4, 160, 196, 1)', 'rgba(255, 148, 0, 1)'
+            ],
+            borderWidth: 2,
+            tension: 0.25
+        	}]
+    	},
+        options: {
+        	responsive: false,
+            scales: {
+                y: {
+                  stacked: true
+                }
+              }
+        }
+   	};
+
+
+    var genderRate = new Chart(
+      document.getElementById('genderRate'),
+      config1
+    );
+    
 </script>
 
 <c:import url="../common/footer.jsp"/>
