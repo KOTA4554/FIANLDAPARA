@@ -139,6 +139,14 @@
                      </if>
                             ) 
       ORDER BY QNO DESC
+   </select>
+   		
+   <select id="searchTotalContents" parameterType="string" resultType="int">
+   		SELECT COUNT (*)
+		 FROM PRODUCT_DETAIL P RIGHT OUTER JOIN PRODUCTIMAGE I
+		 ON(P.PRODUCTNO = I.PRODUCTNO)
+		 WHERE  PRODUCTNAME like '%' ||  #{sresult} || '%'
+		 ORDER BY P.PRODUCTNO DESC
    </select>   
 </mapper>
 

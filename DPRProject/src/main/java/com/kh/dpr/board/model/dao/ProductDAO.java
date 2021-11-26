@@ -26,6 +26,8 @@ public interface ProductDAO {
 
    String selectImage(int productNo);
 
+   int selectProductsearchTotalContents(String sresult);
+
 
 }
 

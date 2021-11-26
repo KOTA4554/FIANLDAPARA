@@ -71,6 +71,12 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productDAO.selectImage(productNo);
 	}
+
+	@Override
+	public int selectProductsearchTotalContents(String sresult) {
+		// TODO Auto-generated method stub
+		return productDAO.selectProductsearchTotalContents(sresult);
+	}
 	
 	
 }
