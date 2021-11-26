@@ -52,7 +52,6 @@ table input[type="text"], select, input[type="number"] {
 	margin: 20px 0px;
 }
 #searchBtn {
-	float: right;
 	margin: 20px 0px;
 	padding: 8px 18px;
 	border-radius: 0px;
@@ -109,13 +108,28 @@ li {
 .prodRowStart, .prodRowEnd { width: 100px; text-align:center; }
 .prodRowOptionCnt { width: 70px; text-align:center; }
 .prodRowCateNm {}
+#fileSelector {
+	display: none;
+}
+.excelBtnsImg{
+	margin-right: 5px;
+}
+.excelBtn {
+	margin: 10px 0px;
+	padding: 5px 15px;
+	border-radius: 0px;
+	border: 1px solid lightgray;
+}
+#uploadForm {
+	display: absolute;
+}
 
 </style>
 
 </head>
 <body>
 <c:import url="../common/header.jsp"/>	
-<form action="${pageContext.request.contextPath}/seller/searchProd.do" method="get">
+<form action="${pageContext.request.contextPath}/seller/deliverySearch.do" method="get">
 <div class="mainSectionForm">
 	<table border="0">
 		<tr>
@@ -128,12 +142,10 @@ li {
 	        	<input type="text" class="datepicker" name="endDate" id="endDate" placeholder="판매 종료일"></td>
 	        <th>배송상태</th>
 	        <td>
-	            <select name="saleState" id="searchProdState">
+	            <select name="delState" id="searchProdState">
 	            	<option value="999">선택</option>
 	                <option value="1">송장등록대기</option>
 	                <option value="2">송장등록완료</option>
-	                <option value="3">배송중</option>
-	                <option value="3">배송완료</option>
 	            </select>
 	        </td>
 	    </tr>
@@ -151,15 +163,20 @@ li {
 	</div>
 	</form>
 	
+	<form id="uploadForm"action="${pageContext.request.contextPath}/seller/uploadExcel.do" method="post" enctype="multipart/form-data">
+		<input type="file" name="excelFile" id="fileSelector" onchange="upload();"/>
+		<button type="button" id="uploadBtn" class="excelBtn"><i class="fas fa-upload excelBtnsImg"></i>배송 정보 업로드</button>
+		<input type="submit" id="submitBtn" value="" hidden/>
+	</form>
+	
 	<form action="downloadExcel.do" method="post">	
 	<table id="prodListTable" border="0">
 		<tr>
-			<th colspan="9" class="sectionTitles">상품 리스트
+			<th colspan="12" class="sectionTitles">주문 리스트
 			<div class="explainTitles">현재 조회 주문 수 : 총 ${totalOrder}개</div></th>
 		</tr>
 	    <tr id="prodListTitle">
-	        <td>주문번호</td>
-	        <td>주문상세번호</td>
+	        <td>상세번호</td>
 	        <td>택배사</td>
 	        <td>운송장번호</td>
 	        <td>상품번호</td>
@@ -175,16 +192,18 @@ li {
 	    <c:forEach items="${list}" var="delivery" varStatus="status">
 	    <c:set var="num" value="#{status.index}" />
 	    <tr class="deliveryList" id="${delivery.productNo}">
-			<td class="orderNo">${delivery.orderNo}
-				<input type="hidden" name="deliveryList[${num}].orderNo" value="${delivery.orderNo}"/>
-			</td>
 			<td class="detailNo">${delivery.detailNo}
+				<input type="hidden" name="deliveryList[${num}].orderNo" value="${delivery.orderNo}"/>
 				<input type="hidden" name="deliveryList[${status.index}].detailNo" value="${delivery.detailNo}"/>
 			</td>
-			<td class="deliveryCode">${delivery.deliveryCode}
+			<td class="deliveryCode">
+				<c:if test="${delivery.deliveryCode != 0}">${delivery.deliveryName}</c:if>
+				<c:if test="${delivery.deliveryCode == 0}"></c:if>
 				<input type="hidden" name="deliveryList[${num}].deliveryCode" value="${delivery.deliveryCode}"/>
 			</td>
-			<td class="deliveryNo">${delivery.deliveryNo}
+			<td class="deliveryNo">
+				<c:if test="${delivery.deliveryNo != 0}">${delivery.deliveryNo}</c:if>
+				<c:if test="${delivery.deliveryNo == 0}">미등록</c:if>
 				<input type="hidden" name="deliveryList[${num}].deliveryNo" value="${delivery.deliveryNo}"/>
 			</td>
 	    	<td class="productNo" >${delivery.productNo}
@@ -194,7 +213,7 @@ li {
 				<input type="hidden" name="deliveryList[${num}].productName" value="${delivery.productName}"/>
 			</td>
 			<td class="payDate">
-				<fmt:formatDate value="${delivery.payDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				<fmt:formatDate value="${delivery.payDate}" pattern="yyyy-MM-dd"/>
 				<input type="hidden" name="deliveryList[${num}].payDate" value="${delivery.payDate}"/>
 			</td>
 			<td class="userId">${delivery.userId}
@@ -215,11 +234,7 @@ li {
 		</tr>
 		</c:forEach>
 	</table>
-		<input type="submit" value="엑셀로 다운로드" />
-	</form>
-	<form action="">
-	<input type="file" name="" id="fileSelector" onchange="upload();"/>
-	<button type="button" id="uploadBtn">엑셀 업로드</button>
+		<button class="excelBtn"><i class="fas fa-download excelBtnsImg"></i>주문정보 다운로드</button>
 	</form>
 	<div class="pageBarSection">
 		<c:out value="${pageBar}" escapeXml="false"/>
@@ -235,7 +250,7 @@ li {
 	});
 	
 	function upload(){
-		location.href="${pageContext.request.contextPath}/seller/uploadExcel.do";
+		$('#submitBtn').trigger("click");;
 	}
 	
 	

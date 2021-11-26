@@ -8,6 +8,7 @@
 		LEFT JOIN "ORDER" O ON OD.ORDERNO = O.ORDERNO
 		LEFT JOIN DELIVERY D ON OD.DELIVERYNO = D.DELIVERYNO
 		LEFT JOIN PRODUCT_DETAIL DETAIL ON OD.PRODUCTNO = DETAIL.PRODUCTNO
+		LEFT JOIN DELIVERYINFO DINFO ON D.DELIVERYCODE = DINFO.DELIVERYCODE
 		WHERE SELLERID = #{sellerId}
 		ORDER BY PAYMENTCODE DESC
 		<!-- 결제 완료된 리스트만 불러오는 조건 추가 필요 -->
@@ -18,8 +19,87 @@
 		LEFT JOIN "ORDER" O ON OD.ORDERNO = O.ORDERNO
 		LEFT JOIN DELIVERY D ON OD.DELIVERYNO = D.DELIVERYNO
 		LEFT JOIN PRODUCT_DETAIL DETAIL ON OD.PRODUCTNO = DETAIL.PRODUCTNO
+		LEFT JOIN DELIVERYINFO DINFO ON D.DELIVERYCODE = DINFO.DELIVERYCODE
 		WHERE SELLERID = #{sellerId}
 		ORDER BY PAYMENTCODE DESC
 	</select>
+   
+	<insert id="insertDelivery" parameterType="Delivery">
+		INSERT INTO DELIVERY VALUES(#{deliveryNo}, #{deliveryCode})
+	</insert>
+   
+	<update id="updateOrderDetail" parameterType="Delivery">
+   		UPDATE ORDERDETAIL SET DELIVERYNO = #{deliveryNo}
+		WHERE DETAILNO = #{detailNo}
+	</update>
 	
+	<select id="findDeliveryName" parameterType="string" resultType="int">
+		SELECT DELIVERYCODE FROM DELIVERYINFO WHERE DELIVERYNAME = #{deliveryName}
+	</select>
+	
+	<select id="searchDeliveryList" parameterType="map" resultType="Delivery">
+		SELECT * FROM ORDERDETAIL OD
+		LEFT JOIN "ORDER" O ON OD.ORDERNO = O.ORDERNO
+		LEFT JOIN DELIVERY D ON OD.DELIVERYNO = D.DELIVERYNO
+		LEFT JOIN PRODUCT_DETAIL DETAIL ON OD.PRODUCTNO = DETAIL.PRODUCTNO
+		LEFT JOIN DELIVERYINFO DINFO ON D.DELIVERYCODE = DINFO.DELIVERYCODE
+		WHERE SELLERID = #{sellerId}
+		<if test="searchNm != null and searchNm != ''">
+         AND PRODUCTNAME LIKE '%' || #{searchNm} || '%' 
+      </if>
+      <if test="startDate != null">
+      <![CDATA[
+         AND PAYDATE >= #{startDate}
+      ]]>
+      </if>
+      <if test="endDate != null">
+      <![CDATA[
+         AND PAYDATE <= #{endDate}
+      ]]>
+      </if>
+      <choose>
+         <when test="delState == 1">
+            AND OD.DELIVERYNO IS NULL AND DELIVERYNAME IS NULL
+         </when>
+         <when test="delState == 2">
+            AND OD.DELIVERYNO IS NOT NULL AND DELIVERYNAME IS NOT NULL
+         </when>
+      </choose>
+      <if test="searchPno != null and searchPno != -1">
+         AND PRODUCTNO = #{searchPno}
+      </if>
+	</select>
+	
+	<select id="countSearched" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM ORDERDETAIL OD
+		LEFT JOIN "ORDER" O ON OD.ORDERNO = O.ORDERNO
+		LEFT JOIN DELIVERY D ON OD.DELIVERYNO = D.DELIVERYNO
+		LEFT JOIN PRODUCT_DETAIL DETAIL ON OD.PRODUCTNO = DETAIL.PRODUCTNO
+		LEFT JOIN DELIVERYINFO DINFO ON D.DELIVERYCODE = DINFO.DELIVERYCODE
+		WHERE SELLERID = #{sellerId}
+		<if test="searchNm != null and searchNm != ''">
+         AND PRODUCTNAME LIKE '%' || #{searchNm} || '%' 
+      </if>
+      <if test="startDate != null">
+      <![CDATA[
+         AND PAYDATE >= #{startDate}
+      ]]>
+      </if>
+      <if test="endDate != null">
+      <![CDATA[
+         AND PAYDATE <= #{endDate}
+      ]]>
+      </if>
+      <choose>
+         <when test="delState == 1">
+            AND OD.DELIVERYNO IS NULL AND DELIVERYNAME IS NULL
+         </when>
+         <when test="delState == 2">
+            AND OD.DELIVERYNO IS NOT NULL AND DELIVERYNAME IS NOT NULL
+         </when>
+      </choose>
+      <if test="searchPno != null and searchPno != -1">
+         AND PRODUCTNO = #{searchPno}
+      </if>
+	</select>
 </mapper>
