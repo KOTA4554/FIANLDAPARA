@@ -1,5 +1,6 @@
 package com.kh.dpr.cart.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -58,6 +59,20 @@ public class CartDAOImpl implements CartDAO {
 	public String loadImage(int productNo) {
 		
 		return sqlSession.selectOne("cart.loadImage", productNo);
+	}
+
+
+	@Override
+	public int delete(HashMap<String, Object> d) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("cart.deleteCart", d);
+	}
+
+
+	@Override
+	public int newSize(Cart c) {
+	
+		return sqlSession.update("cart.newSize", c);
 	}
 	
 	

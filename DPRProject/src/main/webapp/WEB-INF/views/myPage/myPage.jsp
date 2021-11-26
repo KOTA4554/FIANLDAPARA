@@ -127,6 +127,7 @@
 												<button type="button" class="qnaBtn">문의하기</button>
 											</td>
 											<td rowspan="4" align="center" class="btnArea2">
+
 												<form action="http://info.sweettracker.co.kr/tracking/5" method="post" target="_blank">
 		                                          <div class="form-group">
 		                                            <input type="hidden" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY" value="3SlDxD7VoJflx2sI2jOO1Q">
@@ -139,7 +140,9 @@
 		                                          </div>
 		                                       <button type="submit">배송 조회</button>
 		                                      </form>
+
 												<button type="button" onclick="goClaim(${orderDetailList[status.index].detailNo});">취소, 교환, 반품 신청</button>
+
 												<!-- processCode가 4 인 orderDetail일 경우 -->
 												<c:if test="${ orderDetailList[status.index].processCode == 1 }">
 													<button type="button" onclick="complete(${orderDetailList[status.index].detailNo});">구매 확정</button>

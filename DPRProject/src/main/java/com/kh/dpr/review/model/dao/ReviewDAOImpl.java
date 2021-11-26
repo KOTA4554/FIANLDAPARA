@@ -37,4 +37,16 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sqlSession.selectOne("reviewSQL.selectImg", productNo);
 	}
 
+	@Override
+	public int selectProductNo(int detailNo) {
+		
+		return sqlSession.selectOne("reviewSQL.selectProductNo", detailNo);
+	}
+
+	@Override
+	public int updateScore(int productNo) {
+		
+		return sqlSession.update("reviewSQL.updateScore", productNo);
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.kh.dpr.cart.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.kh.dpr.cart.model.vo.Cart;
@@ -18,6 +19,10 @@ public interface CartService {
 	int changeAmountM(Cart c);
 	
 	String loadImage(int productNo);
+
+	int delete(HashMap<String, Object> d);
+
+	int newSize(Cart c);
 	
 	
 }

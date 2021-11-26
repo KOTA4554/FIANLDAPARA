@@ -37,4 +37,16 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDAO.selectImg(productNo);
 	}
 
+	@Override
+	public int selectProductNo(int detailNo) {
+		
+		return reviewDAO.selectProductNo(detailNo);
+	}
+
+	@Override
+	public int updateScore(int productNo) {
+		
+		return reviewDAO.updateScore(productNo);
+	}
+
 }

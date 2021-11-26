@@ -446,7 +446,7 @@ E-mail : inirm@inicis.com
 					</div>
 					
 					<div id="btnArea">
-						<button id="payBtn" type="button" onclick="pay();">400,000 원 결제하기</button><!-- ${ totalPrice } -->
+						<button id="payBtn" type="button" onclick="pay();">${totalPrice + 0} 원 결제하기</button><!-- ${ totalPrice } -->
 					</div>
 				</div>
 
