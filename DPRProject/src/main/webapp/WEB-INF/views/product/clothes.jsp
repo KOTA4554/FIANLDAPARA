@@ -119,9 +119,11 @@
         </div>
         
          </c:forEach>
-        
         </div>
     </div>
+        	<div class="container">
+      	  <c:out value="${pageBar}" escapeXml="false"/>
+        </div>
 		<!-- /SECTION -->
 		</section>
 		<!-- jQuery Plugins -->

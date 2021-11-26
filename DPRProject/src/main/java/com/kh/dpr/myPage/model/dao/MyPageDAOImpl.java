@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.dpr.myPage.model.vo.DeliveryAPI;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
 import com.kh.dpr.product.model.vo.Product;
@@ -51,6 +52,13 @@ public class MyPageDAOImpl implements MyPageDAO {
 	public int updateComplete(int detailNo) {
 		
 		return sqlSession.update("myPageSQL.updateComplete", detailNo);
+	}
+
+
+	@Override
+	public DeliveryAPI selectDelivery(int detailNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("myPageSQL.selectDelivery",detailNo);
 	}
 
 }

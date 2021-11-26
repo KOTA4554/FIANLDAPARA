@@ -41,4 +41,12 @@
 		UPDATE ORDERDETAIL SET PROCESSCODE = 5 WHERE DETAILNO = #{detailNo}
 	</update>
 	
+	<select id="selectDelivery" parameterType="int" resultType="DeliveryAPI">
+			(SELECT DELIVERYNO,  TRIM(TO_CHAR(DELIVERYCODE,'00')) "DELIVERYCODE2" FROM DELIVERY
+             WHERE DELIVERYNO   =	 (SELECT DELIVERYNO
+		                                     FROM ORDERDETAIL
+		                                     WHERE DETAILNO = #{detailNo}))
+			
+	</select>
+	
 </mapper>
