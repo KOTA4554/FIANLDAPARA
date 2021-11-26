@@ -46,4 +46,25 @@
 		 AND USERGENDER = 'F'
 	</select>
 	
+	<select id="selectMonthRevenue" parameterType="string" resultType="MonthRev">
+		<![CDATA[
+		SELECT TO_CHAR(b.dt, 'MM') AS MONTH, NVL(SUM(a.REVENUE), 0) REVENUE
+  		FROM (SELECT TO_CHAR(PAYDATE, 'YYYY-MM-DD') AS PAYDATE, SUM(DETAILPRICE) AS REVENUE
+           	  FROM ORDERDETAIL
+          	  WHERE PRODUCTNO IN (SELECT PRODUCTNO
+              				      FROM PRODUCT
+                   				  WHERE SELLERID = #{selectId})
+          	  GROUP BY PAYDATE
+        	 ) a
+      		, ( SELECT TO_DATE('2021-01-01','YYYY-MM-DD') + LEVEL - 1 AS dt
+           		FROM dual 
+         		CONNECT BY LEVEL <= (TO_DATE('2021-12-31','YYYY-MM-DD') 
+                	            - TO_DATE('2021-01-01','YYYY-MM-DD') + 1)
+        	 ) b
+	    WHERE b.dt = a.PAYDATE(+)
+	    GROUP BY TO_CHAR(b.dt, 'MM')
+	    ORDER BY TO_CHAR(b.dt, 'MM')
+		]]>
+	</select>
+	
 </mapper>

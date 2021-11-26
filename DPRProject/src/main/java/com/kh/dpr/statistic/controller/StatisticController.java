@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.seller.model.vo.Seller;
 import com.kh.dpr.statistic.model.service.StatisticService;
+import com.kh.dpr.statistic.model.vo.MonthRevenue;
 
 @Controller
 public class StatisticController {
@@ -35,8 +36,8 @@ public class StatisticController {
 		// 판매자가 올린 상품 리스트
 		List<Product> prodList = statisticService.selectProductList(sellerId);
 
-		// 총 매출액 가져오기
-		int totalRevenue = 0;
+		// 월 매출액 가져오기
+		List<MonthRevenue> monthRevenue = statisticService.selectMonthRevenue(sellerId);
 		
 		//상품별 매출액, 판매량
 		List<Integer> productRevenueList = new ArrayList<Integer>();
@@ -67,6 +68,9 @@ public class StatisticController {
 		// 구매자 성비
 		int userMan = statisticService.selectUserMan(sellerId);
 		int userWoman = statisticService.selectUserWoman(sellerId);
+		
+		// 월별매출액 전달
+		model.addAttribute("monthRevenue", monthRevenue);
 		
 		// 상품별 총 매출액, 판매량, 상품명 전달
 		model.addAttribute("productNameList", productNameList);

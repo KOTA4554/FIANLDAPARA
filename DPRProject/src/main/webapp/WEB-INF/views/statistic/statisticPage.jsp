@@ -267,13 +267,21 @@ li {
 	// Chart.js
 	
 	// monthly sales revenue
+	var month = new Array();
+	var monRev = new Array();
+	
+	<c:forEach var="monthRevenue" items="${monthRevenue}">
+		month.push("${monthRevenue.month}");
+		monRev.push("${monthRevenue.revenue}");
+	</c:forEach>
+	
 	var config = {
         type: 'line',
         data: {
-        labels: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월'],
+        labels: month,
         datasets: [{
-            label: '월 별 매출액(만원)',
-            data: [700, 600, 900, 1200, 700, 800, 1700, 2200, 1800, 1500, 2000],
+            label: '월 별 매출액',
+            data: monRev,
             backgroundColor: [
                 'rgba(13, 126, 206, 0.2)'
 

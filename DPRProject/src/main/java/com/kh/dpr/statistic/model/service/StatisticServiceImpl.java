@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.statistic.model.dao.StatisticDAO;
+import com.kh.dpr.statistic.model.vo.MonthRevenue;
 
 @Service
 public class StatisticServiceImpl implements StatisticService {
@@ -42,6 +43,12 @@ public class StatisticServiceImpl implements StatisticService {
 	public int selectUserWoman(String sellerId) {
 		
 		return statisticDAO.selectUserWoman(sellerId);
+	}
+
+	@Override
+	public List<MonthRevenue> selectMonthRevenue(String sellerId) {
+		
+		return statisticDAO.selectMonthRevenue(sellerId);
 	}
 
 }

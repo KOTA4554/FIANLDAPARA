@@ -3,6 +3,7 @@ package com.kh.dpr.statistic.model.dao;
 import java.util.List;
 
 import com.kh.dpr.product.model.vo.Product;
+import com.kh.dpr.statistic.model.vo.MonthRevenue;
 
 public interface StatisticDAO {
 
@@ -15,4 +16,6 @@ public interface StatisticDAO {
 	int selectUserMan(String sellerId);
 	
 	int selectUserWoman(String sellerId);
+	
+	List<MonthRevenue> selectMonthRevenue(String sellerId);
 }
