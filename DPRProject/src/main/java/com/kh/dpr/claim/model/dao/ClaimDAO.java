@@ -13,7 +13,7 @@ public interface ClaimDAO {
 
     Order selectOrder(String userId);
 
-    OrderDetail selectOrderDetail(String userId);
+    OrderDetail selectOrderDetail(int detailNo);
 
     Seller selectSeller(int detailNo); 
 
@@ -32,4 +32,6 @@ public interface ClaimDAO {
    int CompleteClaim(int claimNo);
 
    List<Claim> selectSearchClaim(Map<String, Object> map);
+
+String selectProdImg(int productNo);
 }

@@ -31,36 +31,25 @@ public class ClaimController {
    @Autowired
    ClaimService ClaimService;
    @RequestMapping("/claim/claim.do")
-   public String selectClaim(HttpServletRequest request, Model model) {
+   public String selectClaim(@RequestParam int detailNo , Model model) {
       
-   HttpSession session = request.getSession(false);
-      
-      Member member = (Member)session.getAttribute("member");
-      
-      String userId = member.getUserId();
-      
-      // userId 일치하는 order
-      
+  
 
-      Order order = ClaimService.selectOneOrder(userId);
             
       // orderNo 일치하는 orderDetail
-      OrderDetail orderDetail = ClaimService.selectOneDetail(userId); 
+      OrderDetail orderDetail = ClaimService.selectOneDetail(detailNo); 
             
       
       //seller 조회
       int productNo = orderDetail.getProductNo();
-            
-      // detailNo
-      int detailNo = orderDetail.getDetailNo();
-               
+                       
       Seller seller3 = ClaimService.selectSeller(detailNo);
                
       String prodName = ClaimService.selectProduct(productNo);
+      String prodImg = ClaimService.selectProdImg(productNo);
       
-         
       
-      model.addAttribute("order", order);
+      model.addAttribute("prodImg",prodImg);
       model.addAttribute("orderDetail", orderDetail);
       model.addAttribute("seller3", seller3);
       model.addAttribute("prodName", prodName);
