@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.dpr.order.model.vo.Delivery;
 import com.kh.dpr.seller.model.dao.SellerDAO;
 import com.kh.dpr.seller.model.vo.Seller;
+import com.kh.dpr.seller.model.vo.SellerStat;
 
 @Service
 public class SellerService {
@@ -44,25 +45,45 @@ public class SellerService {
       return sellerDAO.deleteSeller(sellerId);
    }
 
-public int insertDelivery(List<Delivery> list) {
-	int totalResult = 0;
-	int cnt = 0;
-	for(Delivery delivery : list) {
-		totalResult = sellerDAO.insertDelivery(delivery);
-		if(totalResult > 0) {
-			totalResult = sellerDAO.updateOrderDetail(delivery);
+	public int insertDelivery(List<Delivery> list) {
+		int totalResult = 0;
+		int cnt = 0;
+		for(Delivery delivery : list) {
+			totalResult = sellerDAO.insertDelivery(delivery);
+			if(totalResult > 0) {
+				totalResult = sellerDAO.updateOrderDetail(delivery);
+			}
+			cnt++;
 		}
-		cnt++;
+		
+		return cnt;
 	}
 	
-	return cnt;
-}
+	public List<Map<String, String>> searchDeliveryList(Map<String, Object> map, int cPage, int numPerPage) {
+		return sellerDAO.searchDeliveryList(map, cPage, numPerPage);
+	}
+	
+	public int countSearched(Map<String, Object> map) {
+		return sellerDAO.countSearched(map);
+	}
+	
+	public SellerStat getClaimCnt(String sellerId) {
+		return sellerDAO.getClaimCnt(sellerId);
+	}
 
-public List<Map<String, String>> searchDeliveryList(Map<String, Object> map, int cPage, int numPerPage) {
-	return sellerDAO.searchDeliveryList(map, cPage, numPerPage);
-}
+	public SellerStat getProductCnt(String sellerId) {
+		return sellerDAO.getProductCnt(sellerId);
+	}
 
-public int countSearched(Map<String, Object> map) {
-	return sellerDAO.countSearched(map);
-}
+	public SellerStat getDeliveryCnt(String sellerId) {
+		return sellerDAO.getDeliveryCnt(sellerId);
+	}
+
+	public SellerStat getReviewCnt(String sellerId) {
+		return sellerDAO.getReviewCnt(sellerId);
+	}
+
+	public SellerStat getQnaCnt(String sellerId) {
+		return sellerDAO.getQnaCnt(sellerId);
+	}
 }

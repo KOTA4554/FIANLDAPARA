@@ -27,6 +27,7 @@
  		<typeAlias alias="Review" type="com.kh.dpr.review.model.vo.Review"/>
  		<typeAlias alias="SearchCondition" type="com.kh.dpr.seller.model.vo.SearchCondition"/>
 		<typeAlias alias="QnA" type="com.kh.dpr.qna.model.vo.QnA"/>
+		<typeAlias alias="SellerStat" type="com.kh.dpr.seller.model.vo.SellerStat"/>
 		<typeAlias alias="DeliveryAPI" type="com.kh.dpr.myPage.model.vo.DeliveryAPI"/>
  	</typeAliases>
  	

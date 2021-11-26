@@ -9,8 +9,8 @@
 		LEFT JOIN DELIVERY D ON OD.DELIVERYNO = D.DELIVERYNO
 		LEFT JOIN PRODUCT_DETAIL DETAIL ON OD.PRODUCTNO = DETAIL.PRODUCTNO
 		LEFT JOIN DELIVERYINFO DINFO ON D.DELIVERYCODE = DINFO.DELIVERYCODE
-		WHERE SELLERID = #{sellerId}
-		ORDER BY PAYMENTCODE DESC
+		WHERE SELLERID = #{sellerId} AND PROCESSCODE > 0
+		ORDER BY OD.DETAILNO DESC
 		<!-- 결제 완료된 리스트만 불러오는 조건 추가 필요 -->
 	</select>
 	
@@ -20,8 +20,8 @@
 		LEFT JOIN DELIVERY D ON OD.DELIVERYNO = D.DELIVERYNO
 		LEFT JOIN PRODUCT_DETAIL DETAIL ON OD.PRODUCTNO = DETAIL.PRODUCTNO
 		LEFT JOIN DELIVERYINFO DINFO ON D.DELIVERYCODE = DINFO.DELIVERYCODE
-		WHERE SELLERID = #{sellerId}
-		ORDER BY PAYMENTCODE DESC
+		WHERE SELLERID = #{sellerId} AND PROCESSCODE > 0
+		ORDER BY OD.DETAILNO DESC
 	</select>
    
 	<insert id="insertDelivery" parameterType="Delivery">
@@ -43,7 +43,7 @@
 		LEFT JOIN DELIVERY D ON OD.DELIVERYNO = D.DELIVERYNO
 		LEFT JOIN PRODUCT_DETAIL DETAIL ON OD.PRODUCTNO = DETAIL.PRODUCTNO
 		LEFT JOIN DELIVERYINFO DINFO ON D.DELIVERYCODE = DINFO.DELIVERYCODE
-		WHERE SELLERID = #{sellerId}
+		WHERE SELLERID = #{sellerId} AND PROCESSCODE > 0
 		<if test="searchNm != null and searchNm != ''">
          AND PRODUCTNAME LIKE '%' || #{searchNm} || '%' 
       </if>
@@ -68,6 +68,7 @@
       <if test="searchPno != null and searchPno != -1">
          AND PRODUCTNO = #{searchPno}
       </if>
+      ORDER BY OD.DETAILNO DESC
 	</select>
 	
 	<select id="countSearched" parameterType="map" resultType="int">
@@ -76,7 +77,7 @@
 		LEFT JOIN DELIVERY D ON OD.DELIVERYNO = D.DELIVERYNO
 		LEFT JOIN PRODUCT_DETAIL DETAIL ON OD.PRODUCTNO = DETAIL.PRODUCTNO
 		LEFT JOIN DELIVERYINFO DINFO ON D.DELIVERYCODE = DINFO.DELIVERYCODE
-		WHERE SELLERID = #{sellerId}
+		WHERE SELLERID = #{sellerId} AND PROCESSCODE > 0
 		<if test="searchNm != null and searchNm != ''">
          AND PRODUCTNAME LIKE '%' || #{searchNm} || '%' 
       </if>
@@ -101,5 +102,6 @@
       <if test="searchPno != null and searchPno != -1">
          AND PRODUCTNO = #{searchPno}
       </if>
+      ORDER BY OD.DETAILNO DESC
 	</select>
 </mapper>

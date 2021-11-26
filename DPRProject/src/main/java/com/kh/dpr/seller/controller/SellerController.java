@@ -34,6 +34,7 @@ import com.kh.dpr.common.Utils;
 import com.kh.dpr.order.model.vo.Delivery;
 import com.kh.dpr.seller.model.service.SellerService;
 import com.kh.dpr.seller.model.vo.Seller;
+import com.kh.dpr.seller.model.vo.SellerStat;
 
 @Controller
 @SessionAttributes({"seller"})
@@ -61,8 +62,22 @@ public class SellerController {
    }
    
    @RequestMapping("seller/sellerMain.do")
-   public String sellerMain() {
+   public String sellerMain(Seller seller, Model model) {
       
+	  String sellerId = seller.getSellerId();
+	  
+	  SellerStat claim = sellerService.getClaimCnt(sellerId); 
+	  SellerStat product = sellerService.getProductCnt(sellerId);
+	  SellerStat delivery = sellerService.getDeliveryCnt(sellerId);
+	  SellerStat review = sellerService.getReviewCnt(sellerId);
+	  SellerStat qna = sellerService.getQnaCnt(sellerId);
+	  
+	  model.addAttribute("claim", claim);
+	  model.addAttribute("product", product);
+	  model.addAttribute("delivery", delivery);
+	  model.addAttribute("review", review);
+	  model.addAttribute("qna", qna);
+	   
       return "seller/sellerMain";
    }
    
