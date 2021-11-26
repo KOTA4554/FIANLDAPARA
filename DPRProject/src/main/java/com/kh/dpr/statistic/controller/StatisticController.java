@@ -61,13 +61,16 @@ public class StatisticController {
 		}
 		
 		// 평점 top4 상품
-		List<Product> top4list = statisticService.selectTop4(sellerId);
-		
+		List<Product> top4List = statisticService.selectTop4(sellerId);
+		System.out.println("top4List : " + top4List);
 		
 		// 상품별 총 매출액, 판매량, 상품명 전달
 		model.addAttribute("productNameList", productNameList);
 		model.addAttribute("productSaleAmount", productSaleAmount);
 		model.addAttribute("productRevenueList", productRevenueList);
+		
+		// 평점 top4 상품 전달
+		model.addAttribute("top4List", top4List);
 		
 		return "statistic/statisticPage";
 	}

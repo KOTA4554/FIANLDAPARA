@@ -12,7 +12,12 @@
 	</select>
 	
 	<select id="selectTop4" parameterType="string" resultType="Product">
-	
+		SELECT *
+		FROM (SELECT *
+		      FROM PRODUCT_DETAIL
+		      WHERE SELLERID = 'seller02'
+		      ORDER BY PRODUCTSCORE DESC)
+		WHERE <![CDATA[ROWNUM < 5]]>
 	</select>
 	
 </mapper>

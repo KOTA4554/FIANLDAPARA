@@ -375,13 +375,24 @@ li {
     );
     
  	// productStar Rate
+ 	
+ 	// top4 상품
+ 	var top4Name = new Array();
+ 	var top4Score = new Array();
+ 	
+ 	<c:forEach var="top4" items="${top4List}" varStatus="status">
+		top4Name.push("${top4.productName}");
+		top4Score.push("${top4.productScore}");
+	</c:forEach>
+ 	
+ 	
 	var config1 = {
         type: 'bar',
         data: {
-        labels: ['구찌후드티', '프라다니트','자라블레이저','톰브라운셔츠'],
+        labels: top4Name,
         datasets: [{
             label: '상품 평점 TOP4',
-            data: [4.8, 4.7, 4.5, 4.0, 3.9],
+            data: top4Score,
             backgroundColor: [
                 'rgba(191, 5, 0, 0.6)'
 
