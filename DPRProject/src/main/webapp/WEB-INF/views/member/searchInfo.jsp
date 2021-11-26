@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -9,8 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
-<script src="${pageContext.request.contextPath }/resources/js/kakao.js"></script>
+<script
+	src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 
 <style>
 .loginSection {
@@ -107,7 +106,7 @@ input[type="radio"] {
 	<c:import url="../common/header.jsp" />
 
 	<div class="loginSection">
-		<form action="memberLogin.do" method="post">
+		<form action="userSearchInfo.do" method="post">
 			<div class="checkBoxDiv">
 				<div>
 					<input type="radio" name="userType" value="user" checked /> <span
@@ -119,40 +118,36 @@ input[type="radio"] {
 				</div>
 			</div>
 			<div class="formLine">
-				<label for="sellerId"> <i class="far fa-id-card fa-lg"></i>
-					<span class="inputFormTitle">아이디</span>
-				</label> <input type="text" name="userId" id="userId"
-					placeholder="아이디를 입력하세요." required />
+				<label for="sellerId"> <i class="fas fa-user-tag fa-lg"></i>
+					<span class="inputFormTitle">이름</span>
+				</label> <input type="text" name="userName" id="userName"
+					placeholder="이름을 입력하세요." required />
 			</div>
 
 			<div class="formLine">
-				<label for="sellerPw"> <i class="fas fa-lock fa-lg"></i> <span
-					class="inputFormTitle">비밀번호</span>
-				</label> <input type="password" name="userPw" id="userPw"
-					placeholder="비밀번호를 입력하세요." required />
+				<label for="sellerPw"> <i class="fas fa-phone fa-lg"></i> <span
+					class="inputFormTitle">전화번호</span>
+				</label> <input type="text" name="userPhone" id="userPhone"
+					placeholder="전화번호를 입력하세요." required />
+			</div>
+			<div class="formLine">
+				<label for="sellerPw"> <i class="fas fa-phone fa-lg"></i> <span
+					class="inputFormTitle">이메일</span>
+				</label> <input type="text" name="userEmail" id="userEmail"
+					placeholder="이메일를 입력하세요." required />
 			</div>
 			<div class="signUp">
 				<a href="${pageContext.request.contextPath}/member/memberSignUp.do"
 					id="signUp">회원가입</a>
 			</div>
-			<div class="findId">
-				<a href="${pageContext.request.contextPath}/member/searchInfoView.do" id="findId">아이디/비밀번호 찾기</a>
-			</div>
 			<div class="formLine">
 				<input type="submit" id="loginBtn" class="primary-btn1 order-submit"
-					value="Log-in">
+					value="찾기">
 			</div>
-			<a id="kakaoLogin"
-				href="https://kauth.kakao.com/oauth/authorize?client_id=591b7e8dc16fbe3be9819ea8023e8611&redirect_uri=http://localhost:8180/dpr&response_type=code">
-				<img
-				src="${pageContext.request.contextPath}/resources/img/kakao_login_medium_wide.png"
-				alt="" />
-			</a>
 		</form>
 	</div>
 
 	<c:import url="../common/footer.jsp" />
-
 
 	<script>
 		// 만약 일반회원이면 일반회원 로그인, 셀러면 셀러 로그인으로 이동
@@ -163,15 +158,18 @@ input[type="radio"] {
 			// 일반회원 = user . 셀러 = seller 로 라디오 버튼 구분
 			if (selectedType == 'user') {
 				// !!! 기본 진입시 user 가 선택되므로, form 에서도 일반회원 가입 주소로 변경해주어야함 !!!
-				console.log("user : userLogin.do 로 이동합니다.");
+				console.log("user : userSearchInfo.do 로 이동합니다.");
 				$('form').attr({
-					'action' : 'memberLogin.do'
+					'action' : 'userSearchInfo.do'
 				});
-				$('#userId').attr({
-					'name' : 'userId'
+				$('#userName').attr({
+					'name' : 'userName'
 				});
-				$('#userPw').attr({
-					'name' : 'userPw'
+				$('#userPhone').attr({
+					'name' : 'userPhone'
+				});
+				$("#userEmail").attr({
+					'name' : 'userEmail'
 				});
 				$('#kakaoLogin').show();
 			} else {
@@ -189,6 +187,7 @@ input[type="radio"] {
 			}
 		});
 	</script>
+
 
 </body>
 </html>

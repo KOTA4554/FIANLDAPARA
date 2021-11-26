@@ -1,6 +1,7 @@
 package com.kh.dpr.member.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,7 +10,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -167,7 +170,32 @@ public class MemberController {
 		}
 		
 		model.addAttribute("loc", loc);
-		model.addAttribute(",sg", msg);
+		model.addAttribute("msg", msg);
+		
+		return "common/msg";
+	}
+	
+	//-------- 아이디/비밀번호 찾기 ----------//
+	@RequestMapping("/member/searchInfoView.do")
+	public String searchInfo() {
+		
+		return "member/searchInfo";
+	}
+	
+	@RequestMapping("member/UserSearchInfo.do")
+	public String searchInfo(@RequestParam String userName, @RequestParam String userPhone, @RequestParam String userEmail, Model model) {
+		
+		Member m = new Member(userName, userPhone, userEmail);
+		System.out.println(m);
+		String result = memberService.findId(m);
+		System.out.println(result);
+		if(result == null ) {
+			msg = "일치하지 않습니다!";
+		} else {
+			msg = "아이디는" + result + "입니다!";
+		}
+		
+		model.addAttribute("msg", msg);
 		
 		return "common/msg";
 	}

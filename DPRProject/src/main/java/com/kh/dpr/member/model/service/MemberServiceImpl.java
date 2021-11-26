@@ -43,6 +43,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.checkIdDuplicate(userId);
 	}
 	
+	@Override
+	public String findId(Member m) {
+
+		return memberDAO.findId(m);
+	}
+
 
 }
 

@@ -30,5 +30,14 @@ public class Member {
 		this.userId = userId;
 		this.userPw = userPw;
 	}
+	
+	public Member(String userName, String userPhone, String userEmail) {
+		super();
+		this.userName = userName;
+		this.userPhone = userPhone;
+		this.userEmail = userEmail;
+	}
+	
+	
 }
 
