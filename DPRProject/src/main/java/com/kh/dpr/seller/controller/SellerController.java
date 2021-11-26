@@ -89,12 +89,8 @@ public class SellerController {
 	  
 	  
 	  List<Gross> gross = sellerService.getSaleGross(setting);
-	  model.addAttribute("gross", gross);
-	  
-//	  for(Gross g : gross) {
-//		  System.out.println(g.getTimeHours() + "시 : " + g.getGross());
-//	  }
-	  
+	  model.addAttribute("gross", gross);	  
+
       return "seller/sellerMain";
    }
    
@@ -143,22 +139,29 @@ public class SellerController {
          if(bcryptPasswordEncoder.matches(sellerPw, seller.getSellerPw())) {
             
             model.addAttribute("seller", seller);
-            System.out.println("seller : " + seller);
-            return "seller/sellerMain";
-
+            System.out.println("seller : " + seller);            
+            loc = "/seller/sellerMain.do";
+            msg = "로그인 되었습니다.";
+            
+            model.addAttribute("loc", loc);
+            model.addAttribute("msg", msg);
+            
          } else {
             // 비밀번호 불일치 시 로직
+        	 
             msg = "비밀번호가 일치하지 않습니다.";
             model.addAttribute("loc", loc);
             model.addAttribute("msg", msg);
-            return "common/msg";
          }
+         
       } else {
+         
          msg = "존재하지 않는 아이디입니다.";
          model.addAttribute("loc", loc);
          model.addAttribute("msg", msg);
-         return "common/msg";
       }      
+
+      return "common/msg";
    }
    
    @RequestMapping("seller/logout.do")
