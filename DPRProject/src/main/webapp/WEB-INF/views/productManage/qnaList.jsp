@@ -190,14 +190,14 @@ li {
 
 	    </tr>
 	    <c:forEach items="${qnaList}" var="qna" varStatus="status">
-		    <tr class="prodListRows" id="${qna.qNo}">
-		    	<td class="qnaRowQno">${qna.qNo}</td>
+		    <tr class="prodListRows" id="${qna.getQNo()}">
+		    	<td class="qnaRowQno">${qna.getQNo()}</td>
 				<td class="qnaRowPno">${qpList[status.index].productNo}</td>
 				<td class="qnaRowBrand">${qpList[status.index].productBrand}</td>
 				<td class="qnaRowName">${qpList[status.index].productName}</td>
-				<td class="qnaRowTitle">${qna.qTitle}</td>
+				<td class="qnaRowTitle">${qna.getQTitle()}</td>
 				<td class="qnaRowId">${qna.userId}</td>
-				<td class="qnaRowDate">${qna.qDate}</td>
+				<td class="qnaRowDate">${qna.qdate}</td>
 	
 			</tr>
 		</c:forEach>
