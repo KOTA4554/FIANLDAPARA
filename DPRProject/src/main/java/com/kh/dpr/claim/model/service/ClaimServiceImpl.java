@@ -28,9 +28,9 @@ public class ClaimServiceImpl implements ClaimService {
    }
 
    @Override
-   public OrderDetail selectOneDetail(String userId) {
+   public OrderDetail selectOneDetail(int detailNo) {
       
-      return ClaimDAO.selectOrderDetail(userId);
+      return ClaimDAO.selectOrderDetail(detailNo);
    }
 
    @Override
@@ -87,6 +87,12 @@ public class ClaimServiceImpl implements ClaimService {
       // TODO Auto-generated method stub
       return ClaimDAO.selectSearchClaim(map);
    }
+
+@Override
+public String selectProdImg(int productNo) {
+	// TODO Auto-generated method stub
+	return ClaimDAO.selectProdImg(productNo);
+}
 
    
 
