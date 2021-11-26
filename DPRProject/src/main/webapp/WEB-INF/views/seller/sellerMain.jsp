@@ -63,7 +63,6 @@
     .sellerInfoAtag {
     	font-weight: 700;
     }
-
     </style>
 </head>
 <body>
@@ -73,7 +72,7 @@
     <div id="order">
         <div class="stateTitles">
             <div class="stateTitleName">주문/배송 현황</div>
-            <span class="explainTitles">최근 1개월 기준</span>
+            <span class="explainTitles">&nbsp;</span>
         </div>
         <ul class="sellerInfoUl">
             <li>
@@ -82,11 +81,11 @@
             </li>
             <li>
                 <div class="titles">운송장 등록 대기</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong><a href="" class="sellerInfoAtag">${delivery.waitDel} 건</a></strong>
             </li>
             <li>
                 <div class="titles">운송장 등록 완료</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong><a href="" class="sellerInfoAtag">${delivery.completeDel} 건</a></strong>
             </li>
             <li>
                 <div class="titles">배송중</div>
@@ -102,20 +101,29 @@
     <div id="cancel">
         <div class="stateTitles">
             <div class="stateTitleName">취소/환불/교환 현황</div>
-            <span class="explainTitles">최근 1개월 기준</span>
+            <span class="explainTitles">직전 30일 이내</span>
         </div>
         <ul class="sellerInfoUl">
             <li>
                 <div class="titles">취소 요청</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong>
+                	<a href="" class="sellerInfoAtag unsolve">미완료 ${claim.unsolvedCancle} 건</a> | 
+                	<a href="" class="sellerInfoAtag totalClaim">전체 ${claim.totalCancle} 건</a>
+                </strong>
             </li>
             <li>
                 <div class="titles">환불 요청</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong>
+                	<a href="" class="sellerInfoAtag unsolve">미완료 ${claim.unsolvedRefund} 건</a> | 
+                	<a href="" class="sellerInfoAtag totalClaim">전체 ${claim.totalRefund} 건</a>
+                </strong>
             </li>
             <li>
                 <div class="titles">교환 요청</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong>
+                	<a href="" class="sellerInfoAtag unsolve">미완료 ${claim.unsolvedSwap} 건</a> | 
+                	<a href="" class="sellerInfoAtag totalClaim">전체 ${claim.totalSwap} 건</a>
+                </strong>
             </li>
         </ul>
     </div>
@@ -128,12 +136,16 @@
         <ul class="sellerInfoUl">
             <li>
                 <div class="titles">고객 문의</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a> | <a href="" class="sellerInfoAtag">미답변 0 건</a></strong>
+                <strong>
+                	<a href="" class="sellerInfoAtag">미답변 ${qna.unsolvedQna} 건</a> | 
+                	<a href="" class="sellerInfoAtag">전체 ${qna.qna} 건</a>
+                </strong>
             </li>
 
             <li>
                 <div class="titles">고객 리뷰</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong><a href="" class="sellerInfoAtag">${review.reviewCnt} 건 
+                (응답률 : <fmt:formatNumber value="${review.reviewCnt/review.orderCnt}" type="percent"/>)</a></strong>
             </li>
         </ul>
     </div>
@@ -141,17 +153,22 @@
     <div id="product">
         <div class="stateTitles">
             <div class="stateTitleName">판매상품 현황</div>
-            <span class="explainTitles">&nbsp;</span>
+            <span class="explainTitles">: 종료 임박 상품 = 종료 3일 이내</span>
         </div>
         <ul class="sellerInfoUl">
             <li>
                 <div class="titles">판매 중 상품</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong><a href="" class="sellerInfoAtag">${product.sellProduct} 건</a></strong>
             </li>
             <li>
                 <div class="titles">종료임박 상품</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong><a href="" class="sellerInfoAtag">${product.impendProduct} 건</a></strong>
             </li>
+            <li>
+                <div class="titles">판매 종료 상품</div>
+                <strong><a href="" class="sellerInfoAtag">${product.endProduct} 건</a></strong>
+            </li>
+            
         </ul>
     </div>
     <div id="chartDiv">
