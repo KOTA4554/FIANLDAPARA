@@ -3,6 +3,7 @@ package com.kh.dpr.seller.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.dpr.common.Utils;
 import com.kh.dpr.order.model.vo.Delivery;
 import com.kh.dpr.seller.model.service.SellerService;
+import com.kh.dpr.seller.model.vo.Gross;
 import com.kh.dpr.seller.model.vo.Seller;
 import com.kh.dpr.seller.model.vo.SellerStat;
 
@@ -77,7 +79,22 @@ public class SellerController {
 	  model.addAttribute("delivery", delivery);
 	  model.addAttribute("review", review);
 	  model.addAttribute("qna", qna);
-	   
+	  
+	  Map setting = new HashMap();
+	  // String currentDate = new SimpleDateFormat("yy-MM-dd").format(new java.util.Date());
+	  Date today = new Date(System.currentTimeMillis());
+	  
+	  setting.put("sellerId", sellerId);
+	  setting.put("today", today);
+	  
+	  
+	  List<Gross> gross = sellerService.getSaleGross(setting);
+	  model.addAttribute("gross", gross);
+	  
+//	  for(Gross g : gross) {
+//		  System.out.println(g.getTimeHours() + "시 : " + g.getGross());
+//	  }
+	  
       return "seller/sellerMain";
    }
    

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.dpr.order.model.vo.Delivery;
 import com.kh.dpr.seller.model.dao.SellerDAO;
+import com.kh.dpr.seller.model.vo.Gross;
 import com.kh.dpr.seller.model.vo.Seller;
 import com.kh.dpr.seller.model.vo.SellerStat;
 
@@ -85,5 +86,9 @@ public class SellerService {
 
 	public SellerStat getQnaCnt(String sellerId) {
 		return sellerDAO.getQnaCnt(sellerId);
+	}
+
+	public List<Gross> getSaleGross(Map setting) {
+		return sellerDAO.getSaleGross(setting);
 	}
 }

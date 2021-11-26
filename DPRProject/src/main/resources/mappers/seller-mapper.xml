@@ -75,9 +75,21 @@
 		LEFT JOIN QNACOMMENT USING(QNO)
 		WHERE PRODUCT_DETAIL.SELLERID = #{sellerId}
 	</select>
-   <!-- <select id="loginMember" parameterType="Member" resultType="Member">
-      SELECT * FROM MEMBER
-      WHERE USERID = #{ userId } AND PASSWORD = #{ password }
-   </select> -->
-   <!-- Access to #{ field } -->
+	
+	<select id="getSaleGross" parameterType="map" resultType="Gross">
+		<![CDATA[
+		SELECT TIMEHOURS, NVL(SALES.GR, 0) AS GROSS
+		FROM ( SELECT SALESPERHOUR, SUM(DETAILPRICE) GR
+       		   FROM ( SELECT DETAILPRICE, TO_CHAR(PAYDATE, 'HH') SALESPERHOUR
+             		  FROM ORDERDETAIL
+            		  LEFT JOIN PRODUCT_DETAIL USING(PRODUCTNO)
+               WHERE SELLERID = #{sellerId} AND TO_CHAR(PAYDATE, 'DD') = TO_CHAR(SYSDATE, 'DD')-1 )
+       		   GROUP BY SALESPERHOUR ) SALES
+		RIGHT JOIN (SELECT LEVEL-1 TIMEHOURS FROM DUAL
+            		CONNECT BY LEVEL <= 24) TIME_TABLE ON SALES.SALESPERHOUR = TIME_TABLE.TIMEHOURS
+		ORDER BY TIMEHOURS
+		]]>
+		<!-- 날짜 추가 필요? AND PAYDATE <= SYSDATE-1  -->
+	</select>
+
 </mapper>
