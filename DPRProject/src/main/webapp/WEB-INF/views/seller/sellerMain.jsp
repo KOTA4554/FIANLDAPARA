@@ -174,7 +174,7 @@
     <div id="chartDiv">
         <div class="stateTitles">
             <div class="stateTitleName">일일 매출 통계</div>
-            <span class="explainTitles">당일 00시부터 조회 시간의 -1시 까지의 매출 통계입니다. (상품 주문 기준)</span>
+            <span class="explainTitles">당일 00시부터의 시간 별 실시간 매출 통계입니다. (상품 주문 기준)</span>
             <br><span class="explainTitles"> : select sum(*) ... where sellerID = 로그인셀러 having 시간 별로 합산하여 dataset에 추가</span>
         </div> 
         <canvas id="chart"></canvas>
@@ -186,13 +186,21 @@
 <script>
     // === include 'setup' then 'config' above ===
     
+    var grossList = [];
+    <c:forEach items="${gross}" var="gross" varStatus="status">
+    	grossList.push(${gross.gross})
+    </c:forEach>
+    
+    console.log(grossList);
+    
+    	
     var config = {
         type: 'line',
         data: {
         labels: ['00시', '01시', '02시', '03시', '04시', '05시', '06시', '07시', '08시', '09시', '10시', '11시', '12시', '13시', '14시', '15시', '16시', '17시', '18시', '19시', '20시', '21시', '22시', '23시'],
         datasets: [{
             label: '시간 별 매출액',
-            data: [30000, 0, 120000, 250000, 2, 3],
+            data: grossList,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
 
