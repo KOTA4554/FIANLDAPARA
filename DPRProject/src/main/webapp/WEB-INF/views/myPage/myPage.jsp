@@ -34,7 +34,6 @@
 						<div id="infoDiv">
 							<div>${member.userId} 님</div>
 							<button type="button" id="myInfoBtn" onclick="goMyInfo();">회원정보 수정</button>
-							<button type="button" id="deleteBtn" onclick="location.href='${pageContext.request.contextPath}/myPage/memberDelete.do'">회원 탈퇴</button>
 						</div>
 	
 						<div id="sideMenuList">
