@@ -187,6 +187,7 @@ li {
 	        <td style="width: 200px;">문의글 제목</td>
 	        <td style="width: 85px;">USERID</td>
 	        <td style="width: 85px;">문의 날짜</td>
+	        <td style="width: 85px;">답변여부</td>
 
 	    </tr>
 	    <c:forEach items="${qnaList}" var="qna" varStatus="status">
@@ -198,6 +199,7 @@ li {
 				<td class="qnaRowTitle">${qna.getQTitle()}</td>
 				<td class="qnaRowId">${qna.userId}</td>
 				<td class="qnaRowDate">${qna.qdate}</td>
+				<td class="qnaRowDate">${qna.qStatus}</td>
 	
 			</tr>
 		</c:forEach>
