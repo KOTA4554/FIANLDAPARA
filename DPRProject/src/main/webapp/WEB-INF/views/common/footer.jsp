@@ -14,11 +14,16 @@
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
 								<h3 class="footer-title">About Us</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+								<p>KH 정보교육원 <br>
+								(디지털컨버전스) UI/UX 웹 콘텐츠 융합 응용SW 개발자 양성과정<br>
+								4조 Final Project<br>
+								팀원: <br>
+								양안태, 김용주, 장정호, 장민수, 황학규
+								</p>
 								<ul class="footer-links">
-									<li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-									<li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-									<li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+									<li><a href="#"><i class="fa fa-map-marker"></i>서울 특별시 강남구 역삼동</a></li>
+									<li><a href="#"><i class="fa fa-phone"></i>+02-000-0000</a></li>
+									<li><a href="#"><i class="fa fa-envelope-o"></i>email@naver.com</a></li>
 								</ul>
 							</div>
 						</div>

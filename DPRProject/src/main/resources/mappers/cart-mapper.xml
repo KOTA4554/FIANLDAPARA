@@ -24,4 +24,16 @@ UPDATE CART SET CARTAMOUNT = CARTAMOUNT-1 WHERE USERID = #{userId} AND PRODUCTNO
 SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = 0 
 </select>
 
+<delete id="deleteCart" parameterType="hashmap">
+	DELETE FROM CART WHERE userId = #{userId} AND productNo IN  
+	<foreach collection="prodList" item="prodno" separator="," open="(" close=")">
+	  #{prodno}
+	  </foreach>	 
+</delete>
+
+<update id="newSize" parameterType="Cart">
+UPDATE CART SET SIZENAME = #{sizeName} WHERE USERID = #{userId} AND PRODUCTNO = #{productNo}
+</update>
+
+
 </mapper>

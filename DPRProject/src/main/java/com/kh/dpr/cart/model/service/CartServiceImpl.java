@@ -1,5 +1,6 @@
 package com.kh.dpr.cart.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -58,6 +59,17 @@ public class CartServiceImpl implements CartService {
 	public String loadImage(int productNo) {
 		
 		return CartDAO.loadImage(productNo);
+	}
+
+	@Override
+	public int delete(HashMap<String, Object> d) {
+		return CartDAO.delete(d);
+	}
+
+	@Override
+	public int newSize(Cart c) {
+		
+		return CartDAO.newSize(c);
 	}
 	
 

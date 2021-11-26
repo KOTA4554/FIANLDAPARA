@@ -203,24 +203,39 @@ padding-left: 20px;
     <br><br>
 <table cellspacing="0" style="display:flex">
 
-<th id="th" style="width: 75px; height: 50px;"><input type="checkbox" name="Y"></i></th>
+<th id="th" style="width: 75px; height: 50px;"><input type="checkbox" name="Y" id="checkAll"></i></th>
 <th id="th" colspan="2" style="width: 1500px;">상품정보</th>
 <th id="th" style="width: 100px; ">수량</th>
 <th id="th" style="width: 300px; text-align:right; padding-right : 25px;">가격</th>
 <th id="th" style="width: 100px; text-align: left;">배송비</th>
 </tr>
 
+
+ <form id="order" action="${pageContext.request.contextPath}/order/order.do" method="post">
+ 
 <c:forEach var="cart" items="${cart}" varStatus="status">
 <tr>
-<td id="CIP" style="height: 150px;"><input type="checkbox" name="Y"> </td>
+
+<td id="CIP" style="height: 150px;"><input type="checkbox" name="check" value="${cart.productNo}"/> </td>
+
 <td id="CIP" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;" > <img id="TII" src="${pageContext.request.contextPath}/resources/productUpload/${image[status.index]}"> </td>
 <td id="CIP" style="width: 1000px; text-align: left; padding-right: 40px;" > <label id="brand" >${cartProduct[status.index].productBrand}</label><br> <label id="prodname">${cartProduct[status.index].productName}</label>
-<br> <label id="size">사이즈 : ${cart.sizeName} <br></label> <button id="sizebtn">옵션변경</button> </td>
+<br> <label id="size">사이즈 :  ${cart.sizeName} <br></label> <br />  <label style="padding-left:20px;">  사이즈 변경 : <select name="newSizeName"
+                              class="input-select" id="sizeName" style="width:73px; height:32px;">
+                                 <option value="XS">XS</option>
+                                 <option value="S">S</option>
+                                 <option value="M">M</option>
+                                 <option value="L">L</option>
+                                 <option value="XL">XL</option>
+                           </select> <button class="updateSize" id="sizebtn">변경하기</button>
+                            <input name="productNo" id="sizeUser" type="hidden" value="${cart.productNo}"/>
+                               <input name="sizeName" id="sizeUser" type="hidden" value="${cart.sizeName}"/>
+                           </label></td>
 <td id="CIP" >  <div class="input-number"> 
   <input id="pdn" type="hidden" value="${cart.productNo}"/>
   <input id="pri" type="hidden" value ="${cartProduct[status.index].productPrice}" />
   <input type="hidden" id="total" value = "${total}" />
-    <input id="amount" type="number" readonly value="${cart.cartAmount}" style="outline:none;" >
+    <input name="cartAmount" id="amount" type="number" readonly value="${cart.cartAmount}" style="outline:none;" >
     <span class="up">+</span>
   
     <span  class="down">-</span>
@@ -229,8 +244,55 @@ padding-left: 20px;
 <td id="CIP" style="text-align: left;">무료</td>
 </tr>
 </c:forEach>
+</form>
+
 
 <script>
+
+$('.updateSize').click(function(){
+
+
+	 var productNoVal =$(this).parent().find('#sizeUser').val();
+	 var newSize = $(this).parent().find('#sizeName').val();
+	 console.log(productNoVal)
+
+	   var params ={
+	         
+	         userId : "${member.userId}",
+	         productNo : productNoVal,
+	         sizeName : newSize
+	         
+	         
+	   };
+	   
+	   
+	   $.ajax({
+	       url : "/dpr/newSize.do",
+	       type: 'post',
+	       data : params,
+	       success : function(data) {
+	          
+	       if (data == '1') {
+	          
+	    	   
+               alert("변경 성공");
+               location.reload();
+	      
+	          
+	          } else {
+	        alert("변경 실패")
+	          }
+	       }, error : function( code ) {
+	           alert("변경 오류")
+	       }
+	    });
+	   })
+
+
+
+
+
+
 
 $('.up').click(function(){
    
@@ -238,10 +300,11 @@ $('.up').click(function(){
    var productNoVal =$(this).parent().find('#pdn').val();
    var amount = parseInt($(this).parent().find('#amount').val());
    var amountNo = $(this).parent().find('#amount');
-   var dprice = $(this).parent().find('#pri').val();
+   var dprice = parseInt($(this).parent().find('#pri').val());
    var price = $(this).parent().parent().parent().find('.PRICE');
-    var total =  $("#email").val();
-    var totalp =  $("#email");
+    var total =  parseInt($("#totalprice").val());
+    var totalp =  $("#totalprice");
+    var totalp2 = $("#totalprice2");
 
    var params ={
          
@@ -259,9 +322,11 @@ $('.up').click(function(){
           
        if (data == '1') {
           
+    	   
+    	  total = total + dprice;
           amount += 1;
           dprice *= amount;
-          total = dprice + total;
+          
       
           
           console.log(amount)
@@ -269,6 +334,7 @@ $('.up').click(function(){
           price.val(dprice);
            amountNo.val(amount);
             totalp.val(total);
+            totalp2.val(total);
           
           } else {
          console.log("실패")
@@ -287,16 +353,22 @@ $('.down').click(function(){
    var productNoVal =$(this).parent().find('#pdn').val();
    var amount = parseInt($(this).parent().find('#amount').val());
    var amountNo = $(this).parent().find('#amount');
-   var dprice = $(this).parent().find('#pri').val();
+   var dprice = parseInt($(this).parent().find('#pri').val());
    var price = $(this).parent().parent().parent().find('.PRICE');
+   var total =  parseInt($("#totalprice").val());
+   var totalp =  $("#totalprice");
+   var totalp2 = $("#totalprice2");
 
    
     var params ={
          
          userId : "${member.userId}",
-         productNo : productNoVal
+         productNo : productNoVal,
+         amount : amount
          
    };
+    
+  
    
    
    
@@ -305,23 +377,29 @@ $('.down').click(function(){
        type: 'post',
        data : params,
        success : function(data) {
-          
+    	     
        if (data == '1') {
-          
+   
+    	   
+           total = total - dprice; 
           amount -= 1;
           dprice *= amount;
+   
       
           
           console.log(amount)
           
           price.val(dprice);
            amountNo.val(amount);
+           totalp.val(total);
+           totalp2.val(total);
       
           } else {
          console.log("실패")
           }
        }, error : function( code ) {
            console.log("오류")
+       
        }
     });
    })
@@ -345,7 +423,85 @@ $('.down').click(function(){
     </table>
 <br>
 
-<button id="sizebtn" style="width: 100px; height: 30px;">선택삭제</button>
+<button class="deleteCart" id="sizebtn" style="width: 120px; height: 30px;">선택삭제</button>
+
+<script>
+
+
+$(document).ready(function(){
+    //최상단 체크박스 클릭
+    $("#checkAll").click(function(){
+        //클릭되었으면
+        if($("#checkAll").prop("checked")){
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+            $("input[name=check]").prop("checked",true);
+            //클릭이 안되있으면
+        }else{
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+            $("input[name=check]").prop("checked",false);
+        }
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$('.deleteCart').click(function(){
+    var valueArr = new Array();
+    var userId = "${member.userId}";
+  
+
+    var list = $("input:checkbox[name='check']:checked");
+	    for(var i = 0; i < list.length; i++){
+    	if(list[i].checked){
+        valueArr.push(list[i].value);
+    		
+    	}
+    	
+    	
+    }
+    
+    
+    if(valueArr.length == 0){
+        alert("선택된 글이 없습니다.");
+    }
+    else{
+    	var chk = confirm("정말 삭제하시겠습니까?");
+        $.ajax ({     		 
+            url : "/dpr/deleteCart.do",
+            type : 'post',
+            traditional : true,
+            data : {
+            	valueArr : valueArr,
+            	userId : userId
+            },
+            
+            success: function(jdata){
+                if(jdata = 1) {
+                alert("삭제 성공");
+                location.reload();
+                
+                } else{
+                
+                alert("삭제 오류");
+                }}
+          
+        })}})
+
+</script>
 
     <br><br><br><br><br><br>
 
@@ -353,19 +509,19 @@ $('.down').click(function(){
 
 <table align="center">
     <tr>
-        <th id="rth" style="text-align: center; width: 200px;">상품가격</th>
+        <th id="rth" style="text-align: center; width: 200px; padding-right: 60px;">상품가격</th>
         <th id="rth" style="text-align: center; width: 40px;"></th>
         <th id="rth" style="text-align: center; width: 150px;">배송비</th>
         <th id="rth" style="text-align: center; width: 50px;"></th>
-        <th id="rth" style="text-align: center; width: 200px;">총 결제금액</th>
+        <th id="rth" style="text-align: center; width: 200px; padding-right: 65px;">총 결제금액</th>
     </tr>
 
     <tr>
-        <td style="font-size: 25px; text-align: center;"> <span id= totalprice >${total}</span> 원</td>
+        <td style="font-size: 25px; text-align: center;"><div style="display: flex; width: 100%;"><input id= totalprice type=number value=${total} readonly  style ="text-align : center; border-style:none; outline:none; width:150px;">원</input></div></td>
         <td style="font-size: 40px;">+</td>
         <td style="text-align: center; font-size: 25px;">0원</td>
         <td style="font-size: 40px;">=</td>
-        <td style="text-align: center; font-size: 25px; color: #D10024;"><span id=totalprice>${total}</span> 원</td>
+        <td style="text-align: center; font-size: 25px; color: #D10024;"><div style="display: flex; width: 100%;"><input id= totalprice2 type=number value=${total} readonly  style ="text-align : center; border-style:none; outline:none; width:150px;"></input>원</div></td>
     </tr>
 
 
@@ -377,13 +533,26 @@ $('.down').click(function(){
 
 <div class="btns" align="center">
     <br><br><br>
-    <button id="gpbtn" style="width: 240px; height: 60px; background-color: #D10024; color: white; font-size: 25px; border-color: #d10024; border-radius: 10px;">선택상품 주문</label>
+    <button type="button" onclick="submit();" id="gpbtn" style="width: 240px; height: 60px; background-color: #D10024; color: white; font-size: 25px; border-color: #d10024; border-radius: 10px;">전체상품 주문</label>
 </div>
 </div>
 
     <br><br><br><br><br><br>
 
    <c:import url="../common/footer.jsp"/>
+   
+   
+   <script>
+   function submit(){
+	   
+	   $('#order').submit(); 
+ 
+	   
+   }
+   
+   
+   
+   </script>
       
 
 

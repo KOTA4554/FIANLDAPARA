@@ -53,7 +53,7 @@ public class MainController {
     	  System.out.println(productNo);
       }
       // 페이지 처리 Utils 사용하기
-      String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "boardList.do");
+      String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "clothes.do");
       
       System.out.println(imageList);
       System.out.println("list : " + list);
@@ -134,7 +134,7 @@ public class MainController {
       int totalContents = productService.selectProductTotalContents();
       
       // 페이지 처리 Utils 사용하기
-      String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "boardList.do");
+      String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "top.do");
       
       System.out.println("list : " + list);
       System.out.println("pageBar : " + pageBar);
@@ -165,7 +165,7 @@ public class MainController {
       int totalContents = productService.selectProductTotalContents();
       
       // 페이지 처리 Utils 사용하기
-      String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "boardList.do");
+      String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "knit.do");
       
       System.out.println("list : " + list);
       System.out.println("pageBar : " + pageBar);
@@ -195,7 +195,7 @@ public class MainController {
          int totalContents = productService.selectProductTotalContents();
          
          // 페이지 처리 Utils 사용하기
-         String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "boardList.do");
+         String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "jacket.do");
          
          System.out.println("list : " + list);
          System.out.println("pageBar : " + pageBar);
@@ -225,7 +225,7 @@ public class MainController {
          int totalContents = productService.selectProductTotalContents();
          
          // 페이지 처리 Utils 사용하기
-         String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "boardList.do");
+         String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "search.do");
          
          System.out.println("list : " + list);
          System.out.println("pageBar : " + pageBar);

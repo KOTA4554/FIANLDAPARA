@@ -29,6 +29,15 @@ public Cart(String userId,int productNo){
 	this.productNo=productNo;
 }
 	
+
+public Cart(String userId, int productNo, String sizeName) {
+	super();
+	this.userId=userId;
+	this.productNo=productNo;
+	this.sizeName=sizeName;
+	
+	
+}
 	
 	
 }

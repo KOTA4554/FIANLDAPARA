@@ -111,7 +111,7 @@
 								<form id="claimSubmit" action="" method="post">
 									<div class="orderAreaHead">
 										<p class="orderDate">${order.orderDate}</p> <!-- order.getOrderDate -->
-										<span>주문번호 : <span class="orderNo">${order.orderNo}</span></span> <!-- order.getOrderNo -->
+										<span> <span class="orderNo">${order.orderNo}</span></span> <!-- order.getOrderNo -->
 										<input type="hidden" name="detailNo" id="detailNo" value="${orderDetail.detailNo}" /> <!-- orderDetail.getDetailNo -->
 									</div>
 									<table class="<order></order>Table">

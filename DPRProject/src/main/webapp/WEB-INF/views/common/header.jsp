@@ -110,7 +110,7 @@
                         <a href="#" class="logo">
 
 
-                           <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="">
+                           <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="" onclick="gomain();">
 
 
                         </a>
@@ -277,3 +277,9 @@
 
       </c:if>
       <!-- /NAVIGATION -->
+      
+      <script>
+      	function gomain(){
+      		location.href="${pageContext.request.contextPath}/";
+      	}
+      </script>

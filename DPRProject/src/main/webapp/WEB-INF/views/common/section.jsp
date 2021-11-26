@@ -228,47 +228,10 @@ $(function(){
 
       <!-- HOT DEAL SECTION -->
       <div id="hot-deal" class="section">
-         <!-- container -->
-         <div class="container">
-            <!-- row -->
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="hot-deal">
-                     <ul class="hot-deal-countdown">
-                        <li>
-                           <div>
-                              <h3>02</h3>
-                              <span>Days</span>
-                           </div>
-                        </li>
-                        <li>
-                           <div>
-                              <h3>10</h3>
-                              <span>Hours</span>
-                           </div>
-                        </li>
-                        <li>
-                           <div>
-                              <h3>34</h3>
-                              <span>Mins</span>
-                           </div>
-                        </li>
-                        <li>
-                           <div>
-                              <h3>60</h3>
-                              <span>Secs</span>
-                           </div>
-                        </li>
-                     </ul>
-                     <h2 class="text-uppercase">이번 주 HOT 딜</h2>
-                     <p>최대 50% 할인 해택</p>
-                     <a class="primary-btn cta-btn" href="#"> 구매 </a>
-                  </div>
-               </div>
-            </div>
-            <!-- /row -->
-         </div>
-         <!-- /container -->
+        
+           	 <img  src="${pageContext.request.contextPath}/resources/productUpload/ad.jpg" alt="logo" class = "">
+           
+        
       </div>
       <!-- /HOT DEAL SECTION -->
 

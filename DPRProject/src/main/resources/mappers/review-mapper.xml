@@ -24,4 +24,19 @@
 		SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = 0 
 	</select>
 	
+	<select id="selectProductNo" parameterType="int" resultType="int">
+		SELECT PRODUCTNO FROM ORDERDETAIL WHERE DETAILNO = #{detailNo}
+	</select>
+	
+	
+	<update id="updateScore" parameterType="int">
+		UPDATE PRODUCT_DETAIL
+		SET PRODUCTSCORE = (SELECT TRUNC(AVG(REVIEWSCORE), 1)
+        			        FROM(SELECT REVIEWSCORE
+                     			 FROM REVIEW
+                        		 WHERE DETAILNO IN (SELECT DETAILNO
+                                  			        FROM ORDERDETAIL
+                                           			WHERE PRODUCTNO = #{productNo})))
+		WHERE PRODUCTNO = #{productNo}
+	</update>
 </mapper>

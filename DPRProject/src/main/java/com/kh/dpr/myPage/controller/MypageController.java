@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.dpr.member.model.vo.Member;
 import com.kh.dpr.myPage.model.service.MyPageService;
+import com.kh.dpr.myPage.model.vo.DeliveryAPI;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
 import com.kh.dpr.product.model.vo.Product;
@@ -55,6 +56,17 @@ public class MypageController {
 			sellerList.add(seller);
 		}
 		
+		List<DeliveryAPI> deliveryList = new ArrayList<DeliveryAPI>();
+		
+		for(int i = 0; i < orderDetailList.size(); i ++) {
+			
+			int detailNo = orderDetailList.get(i).getDetailNo();
+			
+			DeliveryAPI	delivery = myPageService.selectDelivery(detailNo);
+			
+			deliveryList.add(delivery);
+		}
+		
 		// productno 일치하는 product
 		List<Product> prodList = new ArrayList<Product>();
 		
@@ -75,6 +87,7 @@ public class MypageController {
 			productImgList.add(productImg);
 		}
 		
+		model.addAttribute("deliveryList", deliveryList);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("orderDetailList", orderDetailList);
 		model.addAttribute("sellerList", sellerList);
@@ -105,10 +118,5 @@ public class MypageController {
 		return "common/msg";
 	}
 	
-	@RequestMapping("/mypage/delivery.do")
-	public String delivery() {
-		
-		return "myPage/delivery";
-	}
 	
 }

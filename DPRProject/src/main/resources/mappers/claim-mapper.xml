@@ -31,7 +31,7 @@
    </select>
    
    <select id="selectProdImg" parameterType="int" resultType="string">
-   	  SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo}
+   	  SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = 0 
    </select>
    
    <insert id="insertClaim" parameterType="Claim">

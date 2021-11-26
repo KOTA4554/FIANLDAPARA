@@ -2,6 +2,7 @@ package com.kh.dpr.cart.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -102,6 +103,43 @@ public class CartController {
 		
 		
 	}
+	
+	@RequestMapping("/deleteCart.do")
+	    public String deleteCart(@RequestParam String userId, @RequestParam int[] valueArr,Model model) {
+		HashMap<String, Object> d = new HashMap<>();
+		System.out.println(userId);
+
+		d.put("userId",userId);
+		d.put("prodList", valueArr);
+		
+		System.out.println(d);
+		
+		int result = CartService.delete(d);
+		
+		
+		
+		return "redirect:/prod/cart.do/";
+		
+	        
+	       }
+	
+	@RequestMapping("/newSize.do")
+	public void newSize(@RequestParam String userId, @RequestParam int productNo, @RequestParam String sizeName, HttpServletResponse response) throws IOException {
+	
+		
+		Cart c = new Cart(userId, productNo, sizeName);
+		
+	int result = CartService.newSize(c);	
+		
+		
+		
+	response.getWriter().print(result);
+		
+		
+		
+		
+	}
+
 
 
 	@RequestMapping("/changeAmountP.do")
@@ -122,8 +160,17 @@ public class CartController {
 	}
 	
 	@RequestMapping("/changeAmountM.do")
-	public void changeAmount2(@RequestParam String userId, int productNo, HttpServletResponse response) throws IOException {
+	public void changeAmount2(@RequestParam String userId, int productNo, int amount, HttpServletResponse response) throws IOException {
 	
+		
+		if(amount == 1) {
+			
+			int result = 0;
+			
+			response.getWriter().print(result);
+			
+			
+		} else {
 		
 		Cart c = new Cart(userId,productNo);
 		
@@ -134,7 +181,7 @@ public class CartController {
 		int result = CartService.changeAmountM(c);
 		
 		response.getWriter().print(result);
-	
+		}
 		
 	}
 		

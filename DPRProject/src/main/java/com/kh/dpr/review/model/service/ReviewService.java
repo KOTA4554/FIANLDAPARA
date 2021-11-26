@@ -12,4 +12,8 @@ public interface ReviewService {
 	int insertReview(Review review);
 
 	String selectImg(int productNo);
+
+	int selectProductNo(int detailNo);
+
+	int updateScore(int productNo);
 }

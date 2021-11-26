@@ -1,5 +1,6 @@
 package com.kh.dpr.cart.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.kh.dpr.cart.model.vo.Cart;
@@ -18,4 +19,8 @@ public interface CartDAO {
 	int changeAmountM(Cart c);
 	
 	String loadImage(int productNo);
+
+	int delete(HashMap<String, Object> d);
+
+	int newSize(Cart c);
 }
