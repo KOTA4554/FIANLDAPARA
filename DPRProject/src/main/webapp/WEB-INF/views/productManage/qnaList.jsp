@@ -190,7 +190,8 @@ li {
 
 	    </tr>
 	    <c:forEach items="${qnaList}" var="qna" varStatus="status">
-		    <tr class="prodListRows" id="${qna.getQNo()}">
+		  
+		    <tr onclick="goAnswer(${qna.getQNo()}, ${qna.getQStatus()});"; class="prodListRows" id="${qna.getQNo()}">
 		    	<td class="qnaRowQno">${qna.getQNo()}</td>
 				<td class="qnaRowPno">${qpList[status.index].productNo}</td>
 				<td class="qnaRowBrand">${qpList[status.index].productBrand}</td>
@@ -209,6 +210,15 @@ li {
 
 <script>
 
+function goAnswer(qno, qstatus){
+	
+	location.href="${pageContext.request.contextPath}/product/answer.do?qNo="+qno+"&qStatus="+qstatus;
+	
+	
+	
+	
+	
+}
 
 </script>
 
