@@ -23,6 +23,7 @@
    <delete id="deleteSeller" parameterType="string">
       UPDATE SELLER SET SELLERSTATUS = 'N', SELLERDROPDATE = SYSDATE WHERE SELLERID = #{sellerId}
    </delete>
+
    
    <!-- <select id="loginMember" parameterType="Member" resultType="Member">
       SELECT * FROM MEMBER

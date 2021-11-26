@@ -2,14 +2,23 @@
 package com.kh.dpr.seller.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -187,6 +196,7 @@ public class SellerController {
       String sellerId = seller.getSellerId();
       
       List<Delivery> list = sellerService.selectDelList(sellerId, cPage, numPerPage);
+      System.out.println(list);
       
       int totalOrder = sellerService.selectTotalOrder(sellerId);
       String pageBar = Utils.getPageBar(totalOrder, cPage, numPerPage, "productList.do");
@@ -212,7 +222,7 @@ public class SellerController {
         Cell cell = null;
         int rowNum = 0;
         
-        String[] header = {"주문번호", "주문상세번호", "택배사", "운송장번호", "상품번호", "상품명",
+        String[] header = {"주문상세번호", "택배사", "운송장번호", "상품번호", "상품명",
                            "결제일", "아이디", "수령인", "연락처", "배송주소", "배송요청사항"};
         
         System.out.println(list);
@@ -228,11 +238,9 @@ public class SellerController {
            
            row = sheet.createRow(rowNum++);
            cell = row.createCell(cellNum++);
-           cell.setCellValue(del.getOrderNo());
-           cell = row.createCell(cellNum++);
            cell.setCellValue(del.getDetailNo());
            cell = row.createCell(cellNum++);
-           cell.setCellValue(del.getDeliveryCode());
+           cell.setCellValue(del.getDeliveryName());
            
            cell = row.createCell(cellNum++);
            
@@ -267,10 +275,103 @@ public class SellerController {
         wb.close();
     }
    
-   @RequestMapping("seller/uploadExcel.do")
-   public void uploadExcel(@RequestParam(value="fileSelector", required=false) MultipartFile excelFile) {
-      
-      System.out.println(excelFile);
-      
-   }
+    @RequestMapping("seller/uploadExcel.do")
+    public String uploadExcel(@RequestParam(value="excelFile", required=false) MultipartFile excelFile,
+		   				   Model model) {
+	    
+    	List<Delivery> list = new ArrayList<>();
+    	
+    	String originName = excelFile.getOriginalFilename();
+    	int colNum = 0;
+    	try {
+    		OPCPackage opcPackage = OPCPackage.open(excelFile.getInputStream());
+    		XSSFWorkbook workbook = new XSSFWorkbook(opcPackage);
+    	  
+    		XSSFSheet sheet = workbook.getSheetAt(0);
+    		
+    		for(int i = 1; i < sheet.getLastRowNum()+1; i++) {
+    			Delivery delivery = new Delivery();
+    			XSSFRow row = sheet.getRow(i);
+    			
+    			if(row == null) { continue; }
+    			
+    			XSSFCell cell = row.getCell(0);
+    			if(cell != null) { delivery.setDetailNo((int)cell.getNumericCellValue()); }
+
+    			cell = row.getCell(1);
+    			if(cell != null) { delivery.setDeliveryName(cell.getStringCellValue()); }
+    			
+    			cell = row.getCell(2);
+    			if(cell != null) { delivery.setDeliveryNo((long)(cell.getNumericCellValue())); }
+    			
+    			cell = row.getCell(3);
+    			if(cell != null) { delivery.setProductNo((int)cell.getNumericCellValue()); }
+    			
+    			list.add(delivery);
+    			
+    		}
+		
+    	} catch (InvalidFormatException | IOException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	System.out.println(list);
+    	
+    	int result = sellerService.insertDelivery(list);
+    	if(result > 0) {
+    		loc = "/seller/delivery.do";
+    		msg = result + "개 상품의 배송 정보를 등록하였습니다.";
+    	} else {
+    		loc = "/seller/delivery.do";
+    		msg = "배송 정보 등록이 실패하였습니다.";
+    	}
+    	
+    	model.addAttribute("loc", loc);
+    	model.addAttribute("msg", msg);
+    	
+    	return "common/msg";
+    }
+    
+    @RequestMapping("seller/deliverySearch.do")
+	public String searchDeliveryList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+									 @RequestParam(value="startDate", required=false) String startDate,
+									 @RequestParam(value="endDate", required=false) String endDate,
+									 @RequestParam(value="delState", required=false, defaultValue="999") int delState,
+									 @RequestParam(value="searchNm", required=false) String searchNm,
+									 @RequestParam(value="searchPno", required=false, defaultValue="-1") int searchPno,
+									 Seller seller, Model model) {
+    	
+    	int numPerPage = 50;
+		String sellerId = seller.getSellerId();
+		
+		Map<String, Object> map= new HashMap<>();
+		
+		if( startDate != null && !startDate.equals("")) {
+			Date startD = Date.valueOf(startDate);			
+			map.put("startDate", startD);
+		}
+		
+		if( endDate != null && !endDate.equals("")) {
+			Date endD = Date.valueOf(endDate);
+			map.put("endDate", endD);
+			
+		}
+		
+		map.put("sellerId", sellerId);
+		map.put("searchNm", searchNm);
+		map.put("delState", delState);
+		map.put("searchPno", searchPno);
+    	
+		List<Map<String, String>> list = sellerService.searchDeliveryList(map, cPage, numPerPage);
+		int totalDelivery = sellerService.countSearched(map);
+		
+		String pageBar = Utils.getPageBar(totalDelivery, cPage, numPerPage, "delivery.do");
+		
+		model.addAttribute("list", list);
+		model.addAttribute("totalDelivery", totalDelivery);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+		
+    	return "seller/delivery";
+    }
 }

@@ -27,13 +27,14 @@ public class Delivery {
 	private int detailNo;
 	
 	private int productNo;
-	private int deliveryNo;
+	private long deliveryNo;
 	private int processCode;
 	private int paymentCode;
 	private int detailAmount;
 	private int detailPrice;
 	private Date payDate;
 	private String detailSize;
+	private String deliveryName;
 	
 	private int deliveryCode;
 	private String productName;

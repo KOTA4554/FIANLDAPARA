@@ -1,6 +1,7 @@
 package com.kh.dpr.seller.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,4 +43,26 @@ public class SellerService {
    public int deleteSeller(String sellerId) {
       return sellerDAO.deleteSeller(sellerId);
    }
+
+public int insertDelivery(List<Delivery> list) {
+	int totalResult = 0;
+	int cnt = 0;
+	for(Delivery delivery : list) {
+		totalResult = sellerDAO.insertDelivery(delivery);
+		if(totalResult > 0) {
+			totalResult = sellerDAO.updateOrderDetail(delivery);
+		}
+		cnt++;
+	}
+	
+	return cnt;
+}
+
+public List<Map<String, String>> searchDeliveryList(Map<String, Object> map, int cPage, int numPerPage) {
+	return sellerDAO.searchDeliveryList(map, cPage, numPerPage);
+}
+
+public int countSearched(Map<String, Object> map) {
+	return sellerDAO.countSearched(map);
+}
 }
