@@ -57,10 +57,10 @@
 
         #report { border-collapse:collapse; width:1150px, padding-right : 10px;}
         #report h4 { margin:0px; padding:0px;}
-        #report th { background: rgb(237, 237, 240) url(header_bkg.png) repeat-x scroll center left; padding:7px 15px; text-align:left;}
+        #report th { background: rgb(237, 237, 240) repeat-x scroll center left; padding:7px 15px; text-align:left;}
         #report td { background:#white none repeat-x scroll center left; color:#000; padding:7px 15px; }
         #report tr.odd td { background:#fff url(row_bkg.png) repeat-x scroll center left; cursor:pointer; padding-right : 10px;}
-        #report div.arrow { background:transparent url(arrows.png) no-repeat scroll 0px 0x; width:0px; height:16px; display:block;}
+        #report div.arrow { background:transparent  no-repeat scroll 0px 0x; width:0px; height:16px; display:block;}
         #report div.up { background-position:0px 0px;}
      
      
@@ -304,26 +304,32 @@
             
             <th width="80px" style="text-align: center; height: 40px;">아이디</th>
             <th width="980px" style="text-align: center;">제목</th>
+            <th width="100px" style="text-align: center;">답변여부</th>
             <th width="100px" style="text-align: center;">작성일</th>
             <th ></th>
         </tr>
       
       
        <c:forEach var="qnaList" items="${qna}" varStatus="status">
-        <tr style="border-bottom: 1px solid rgb(237, 237, 240);"">
+        <tr style="border-bottom: 1px solid white;"">
            
-            <td>${ qnaList.userId}</td>
-            <td>${ qnaList.getQTitle()}</td>
-            <td>${ qnaList.qdate}</td>
+            <td>${qnaList.userId}</td>
+            <td>${qnaList.getQTitle()}</td>
+            <td>${qnaList.getQStatus()}</td>
+            <td>${qnaList.qdate}</td>
              <td><div class="arrow"></div></td>
 
         </tr>
         <tr>
-            <td colspan="5" style="background-color:rgb(237, 237, 240);padding-right:50px; border-bottom: 1px solid black; padding-top:7px; padding-bottom:7px;">             
-             
+            <td style="background-color:rgb(237, 237, 240); border-bottom: 1px solid black;"></td>
+        
+            <td style="background-color:rgb(237, 237, 240); border-bottom: 1px solid black; padding-top:7px; padding-bottom:7px;">                        
                 ${ qnaList.getQContent()}
-             
             </td>
+            <td style="background-color:rgb(237, 237, 240);border-bottom: 1px solid black;"></td>
+            <td style="background-color:rgb(237, 237, 240);border-bottom: 1px solid black;"></td>
+            <td style="background-color:rgb(237, 237, 240);border-bottom: 1px solid black;"></td>
+            
         </tr>
         </c:forEach>
    
@@ -338,7 +344,7 @@
                                  <tr>
                                  <td width="80px"> </td>
                                  <td width="1060px"; colspan='2'; style ="text-align:left" >
-                                  <input name="qTitle" type="text" placeholder="제목을 입력해 주세요"; style ="width:950px; height:30px; margin-left:15px;"/>
+                                  <input name="qTitle" type="text" placeholder="제목을 입력해 주세요"; style ="width:950px; height:30px; margin-left:15px; outline:none"/>
                                  </td>
                                  
                                  </tr>
@@ -346,7 +352,7 @@
                                    <tr>
                                     <td width="80px"   style="text-align: left; font-weight: 700;">${member.userId}</td>
                                     <td width="980px" style="text-align: center">
-                                    <input name="qContent" type="text" style="width: 950px; height: 75px; border-width: 1px; border-radius: 5px; border-color: #b8b8b8;" />
+                                    <input name="qContent" type="text" style="width: 950px; height: 75px; border-width: 1px;  border-color: #b8b8b8; border-top:none; outline:none;"/>
                                    
                                     <input type="hidden" name="userId" value="${member.userId}";    />
                                     <input type="hidden" name="productNo" value="${prod.productNo}";    />                                    
@@ -354,7 +360,7 @@
                                     <td width="80px"
                                        style="text-align: center; font-size: 15px;">
                                 
-                                       <button type ="submit";   style="height: 50px; border-width: 1px; border-radius: 5px; border-color: #b8b8b8;">문의하기</button>
+                                       <button type ="submit";   style="height: 50px; border-width: 1px; border-radius: 5px; border-color: #b8b8b8; ">문의하기</button>
                                      </td>
 
                                  </tr>
