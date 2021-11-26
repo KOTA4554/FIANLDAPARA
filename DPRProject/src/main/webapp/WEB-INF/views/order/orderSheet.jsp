@@ -164,7 +164,7 @@
 					</tr>
 					
 					<c:forEach var="product" items="${productList}" varStatus = "status">
-						<tr>
+						<tr >
 							<td rowspan="3" id="productImage">
 								<img src="${pageContext.request.contextPath}/resources/productUpload/${productImgList[status.index]}" width="120" height="120" alt="상품이미지">
 							</td><!-- ${ getProductImage } -->
@@ -178,11 +178,11 @@
 								<input type="text" name="detailAmount" value="${detailAmountList[status.index]}" size="3" readonly/>
 								<!-- ${ productAmount } -->
 							</td>
-							<td rowspan="3" align="center">
+							<td rowspan="3" align="center" style="width:250px;">
 								<input type="text" name="detailPrice" value="${detailPriceList[status.index]}" size="15" readonly/>
 								<!-- ${ detailPrice } -->
 							</td>
-							<td rowspan="3" align="center">무료</td>
+							<td rowspan="3" align="center" style="border-right : none;">무료</td>
 						</tr>
 						<tr>
 							<td style="padding-left: 5px; width:500px;">
@@ -190,7 +190,7 @@
 								<!-- ${ getProductName } -->
 							</td>
 						</tr>
-						<tr>
+						<tr class="tr2">
 							<td style="padding-left: 5px; width:500px;">
 								옵션 : <input type="text" name="detailSize" value="${detailSizeList[status.index]}" size="50"  readonly/>
 								<!-- ${ detailSize } -->

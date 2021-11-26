@@ -15,5 +15,7 @@ public interface MemberService {
 	
 	int checkIdDuplicate(String userId);
 
+	String findId(Member m);
+
 }
 

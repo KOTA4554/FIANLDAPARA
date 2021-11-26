@@ -14,7 +14,7 @@
 
 	
 	<select id="selectMember" parameterType="string" resultType="Member">
-		SELECT * FROM "USER" WHERE USERID = #{userId}
+		SELECT * FROM "USER" WHERE USERID = #{userId} AND USERSTATUS = 'Y'
 	</select>
 	
 	<update id="updateMember" parameterType="Member">
@@ -22,6 +22,11 @@
 	</update>
 	
 	<delete id="deleteMember" parameterType="string">
-		DELETE FROM "USER" WHERE USERID = #{userId}
+		UPDATE "USER" SET USERSTATUS = 'N', USERDROPDATE = SYSDATE WHERE USERID = #{userId}
 	</delete>
+	
+	<select id="findId" parameterType="Member" resultType="string">
+		SELECT USERID FROM "USER" WHERE USERNAME = #{userName} AND USERPHONE = #{userPhone} AND USEREMAIL = #{userEmail}
+	</select>
+	
 </mapper>

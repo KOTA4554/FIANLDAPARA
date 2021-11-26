@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.dpr.order.model.vo.Delivery;
+import com.kh.dpr.seller.model.vo.Gross;
 import com.kh.dpr.seller.model.vo.Seller;
+import com.kh.dpr.seller.model.vo.SellerStat;
 
 @Repository
 public class SellerDAO {
@@ -67,5 +69,29 @@ public class SellerDAO {
 
 	public int countSearched(Map<String, Object> map) {
 		return sqlSession.selectOne("deliverySQL.countSearched", map);
+	}
+
+	public SellerStat getClaimCnt(String sellerId) {
+		return sqlSession.selectOne("sellerSQL.getClaimCnt", sellerId);
+	}
+
+	public SellerStat getProductCnt(String sellerId) {
+		return sqlSession.selectOne("sellerSQL.getProductCnt", sellerId);
+	}
+
+	public SellerStat getDeliveryCnt(String sellerId) {
+		return sqlSession.selectOne("sellerSQL.getDeliveryCnt", sellerId);
+	}
+
+	public SellerStat getReviewCnt(String sellerId) {
+		return sqlSession.selectOne("sellerSQL.getReviewCnt", sellerId);
+	}
+
+	public SellerStat getQnaCnt(String sellerId) {
+		return sqlSession.selectOne("sellerSQL.getQnaCnt", sellerId);
+	}
+
+	public List<Gross> getSaleGross(Map setting) {
+		return sqlSession.selectList("sellerSQL.getSaleGross", setting);
 	}
 }

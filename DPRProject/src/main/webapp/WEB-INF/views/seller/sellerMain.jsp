@@ -63,7 +63,6 @@
     .sellerInfoAtag {
     	font-weight: 700;
     }
-
     </style>
 </head>
 <body>
@@ -73,7 +72,7 @@
     <div id="order">
         <div class="stateTitles">
             <div class="stateTitleName">주문/배송 현황</div>
-            <span class="explainTitles">최근 1개월 기준</span>
+            <span class="explainTitles">&nbsp;</span>
         </div>
         <ul class="sellerInfoUl">
             <li>
@@ -82,11 +81,11 @@
             </li>
             <li>
                 <div class="titles">운송장 등록 대기</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong><a href="" class="sellerInfoAtag">${delivery.waitDel} 건</a></strong>
             </li>
             <li>
                 <div class="titles">운송장 등록 완료</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong><a href="" class="sellerInfoAtag">${delivery.completeDel} 건</a></strong>
             </li>
             <li>
                 <div class="titles">배송중</div>
@@ -102,20 +101,29 @@
     <div id="cancel">
         <div class="stateTitles">
             <div class="stateTitleName">취소/환불/교환 현황</div>
-            <span class="explainTitles">최근 1개월 기준</span>
+            <span class="explainTitles">직전 30일 이내</span>
         </div>
         <ul class="sellerInfoUl">
             <li>
                 <div class="titles">취소 요청</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong>
+                	<a href="" class="sellerInfoAtag unsolve">미완료 ${claim.unsolvedCancle} 건</a> | 
+                	<a href="" class="sellerInfoAtag totalClaim">전체 ${claim.totalCancle} 건</a>
+                </strong>
             </li>
             <li>
                 <div class="titles">환불 요청</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong>
+                	<a href="" class="sellerInfoAtag unsolve">미완료 ${claim.unsolvedRefund} 건</a> | 
+                	<a href="" class="sellerInfoAtag totalClaim">전체 ${claim.totalRefund} 건</a>
+                </strong>
             </li>
             <li>
                 <div class="titles">교환 요청</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong>
+                	<a href="" class="sellerInfoAtag unsolve">미완료 ${claim.unsolvedSwap} 건</a> | 
+                	<a href="" class="sellerInfoAtag totalClaim">전체 ${claim.totalSwap} 건</a>
+                </strong>
             </li>
         </ul>
     </div>
@@ -128,12 +136,16 @@
         <ul class="sellerInfoUl">
             <li>
                 <div class="titles">고객 문의</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a> | <a href="" class="sellerInfoAtag">미답변 0 건</a></strong>
+                <strong>
+                	<a href="" class="sellerInfoAtag">미답변 ${qna.unsolvedQna} 건</a> | 
+                	<a href="" class="sellerInfoAtag">전체 ${qna.qna} 건</a>
+                </strong>
             </li>
 
             <li>
                 <div class="titles">고객 리뷰</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong><a href="" class="sellerInfoAtag">${review.reviewCnt} 건 
+                (응답률 : <fmt:formatNumber value="${review.reviewCnt/review.orderCnt}" type="percent"/>)</a></strong>
             </li>
         </ul>
     </div>
@@ -141,23 +153,28 @@
     <div id="product">
         <div class="stateTitles">
             <div class="stateTitleName">판매상품 현황</div>
-            <span class="explainTitles">&nbsp;</span>
+            <span class="explainTitles">: 종료 임박 상품 = 종료 3일 이내</span>
         </div>
         <ul class="sellerInfoUl">
             <li>
                 <div class="titles">판매 중 상품</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong><a href="" class="sellerInfoAtag">${product.sellProduct} 건</a></strong>
             </li>
             <li>
                 <div class="titles">종료임박 상품</div>
-                <strong><a href="" class="sellerInfoAtag">0 건</a></strong>
+                <strong><a href="" class="sellerInfoAtag">${product.impendProduct} 건</a></strong>
             </li>
+            <li>
+                <div class="titles">판매 종료 상품</div>
+                <strong><a href="" class="sellerInfoAtag">${product.endProduct} 건</a></strong>
+            </li>
+            
         </ul>
     </div>
     <div id="chartDiv">
         <div class="stateTitles">
             <div class="stateTitleName">일일 매출 통계</div>
-            <span class="explainTitles">당일 00시부터 조회 시간의 -1시 까지의 매출 통계입니다. (상품 주문 기준)</span>
+            <span class="explainTitles">당일 00시부터의 시간 별 실시간 매출 통계입니다. (상품 주문 기준)</span>
             <br><span class="explainTitles"> : select sum(*) ... where sellerID = 로그인셀러 having 시간 별로 합산하여 dataset에 추가</span>
         </div> 
         <canvas id="chart"></canvas>
@@ -169,13 +186,21 @@
 <script>
     // === include 'setup' then 'config' above ===
     
+    var grossList = [];
+    <c:forEach items="${gross}" var="gross" varStatus="status">
+    	grossList.push(${gross.gross})
+    </c:forEach>
+    
+    console.log(grossList);
+    
+    	
     var config = {
         type: 'line',
         data: {
         labels: ['00시', '01시', '02시', '03시', '04시', '05시', '06시', '07시', '08시', '09시', '10시', '11시', '12시', '13시', '14시', '15시', '16시', '17시', '18시', '19시', '20시', '21시', '22시', '23시'],
         datasets: [{
             label: '시간 별 매출액',
-            data: [30000, 0, 120000, 250000, 2, 3],
+            data: grossList,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
 

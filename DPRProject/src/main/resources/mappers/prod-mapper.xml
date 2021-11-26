@@ -24,7 +24,7 @@
    </select>
 
 <select id="random" resultType="Product">   
-   SELECT * FROM(SELECT * FROM PRODUCT_DETAIL ORDER BY DBMS_RANDOM.RANDOM) WHERE ROWNUM &lt; 5
+   SELECT * FROM(SELECT * FROM PRODUCT_DETAIL WHERE PRODUCTSTATUS = 'Y' ORDER BY DBMS_RANDOM.RANDOM) WHERE ROWNUM &lt; 5
 </select>
    
    <select id="randomImage" parameterType="int" resultType="string">
@@ -32,11 +32,11 @@
    </select>
    
    <insert id="qnaInsert" parameterType="QnA" >
-   INSERT INTO QNA VALUES(SEQ_QNA.NEXTVAL, #{userId}, #{productNo}, #{qTitle}, #{qContent}, SYSDATE, 'Y')
+   INSERT INTO QNA VALUES(SEQ_QNA.NEXTVAL, #{userId}, #{productNo}, #{qTitle}, #{qContent}, SYSDATE, 'N')
    </insert>
    
    <select id="qna" parameterType="int" resultType="QnA">
-   SELECT * FROM QNA WHERE PRODUCTNO = #{prodNo} AND QSTATUS = 'Y'
+   SELECT * FROM QNA WHERE PRODUCTNO = #{prodNo}
    </select>
    
 

@@ -3,6 +3,7 @@ package com.kh.dpr.seller.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +34,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.dpr.common.Utils;
 import com.kh.dpr.order.model.vo.Delivery;
 import com.kh.dpr.seller.model.service.SellerService;
+import com.kh.dpr.seller.model.vo.Gross;
 import com.kh.dpr.seller.model.vo.Seller;
+import com.kh.dpr.seller.model.vo.SellerStat;
 
 @Controller
 @SessionAttributes({"seller"})
@@ -61,8 +64,33 @@ public class SellerController {
    }
    
    @RequestMapping("seller/sellerMain.do")
-   public String sellerMain() {
+   public String sellerMain(Seller seller, Model model) {
       
+	  String sellerId = seller.getSellerId();
+	  
+	  SellerStat claim = sellerService.getClaimCnt(sellerId); 
+	  SellerStat product = sellerService.getProductCnt(sellerId);
+	  SellerStat delivery = sellerService.getDeliveryCnt(sellerId);
+	  SellerStat review = sellerService.getReviewCnt(sellerId);
+	  SellerStat qna = sellerService.getQnaCnt(sellerId);
+	  
+	  model.addAttribute("claim", claim);
+	  model.addAttribute("product", product);
+	  model.addAttribute("delivery", delivery);
+	  model.addAttribute("review", review);
+	  model.addAttribute("qna", qna);
+	  
+	  Map setting = new HashMap();
+	  // String currentDate = new SimpleDateFormat("yy-MM-dd").format(new java.util.Date());
+	  Date today = new Date(System.currentTimeMillis());
+	  
+	  setting.put("sellerId", sellerId);
+	  setting.put("today", today);
+	  
+	  
+	  List<Gross> gross = sellerService.getSaleGross(setting);
+	  model.addAttribute("gross", gross);	  
+
       return "seller/sellerMain";
    }
    
@@ -111,22 +139,29 @@ public class SellerController {
          if(bcryptPasswordEncoder.matches(sellerPw, seller.getSellerPw())) {
             
             model.addAttribute("seller", seller);
-            System.out.println("seller : " + seller);
-            return "seller/sellerMain";
-
+            System.out.println("seller : " + seller);            
+            loc = "/seller/sellerMain.do";
+            msg = "로그인 되었습니다.";
+            
+            model.addAttribute("loc", loc);
+            model.addAttribute("msg", msg);
+            
          } else {
             // 비밀번호 불일치 시 로직
+        	 
             msg = "비밀번호가 일치하지 않습니다.";
             model.addAttribute("loc", loc);
             model.addAttribute("msg", msg);
-            return "common/msg";
          }
+         
       } else {
+         
          msg = "존재하지 않는 아이디입니다.";
          model.addAttribute("loc", loc);
          model.addAttribute("msg", msg);
-         return "common/msg";
       }      
+
+      return "common/msg";
    }
    
    @RequestMapping("seller/logout.do")

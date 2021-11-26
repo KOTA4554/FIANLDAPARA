@@ -177,6 +177,8 @@ padding-left: 20px;
 
 
 
+
+
     </style>
 </head>
 <body>
@@ -465,6 +467,9 @@ $('.deleteCart').click(function(){
   
 
     var list = $("input:checkbox[name='check']:checked");
+    
+    
+    
 	    for(var i = 0; i < list.length; i++){
     	if(list[i].checked){
         valueArr.push(list[i].value);

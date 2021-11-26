@@ -14,5 +14,7 @@ public interface MemberDAO {
 	
 	int checkIdDuplicate(String userId);
 
+	String findId(Member m);
+
 }
 

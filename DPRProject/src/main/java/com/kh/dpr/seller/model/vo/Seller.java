@@ -37,4 +37,10 @@ public class Seller implements Serializable {
 		this.sellerPw = sellerPw;
 	}
 	
+	public Seller(String sellerName, String sellerCompany, String sellerPhone) {
+		this.sellerName = sellerName;
+		this.sellerCompany = sellerCompany;
+		this.sellerPhone = sellerPhone;
+	}
+	
 }
