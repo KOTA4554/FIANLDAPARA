@@ -37,15 +37,23 @@
    
    
    <!-- 인터셉터 등록하기 -->
-   <!-- <interceptors>
+   <interceptors>
       <interceptor>
-         <mapping path="/member/memberView.do"/>
-         <mapping path="/member/memberUpdate.do"/>
-         <mapping path="/board/**/*.do"/>
-         <exclude-mapping path="/board/boardList.do"/>
-         <beans:bean id="loginCheck" class="com.kh.spring.common.LoginInterceptor"/>
+         <mapping path="/myPage/*.do"/>
+         <mapping path="/prod/cart.do"/>
+         <mapping path="/order/*.do"/>
+         <mapping path="/qnaInsert.do"/>
+         
+         <!-- <exclude-mapping path="/board/boardList.do"/> -->
+         <beans:bean id="loginCheck" class="com.kh.dpr.common.LoginInterceptor"/>
       </interceptor>
-   </interceptors> -->
+      
+      <interceptor>
+         <mapping path="/seller/*.do"/>
+        
+         <beans:bean id="SellerloginCheck" class="com.kh.dpr.common.SellerLoginInterceptor"/>
+      </interceptor>
+   </interceptors>
    
    <!-- MultipartResolver : 파일 업로드를 처리하는 클래스  -->
    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
