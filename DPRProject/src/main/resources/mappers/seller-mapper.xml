@@ -80,7 +80,7 @@
 		<![CDATA[
 		SELECT TIMEHOURS, NVL(SALES.GR, 0) AS GROSS
 		FROM ( SELECT SALESPERHOUR, SUM(DETAILPRICE) GR
-       		   FROM ( SELECT DETAILPRICE, TO_CHAR(PAYDATE, 'HH') SALESPERHOUR
+       		   FROM ( SELECT DETAILPRICE, TO_CHAR(PAYDATE, 'HH24') SALESPERHOUR
              		  FROM ORDERDETAIL
             		  LEFT JOIN PRODUCT_DETAIL USING(PRODUCTNO)
                WHERE SELLERID = #{sellerId} AND TO_CHAR(PAYDATE, 'DD') = TO_CHAR(SYSDATE, 'DD') )
@@ -90,6 +90,92 @@
 		ORDER BY TIMEHOURS
 		]]>
 		<!-- 날짜 추가 필요? AND PAYDATE <= SYSDATE-1  -->
+	</select>
+	
+	<select id="getCalculate" parameterType="map" resultType="Calculate">
+		SELECT (SELECT SUM(DETAILPRICE) TOTALGROSS
+		        FROM ORDERDETAIL
+		        LEFT JOIN PRODUCT_DETAIL USING(PRODUCTNO)
+		        LEFT JOIN CLAIMINFO USING(DETAILNO)
+		        WHERE SELLERID = #{sellerId}
+		        <if test="startDate != null">
+			      	<![CDATA[
+			    	AND PAYDATE >= #{startDate}
+			      	]]>
+			    </if>
+			    <if test="endDate != null">
+			      	<![CDATA[
+			    	AND PAYDATE <= #{endDate}
+			      	]]>
+			    </if>
+		        ) TOTALGROSS,
+
+        		(SELECT SUM(DETAILPRICE) CANCLEGROSS
+		        FROM ORDERDETAIL
+		        LEFT JOIN PRODUCT_DETAIL USING(PRODUCTNO)
+		        LEFT JOIN CLAIMINFO USING(DETAILNO)
+		        WHERE SELLERID = #{sellerId} AND CLAIMCODE IS NOT NULL
+		        <if test="startDate != null">
+			      	<![CDATA[
+			    	AND CLAIMDATE >= #{startDate}
+			      	]]>
+			    </if>
+			    <if test="endDate != null">
+			      	<![CDATA[
+			    	AND CLAIMDATE <= #{endDate}
+			      	]]>
+			    </if>
+		        ) CANCLEGROSS
+		FROM DUAL
+	</select>
+	
+	<select id="getMonthlyGross" parameterType="map" resultType="Calculate">
+	SELECT  c.MONTH, a.TOTALMONTHGROSS, b.CANCLEMONTHGROSS
+	FROM
+	    (SELECT SUM(DETAILPRICE) TOTALMONTHGROSS, TO_CHAR(PAYDATE, 'YYYY-MM') MONTH
+	    FROM ORDERDETAIL
+	    LEFT JOIN PRODUCT_DETAIL USING(PRODUCTNO)
+	    LEFT JOIN CLAIMINFO USING(DETAILNO)
+	    WHERE SELLERID = #{sellerId}
+	    <if test="startDate != null">
+		   	<![CDATA[
+		    	AND PAYDATE >= #{startDate}
+		   	]]>
+		</if>
+		<if test="endDate != null">
+		   	<![CDATA[
+			   	AND PAYDATE <= #{endDate}
+	    	]]>
+	    </if>
+	    GROUP BY TO_CHAR(PAYDATE, 'YYYY-MM')) a,
+	    
+	    (SELECT SUM(DETAILPRICE) CANCLEMONTHGROSS, TO_CHAR(PAYDATE, 'YYYY-MM') MONTH
+	    FROM ORDERDETAIL
+	    LEFT JOIN PRODUCT_DETAIL USING(PRODUCTNO)
+	    LEFT JOIN CLAIMINFO USING(DETAILNO)
+	    WHERE SELLERID = #{sellerId} AND CLAIMCODE IS NOT NULL
+	    <if test="startDate != null">
+		   	<![CDATA[
+		    	AND PAYDATE >= #{startDate}
+		   	]]>
+		</if>
+		<if test="endDate != null">
+		   	<![CDATA[
+			   	AND PAYDATE <= #{endDate}
+	    	]]>
+	    </if>	    
+	    GROUP BY TO_CHAR(PAYDATE, 'YYYY-MM')) b,
+    	<![CDATA[
+	    (SELECT TO_CHAR(DT, 'YYYY-MM') MONTH
+	    FROM
+	        (SELECT #{startDate} + LEVEL -1 AS DT
+	        FROM DUAL CONNECT BY LEVEL <= (#{endDate} - #{startDate}+1)) OK
+	    GROUP BY TO_CHAR(DT, 'YYYY-MM')
+	    ORDER BY MONTH) c
+	    ]]>
+	WHERE c.MONTH = a.MONTH(+) AND c.MONTH = b.MONTH(+)
+	ORDER BY MONTH DESC
+	
 	</select>
 
 </mapper>
