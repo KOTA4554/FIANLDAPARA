@@ -106,4 +106,37 @@ public class ReviewController {
 			
 	}
 	
+	@RequestMapping("/reviewDetail.do")
+	public String reviewDetail(@RequestParam int reviewNo, Model model) {
+		
+		Review review = reviewService.selectReivew(reviewNo);
+		
+		int detailNo = review.getDetailNo();
+		
+		Product product = reviewService.selectProduct(detailNo); 
+		
+		int productNo = product.getProductNo();
+		
+		String sizeName = reviewService.selectSizeName(detailNo);
+		
+		String productImg = reviewService.selectImg(productNo);
+		
+		model.addAttribute("review", review);
+		model.addAttribute("detailNo", detailNo);
+		model.addAttribute("product", product);
+		model.addAttribute("sizeName", sizeName);
+		model.addAttribute("productImg", productImg);
+		
+		return "myPage/reviewDetail";
+	}
+	
+	@RequestMapping("/reviewDel.do")
+	public String reviewDel(@RequestParam int reviewNo, Model model) {
+		
+		int result = reviewService.deleteReview(reviewNo);
+		
+		return "common/msg";
+	}
+	
+	
 }
