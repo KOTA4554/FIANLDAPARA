@@ -297,9 +297,19 @@ li {
             tension: 0.25
         	}]
     	},
-        options: {
-        	responsive: false
-        }
+    	 options: {
+         	responsive: false,
+             scales: {
+             	yAxes: [{
+                     display: true,
+                     ticks: {
+                         suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+                         // OR //
+                         //beginAtZero: true   // minimum value will be 0.
+                     }
+                 }]
+               }
+         }
    	};
 
 
@@ -366,14 +376,19 @@ li {
             tension: 0.25
         	}]
     	},
-        options: {
-        	responsive: false,
-            scales: {
-                y: {
-                  stacked: true
-                }
-              }
-        }
+    	 options: {
+         	responsive: false,
+             scales: {
+             	yAxes: [{
+                     display: true,
+                     ticks: {
+                         suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+                         // OR //
+                         //beginAtZero: true   // minimum value will be 0.
+                     }
+                 }]
+               }
+         }
    	};
 
 
@@ -392,7 +407,8 @@ li {
 		top4Name.push("${top4.productName}");
 		top4Score.push("${top4.productScore}");
 	</c:forEach>
- 	
+ 	console.log(top4Name);
+ 	console.log(top4Score);
  	
 	var config1 = {
         type: 'bar',
@@ -419,9 +435,14 @@ li {
         options: {
         	responsive: false,
             scales: {
-                y: {
-                  stacked: true
-                }
+            	yAxes: [{
+                    display: true,
+                    ticks: {
+                        suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+                        // OR //
+                        //beginAtZero: true   // minimum value will be 0.
+                    }
+                }]
               }
         }
    	};

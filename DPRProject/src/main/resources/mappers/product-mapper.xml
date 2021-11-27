@@ -29,7 +29,6 @@
 		      WHERE I.IMAGECATEGORYNO = 0
 		      ORDER BY P.PRODUCTCOUNT DESC)
 		WHERE ROWNUM &lt; 5
-      
    </select>
    
    <select id="selectTopList" parameterType="int" resultType="Product">

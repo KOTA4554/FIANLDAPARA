@@ -65,6 +65,8 @@ public class StatisticController {
 		// 평점 top4 상품
 		List<Product> top4List = statisticService.selectTop4(sellerId);
 		
+		System.out.println(top4List);
+		
 		// 구매자 성비
 		int userMan = statisticService.selectUserMan(sellerId);
 		int userWoman = statisticService.selectUserWoman(sellerId);
