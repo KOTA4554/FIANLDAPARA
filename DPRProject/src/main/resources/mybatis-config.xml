@@ -31,7 +31,7 @@
 		<typeAlias alias="DeliveryAPI" type="com.kh.dpr.myPage.model.vo.DeliveryAPI"/>
 		<typeAlias alias="Gross" type="com.kh.dpr.seller.model.vo.Gross"/>
 		<typeAlias alias="MonthRev" type="com.kh.dpr.statistic.model.vo.MonthRevenue"/>
-
+		<typeAlias alias="Calculate" type="com.kh.dpr.seller.model.vo.Calculate"/>
  	</typeAliases>
  	
  	<!-- 데이터를 DB로 전달할 때, 바구기를 희망하는 자료형을 찾아서
