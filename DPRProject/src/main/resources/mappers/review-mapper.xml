@@ -43,4 +43,14 @@
 	<select id="selectReview" parameterType="int" resultType="Review">
 		SELECT * FROM REVIEW WHERE REVIEWNO = #{reviewNo}
 	</select>
+	
+	<delete id="deleteReview" parameterType="int">
+		DELETE REVIEW WHERE REVIEWNO = #{reviewNo}
+	</delete>
+	
+	<update id="updateReview" parameterType="Review">
+		UPDATE REVIEW SET REVIEWCONTENT = #{reviewContent}, REVIEWSCORE = #{reviewScore}
+						, REVIEWOLDIMAGE = #{reviewOldImage}, REVIEWNEWIMAGE = #{reviewNewImage}
+		WHERE REVIEWNO = #{reviewNo}
+	</update>
 </mapper>

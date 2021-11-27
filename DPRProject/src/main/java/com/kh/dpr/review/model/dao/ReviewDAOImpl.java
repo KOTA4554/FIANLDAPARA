@@ -57,8 +57,14 @@ public class ReviewDAOImpl implements ReviewDAO {
 
 	@Override
 	public int deleteReview(int reviewNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return sqlSession.delete("reviewSQL.deleteReview", reviewNo);
+	}
+
+	@Override
+	public int updateReview(Review review) {
+		
+		return sqlSession.update("reviewSQL.updateReview", review);
 	}
 
 }

@@ -81,7 +81,7 @@
 						</div>
 
 						<form action="${pageContext.request.contextPath}/review/reviewUpdate.do" id="reviewForm" method="post" onsubmit="return validate();" enctype="multipart/form-data">
-							<input type="hidden" name="detailNo" value="${ detailNo }">
+							<input type="hidden" name="reviewNo" value="${ review.reviewNo }">
 							<input type="hidden" name="userId" value="${ member.userId }">
 							<div id="starArea">
 								<span class="text">별점</span>
@@ -270,7 +270,12 @@
 	}
 	
 	function reviewDel(reviewNo){
-		location.href="${pageContext.request.contextPath}/review/reviewDel.do?reviewNo" + reviewNo;
+		if(confirm("삭제 시 복구할 수 없습니다. 삭제하시겠습니까?") == true){
+			
+			location.href="${pageContext.request.contextPath}/review/reviewDel.do?reviewNo=" + reviewNo;
+		} else {
+			return false;
+		}
 	}
 	
 </script>
