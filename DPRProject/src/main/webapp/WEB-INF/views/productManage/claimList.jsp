@@ -117,7 +117,7 @@ li {
 <c:import url="../common/header.jsp"/>   
    
 <div class="mainSectionForm">
-   <form action="${pageContext.request.contextPath}/seller/searchClaimList.do"method="post">
+   <form action="${pageContext.request.contextPath}/seller/searchClaimList.do" method="post">
 
    <table border="0">
       <tr>

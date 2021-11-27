@@ -81,11 +81,11 @@
             </li>
             <li>
                 <div class="titles">운송장 등록 대기</div>
-                <strong><a href="" class="sellerInfoAtag">${delivery.waitDel} 건</a></strong>
+                <strong><a href="${pageContext.request.contextPath}/seller/deliverySearch.do?delState=1" class="sellerInfoAtag">${delivery.waitDel} 건</a></strong>
             </li>
             <li>
                 <div class="titles">운송장 등록 완료</div>
-                <strong><a href="" class="sellerInfoAtag">${delivery.completeDel} 건</a></strong>
+                <strong><a href="${pageContext.request.contextPath}/seller/deliverySearch.do?delState=2" class="sellerInfoAtag">${delivery.completeDel} 건</a></strong>
             </li>
             <li>
                 <div class="titles">배송중</div>
@@ -107,22 +107,22 @@
             <li>
                 <div class="titles">취소 요청</div>
                 <strong>
-                	<a href="" class="sellerInfoAtag unsolve">미완료 ${claim.unsolvedCancle} 건</a> | 
-                	<a href="" class="sellerInfoAtag totalClaim">전체 ${claim.totalCancle} 건</a>
+                	<a href="${pageContext.request.contextPath}/seller/claimList.do" class="sellerInfoAtag unsolve">미완료 ${claim.unsolvedCancle} 건</a> | 
+                	<a href="${pageContext.request.contextPath}/seller/claimList.do" class="sellerInfoAtag totalClaim">전체 ${claim.totalCancle} 건</a>
                 </strong>
             </li>
             <li>
                 <div class="titles">환불 요청</div>
                 <strong>
-                	<a href="" class="sellerInfoAtag unsolve">미완료 ${claim.unsolvedRefund} 건</a> | 
-                	<a href="" class="sellerInfoAtag totalClaim">전체 ${claim.totalRefund} 건</a>
+                	<a href="${pageContext.request.contextPath}/seller/claimList.do" class="sellerInfoAtag unsolve">미완료 ${claim.unsolvedRefund} 건</a> | 
+                	<a href="${pageContext.request.contextPath}/seller/claimList.do" class="sellerInfoAtag totalClaim">전체 ${claim.totalRefund} 건</a>
                 </strong>
             </li>
             <li>
                 <div class="titles">교환 요청</div>
                 <strong>
-                	<a href="" class="sellerInfoAtag unsolve">미완료 ${claim.unsolvedSwap} 건</a> | 
-                	<a href="" class="sellerInfoAtag totalClaim">전체 ${claim.totalSwap} 건</a>
+                	<a href="${pageContext.request.contextPath}/seller/claimList.do" class="sellerInfoAtag unsolve">미완료 ${claim.unsolvedSwap} 건</a> | 
+                	<a href="${pageContext.request.contextPath}/seller/claimList.do" class="sellerInfoAtag totalClaim">전체 ${claim.totalSwap} 건</a>
                 </strong>
             </li>
         </ul>
@@ -137,14 +137,14 @@
             <li>
                 <div class="titles">고객 문의</div>
                 <strong>
-                	<a href="" class="sellerInfoAtag">미답변 ${qna.unsolvedQna} 건</a> | 
-                	<a href="" class="sellerInfoAtag">전체 ${qna.qna} 건</a>
+                	<a href="${pageContext.request.contextPath}/seller/qnaList.do" class="sellerInfoAtag">미답변 ${qna.unsolvedQna} 건</a> | 
+                	<a href="${pageContext.request.contextPath}/seller/qnaList.do" class="sellerInfoAtag">전체 ${qna.qna} 건</a>
                 </strong>
             </li>
 
             <li>
                 <div class="titles">고객 리뷰</div>
-                <strong><a href="" class="sellerInfoAtag">${review.reviewCnt} 건 
+                <strong><a href="${pageContext.request.contextPath}/seller/reviewList.do" class="sellerInfoAtag">${review.reviewCnt} 건 
                 (응답률 : <fmt:formatNumber value="${review.reviewCnt/review.orderCnt}" type="percent"/>)</a></strong>
             </li>
         </ul>
@@ -158,15 +158,22 @@
         <ul class="sellerInfoUl">
             <li>
                 <div class="titles">판매 중 상품</div>
-                <strong><a href="" class="sellerInfoAtag">${product.sellProduct} 건</a></strong>
+                <strong><a href="${pageContext.request.contextPath}/seller/searchProd.do?searchNm=&searchCate1=999&searchCate2=999&
+                startDate=&endDate=&saleState=1&searchBrand=&searchPno=" class="sellerInfoAtag">${product.sellProduct} 건</a></strong>
             </li>
             <li>
                 <div class="titles">종료임박 상품</div>
                 <strong><a href="" class="sellerInfoAtag">${product.impendProduct} 건</a></strong>
             </li>
             <li>
+                <div class="titles">판매 대기 상품</div>
+                <strong><a href="${pageContext.request.contextPath}/seller/searchProd.do?searchNm=&searchCate1=999&searchCate2=999&
+                startDate=&endDate=&saleState=2&searchBrand=&searchPno=" class="sellerInfoAtag">${product.impendProduct} 건</a></strong>
+            </li>
+            <li>
                 <div class="titles">판매 종료 상품</div>
-                <strong><a href="" class="sellerInfoAtag">${product.endProduct} 건</a></strong>
+                <strong><a href="${pageContext.request.contextPath}/seller/searchProd.do?searchNm=&searchCate2=999&searchCate2=999&
+                startDate=&endDate=&saleState=3&searchBrand=&searchPno=" class="sellerInfoAtag">${product.endProduct} 건</a></strong>
             </li>
             
         </ul>
@@ -184,8 +191,6 @@
 <c:import url="../common/footer.jsp"/>
 
 <script>
-    // === include 'setup' then 'config' above ===
-    
     var grossList = [];
     <c:forEach items="${gross}" var="gross" varStatus="status">
     	grossList.push(${gross.gross})
@@ -216,7 +221,11 @@
             tension: 0.25
         }]
     },
-        options: {}
+        options: {
+        	scales: {
+        	     	y: { beginAtZero: true }
+        	}
+        }
     };
 
     var myChart = new Chart(
