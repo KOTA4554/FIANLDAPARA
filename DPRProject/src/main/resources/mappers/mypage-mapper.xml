@@ -12,11 +12,11 @@
 	</select>
 	
 	<select id="selectOrderDetailList" parameterType="string" resultType="OrderDetail">
-		SELECT * FROM ORDERDETAIL
+		SELECT * FROM ORDERDETAIL LEFT JOIN CLAIMINFO USING(DETAILNO)
 		WHERE ORDERNO IN (SELECT ORDERNO 
                  		  FROM "ORDER"
                  		  WHERE USERID = #{ userId })
-        ORDER BY DETAILNO DESC
+        ORDER BY DETAILNO DESC 
 	</select>
 	
 	<select id="selectSeller" parameterType="int" resultType="Seller">
@@ -47,6 +47,10 @@
 		                                     FROM ORDERDETAIL
 		                                     WHERE DETAILNO = #{detailNo}))
 			
+	</select>
+	
+	<select id ="selectClaimList" parameterType="int" resultType="Claim">
+			SELECT * FROM CLAIMINFO WHERE DETAILNO = #{detailNo}
 	</select>
 	
 </mapper>

@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.dpr.claim.model.vo.Claim;
 import com.kh.dpr.myPage.model.vo.DeliveryAPI;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
@@ -59,6 +60,12 @@ public class MyPageDAOImpl implements MyPageDAO {
 	public DeliveryAPI selectDelivery(int detailNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("myPageSQL.selectDelivery",detailNo);
+	}
+
+	@Override
+	public Claim selectClaimList(int detailNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("myPageSQL.selectClaimList", detailNo);
 	}
 
 }

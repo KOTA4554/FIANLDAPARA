@@ -2,6 +2,7 @@ package com.kh.dpr.myPage.model.service;
 
 import java.util.List;
 
+import com.kh.dpr.claim.model.vo.Claim;
 import com.kh.dpr.myPage.model.vo.DeliveryAPI;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
@@ -23,5 +24,7 @@ public interface MyPageService {
 	int updateComplete(int detailNo);
 
 	DeliveryAPI selectDelivery(int detailNo);
+
+	Claim selectClaimList(int detailNo);
 	
 }

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.dpr.claim.model.vo.Claim;
 import com.kh.dpr.member.model.vo.Member;
 import com.kh.dpr.myPage.model.service.MyPageService;
 import com.kh.dpr.myPage.model.vo.DeliveryAPI;
@@ -41,6 +42,15 @@ public class MypageController {
 		
 		// orderNo 일치하는 orderDetail
 		List<OrderDetail> orderDetailList = myPageService.selectOrderDetailList(userId); 
+		
+		List<Claim> claimList = new ArrayList<Claim>();
+		for(int i = 0; i < orderDetailList.size(); i ++) {
+			int detailNo = orderDetailList.get(i).getDetailNo();
+			
+			Claim claim = myPageService.selectClaimList(detailNo);
+			
+			claimList.add(claim);
+		}
 		
 		//seller 조회
 		List<Seller> sellerList = new ArrayList<Seller>();
@@ -87,6 +97,10 @@ public class MypageController {
 			productImgList.add(productImg);
 		}
 		
+		System.out.println(claimList);
+		System.out.println(orderDetailList);
+		
+		model.addAttribute("claimList", claimList);
 		model.addAttribute("deliveryList", deliveryList);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("orderDetailList", orderDetailList);

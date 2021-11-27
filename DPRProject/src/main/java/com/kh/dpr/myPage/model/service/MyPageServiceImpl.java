@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.dpr.claim.model.vo.Claim;
 import com.kh.dpr.myPage.model.dao.MyPageDAO;
 import com.kh.dpr.myPage.model.vo.DeliveryAPI;
 import com.kh.dpr.order.model.vo.Order;
@@ -59,6 +60,12 @@ public class MyPageServiceImpl implements MyPageService {
 	public DeliveryAPI selectDelivery(int detailNo) {
 		// TODO Auto-generated method stub
 		return myPageDAO.selectDelivery(detailNo);
+	}
+
+	@Override
+	public Claim selectClaimList(int detailNo) {
+		// TODO Auto-generated method stub
+		return myPageDAO.selectClaimList(detailNo);
 	}
 
 }
