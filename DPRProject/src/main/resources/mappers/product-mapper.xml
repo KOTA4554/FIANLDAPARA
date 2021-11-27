@@ -23,13 +23,12 @@
 	
 	<select id="selectListTop" parameterType="int" resultType="Product">
      SELECT *
-	 FROM (SELECT P.*, I.PRODUCTNEWIMAGE, ROWNUM R
-     	   FROM PRODUCT_DETAIL P
-      	   RIGHT OUTER JOIN PRODUCTIMAGE I ON(P.PRODUCTNO = I.PRODUCTNO)
-      	   WHERE I.IMAGECATEGORYNO = 0
-      	   ORDER BY P.PRODUCTCOUNT DESC)
-	 WHERE ROWNUM &lt; 5
-      
+		FROM (SELECT P.*, I.PRODUCTNEWIMAGE, ROWNUM R
+		      FROM PRODUCT_DETAIL P
+		      RIGHT OUTER JOIN PRODUCTIMAGE I ON(P.PRODUCTNO = I.PRODUCTNO)
+		      WHERE I.IMAGECATEGORYNO = 0
+		      ORDER BY P.PRODUCTCOUNT DESC)
+		WHERE ROWNUM &lt; 5
    </select>
    
    <select id="selectTopList" parameterType="int" resultType="Product">
@@ -141,6 +140,14 @@
                      </if>
                             ) 
       ORDER BY QNO DESC
+   </select>
+   		
+   <select id="searchTotalContents" parameterType="string" resultType="int">
+   		SELECT COUNT (*)
+		 FROM PRODUCT_DETAIL P RIGHT OUTER JOIN PRODUCTIMAGE I
+		 ON(P.PRODUCTNO = I.PRODUCTNO)
+		 WHERE  PRODUCTNAME like '%' ||  #{sresult} || '%'
+		 ORDER BY P.PRODUCTNO DESC
    </select>   
 </mapper>
 
