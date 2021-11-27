@@ -49,4 +49,16 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sqlSession.update("reviewSQL.updateScore", productNo);
 	}
 
+	@Override
+	public Review selectReview(int reviewNo) {
+		
+		return sqlSession.selectOne("reviewSQL.selectReview",reviewNo);
+	}
+
+	@Override
+	public int deleteReview(int reviewNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

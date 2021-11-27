@@ -39,4 +39,8 @@
                                            			WHERE PRODUCTNO = #{productNo})))
 		WHERE PRODUCTNO = #{productNo}
 	</update>
+	
+	<select id="selectReview" parameterType="int" resultType="Review">
+		SELECT * FROM REVIEW WHERE REVIEWNO = #{reviewNo}
+	</select>
 </mapper>

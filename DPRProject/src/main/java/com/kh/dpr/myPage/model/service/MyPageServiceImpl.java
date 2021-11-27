@@ -10,6 +10,8 @@ import com.kh.dpr.myPage.model.vo.DeliveryAPI;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
 import com.kh.dpr.product.model.vo.Product;
+import com.kh.dpr.qna.model.vo.QnA;
+import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
 @Service
@@ -60,5 +62,41 @@ public class MyPageServiceImpl implements MyPageService {
 		// TODO Auto-generated method stub
 		return myPageDAO.selectDelivery(detailNo);
 	}
+
+	@Override
+	public List<Review> selectReviewList(String userId, int cPage, int numPerPage) {
+		
+		return myPageDAO.selectReviewList(userId, cPage, numPerPage);
+	}
+
+	@Override
+	public int selectTotalReview(String userId) {
+		
+		return myPageDAO.selectTotalReview(userId);
+	}
+
+	@Override
+	public List<QnA> selectQnAList(String userId, int cPage, int numPerPage) {
+		return myPageDAO.selectQnAList(userId, cPage, numPerPage);
+	}
+
+	@Override
+	public int selectTotalQnA(String userId) {
+		return myPageDAO.selectTotalQnA(userId);
+	}
+
+	@Override
+	public Product selectRproduct(int reviewNo) {
+		
+		return myPageDAO.selectRproduct(reviewNo);
+	}
+
+	@Override
+	public Product selectQproduct(int qNo) {
+		// TODO Auto-generated method stub
+		return myPageDAO.selectQproduct(qNo);
+	}
+
+	
 
 }
