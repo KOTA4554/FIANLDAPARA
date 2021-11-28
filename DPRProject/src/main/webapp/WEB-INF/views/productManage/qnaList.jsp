@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>판매자 QnA관리</title>
 
@@ -192,7 +193,7 @@ li {
 	    </tr>
 	    <c:forEach items="${qnaList}" var="qna" varStatus="status">
 		  
-		    <tr onclick="goAnswer(${qna.getQNo()}, ${qna.getQStatus()});"; class="prodListRows" id="${qna.getQNo()}">
+		    <tr onclick="goAnswer(${qna.getQNo()}, '${qna.getQStatus()}');"; class="prodListRows" id="${qna.getQNo()}">
 		    	<td class="qnaRowQno">${qna.getQNo()}</td>
 				<td class="qnaRowPno">${qpList[status.index].productNo}</td>
 				<td class="qnaRowBrand">${qpList[status.index].productBrand}</td>
@@ -214,10 +215,7 @@ li {
 
 function goAnswer(qno, qstatus){
 	
-	location.href="${pageContext.request.contextPath}/product/answer.do?qNo="+qno+"&qStatus="+qstatus;
-	
-	
-	
+	location.href="${pageContext.request.contextPath}/answer.do?qNo="+qno+"&qStatus="+qstatus;
 	
 	
 }

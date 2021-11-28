@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.qna.model.vo.QnA;
+import com.kh.dpr.qnaComment.model.vo.qnaComment;
 import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
@@ -77,6 +78,44 @@ public class ProdDAOImpl implements ProdDAO {
 	
 		return sqlSession.selectList("prod.qna", prodNo);
 	}
+
+	@Override
+	public QnA qnaAnswer(int qno) {
+	
+		return sqlSession.selectOne("prod.qnaAnswer", qno);
+	}
+
+	@Override
+	public int qnaReturn(qnaComment c) {
+		
+		return sqlSession.insert("prod.qnaReturn", c);
+	}
+
+	@Override
+	public int qnaStatus(int qNo) {
+		
+		return sqlSession.update("prod.qnaStatus", qNo);
+	}
+
+	@Override
+	public qnaComment loadQnaComment(int qNo) {
+	
+		return sqlSession.selectOne("prod.loadQnaComment", qNo);
+	}
+
+	@Override
+	public Product selectProduct(int qNo) {
+	
+		return sqlSession.selectOne("prod.selectProduct",qNo);
+	}
+
+	@Override
+	public List<String> detailImage(int prodNo) {
+		
+		return sqlSession.selectList("prod.detailImage", prodNo);
+	}
+
+	
 
 	
 	

@@ -27,6 +27,15 @@ public class QnA implements Serializable{
 	private String qStatus;
 	
 	
+	private int cNo;
+	private String sellerId;
+	private String cContent;
+	private Date cDate;
+	private String cStatus;
+	
+	
+	
+	
 	public QnA (String userId, String qTitle, String qContent, int productNo) {
 		super();
 		this.userId=userId;

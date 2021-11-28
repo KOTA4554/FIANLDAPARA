@@ -227,7 +227,7 @@ $(function(){
       <!-- /SECTION -->
 
       <!-- HOT DEAL SECTION -->
-      <div id="hot-deal" class="section">
+      <div id="hot-deal" class="section" style="text-align:center">
         
            	 <img  src="${pageContext.request.contextPath}/resources/productUpload/ad.jpg" alt="logo" class = "">
            

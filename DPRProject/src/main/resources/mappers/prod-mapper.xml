@@ -12,11 +12,15 @@
    </select>
    
    <select id="loadImage" parameterType="int" resultType="string">
-   SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{prodNo} 
+   SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{prodNo} AND IMAGECATEGORYNO &lt; 2
+   </select>
+   
+   <select id="detailImage" parameterType="int" resultType="string">
+   SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{prodNo} AND IMAGECATEGORYNO = 2  
    </select>
    
    <update id="viewcount" parameterType="int" >
-        UPDATE PRODUCT_DETAIL SET PRODUCTCOUNT = PRODUCTCOUNT+1 WHERE PRODUCTNO = #{prodNo}
+        UPDATE PRODUCT_DETAIL SET PRODUCTCOUNT = PRODUCTCOUNT+1 WHERE PRODUCTNO = #{prodNo} 
    </update>
    
    <select id="review" parameterType="int" resultType="Review">
@@ -36,7 +40,27 @@
    </insert>
    
    <select id="qna" parameterType="int" resultType="QnA">
-   SELECT * FROM QNA WHERE PRODUCTNO = #{prodNo}
+  SELECT * FROM QNA LEFT JOIN QNACOMMENT USING(QNO) WHERE PRODUCTNO = #{prodNo}
+   </select>
+   
+   <select id="qnaAnswer" parameterType="int" resultType="QnA">
+   SELECT * FROM QNA WHERE QNO = #{qno}
+   </select>
+   
+   <insert id="qnaReturn" parameterType="qnaComment">
+   INSERT INTO QNACOMMENT VALUES(SEQ_QNACOMMENT.NEXTVAL, #{qNo}, #{sellerId}, #{cContent}, SYSDATE, 'Y')   
+   </insert>
+
+   <update id="qnaStatus">
+   UPDATE QNA SET QSTATUS = 'Y' WHERE QNO = #{qNo}
+   </update>
+   
+   <select id="loadQnaComment" parameterType="int" resultType="qnaComment">
+   SELECT * FROM QNACOMMENT WHERE QNO = #{qNo}
+   </select>
+   
+   <select id="selectProduct" parameterType="int" resultType="Product">
+   SELECT * FROM PRODUCT_DETAIL WHERE PRODUCTNO = (SELECT PRODUCTNO FROM QNA WHERE QNO = #{qNo})
    </select>
    
 
