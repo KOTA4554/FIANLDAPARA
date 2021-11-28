@@ -93,11 +93,16 @@ public class SellerService {
 		return sellerDAO.getSaleGross(setting);
 	}
 
+
+	public String findId(Seller s) {
+		return sellerDAO.findId(s);
+	}
 	public Calculate getCalculate(Map<String, Object> setting) {
 		return sellerDAO.getCalculate(setting);
 	}
 
 	public List<Calculate> getMontlyGross(Map<String, Object> setting) {
 		return sellerDAO.getMontlyGross(setting);
+
 	}
 }

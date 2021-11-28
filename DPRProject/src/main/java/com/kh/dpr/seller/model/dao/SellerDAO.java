@@ -96,11 +96,17 @@ public class SellerDAO {
 		return sqlSession.selectList("sellerSQL.getSaleGross", setting);
 	}
 
+
+	public String findId(Seller s) {
+		return sqlSession.selectOne("sellerSQL.findId", s);
+	}
+
 	public Calculate getCalculate(Map<String, Object> setting) {
 		return sqlSession.selectOne("sellerSQL.getCalculate", setting);
 	}
 
 	public List<Calculate> getMontlyGross(Map<String, Object> setting) {
 		return sqlSession.selectList("sellerSQL.getMonthlyGross", setting);
+
 	}
 }
