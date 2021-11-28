@@ -388,8 +388,14 @@ public class ProductController {
 			conIdx++;
 		}
 		
+		loc = "/seller/productList.do";
+		msg = "상품 정보 수정 완료";
+		
+		model.addAttribute("loc", loc);
+		model.addAttribute("msg", msg);
+		
 		int result = productService.updateProduct(product, mainImgList, optionImgList, contentImgList);
-		return "seller/sellerMain";
+		return "common/msg";
 	}
 	
 	@RequestMapping("/seller/reviewList.do")

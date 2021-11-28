@@ -360,6 +360,7 @@ textarea {
       
       var validate = true;
       var title = $('#productTitle').val(), info = $('#productInfo').val();
+      var brand = $('#productBrand').val();
       var startDate = $('#startDate').val(), endDate = $('#endDate').val();
       var cate = $('#categoryNo').val(), cate2 = $('#categoryNo2').val();
        
@@ -372,7 +373,10 @@ textarea {
       } else if(startDate > endDate || startDate == "" || endDate == ""){
          alert("판매기간을 확인해주세요.");
          validate = false;
-      } 
+      } else if(brand == ""){
+    	  alert("상품 브랜드를 입력해주세요.")
+    	  validate = false;
+      }
    
       return validate;
    }

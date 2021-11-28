@@ -28,6 +28,7 @@ public class SellerStat implements Serializable {
 	
 	private int sellProduct;
 	private int impendProduct;
+	private int waitProduct;
 	private int endProduct;
 	
 	private int waitDel;
