@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지 : DAPARA</title>
-<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 	
 	<!-- css -->
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myPage.css"/>
@@ -52,7 +51,7 @@
 								<li class="listTitle">
 									MY 활동
 									<ul>
-										<li class="menu"><a href="${pageContext.request.contextPath}/myPage/qnaList.do">문의내역 확인</a></li>
+										<li class="menu"><a href="">문의내역 확인</a></li>
 										<li class="menu"><a href="${pageContext.request.contextPath}/myPage/reviewList.do">리뷰 관리</a></li>
 									</ul>
 								</li>
@@ -98,22 +97,22 @@
 												<c:if test="${orderDetailList.claimNo == 0}">
 												<button type="button" onclick="goClaim(${orderDetailList.detailNo});">취소, 교환, 반품 신청</button>													
 												</c:if>
-												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimNo == 0}">
+												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimCode == 0}">
 													<p>교환 처리 중</p>
 												</c:if>
-												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimNo == 1}">
+												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimCode == 1}">
 													<p>환불 처리 중</p>
 												</c:if>
-												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimNo == 2}">
+												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimCode == 2}">
 													<p>취소 처리 중</p>
 												</c:if>
-												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimNo == 3}">
+												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimCode == 3}">
 													<p>교환 완료</p>
 												</c:if>
-												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimNo == 4}">
+												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimCode == 4}">
 													<p>환불 완료</p>
 												</c:if>
-												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimNo == 5}">
+												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimCode == 5}">
 													<p>취소 완료</p>
 												</c:if>
 												
