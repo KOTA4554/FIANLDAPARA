@@ -25,4 +25,8 @@
 	<select id="selectImg" parameterType="int" resultType="string">
 		SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = 0 
 	</select>
+	
+	<delete id="deleteCart" parameterType="map">
+		DELETE FROM CART WHERE USERID= #{userId} AND PRODUCTNO = #{productNo} 
+	</delete>
 </mapper>

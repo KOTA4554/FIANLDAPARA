@@ -630,7 +630,7 @@ E-mail : inirm@inicis.com
 			}
 
 			// 결제API (신용카드 선택)
- 			/*if($('#creditCard').is(":checked")){
+ 			if($('#creditCard').is(":checked")){
 				
 				var IMP = window.IMP; // 생략가능
 				IMP.init( 'imp59581083' );
@@ -701,10 +701,10 @@ E-mail : inirm@inicis.com
 					}
 	
 				}); 
-			}*/
+			}
 			
- 			$('#orderForm').attr("action", "${pageContext.request.contextPath}/order/orderByCreditCard.do");
-			$('#orderForm').submit();
+ 			//$('#orderForm').attr("action", "${pageContext.request.contextPath}/order/orderByCreditCard.do");
+			//$('#orderForm').submit();
 		}
 
 	</script>	

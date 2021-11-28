@@ -193,7 +193,7 @@ li {
 
 	    </tr>
 	    <c:forEach items="${reviewList}" var="review" varStatus="status">
-		    <tr class="prodListRows" id="${review.reviewNo}">
+		    <tr class="prodListRows" id="${review.reviewNo}" onclick="reviewDetail(${review.reviewNo});">
 		    	<td class="reviewRowRno">${review.reviewNo}</td>
 				<td class="reviewRowPno">${rpList[status.index].productNo}</td>
 				<td class="reviewRowDno">${review.detailNo}</td>
@@ -212,7 +212,9 @@ li {
 </div>
 
 <script>
-
+	function reviewDetail(reviewNo){
+		location.href="${pageContext.request.contextPath}/review/reviewSellerDetail.do?reviewNo=" + reviewNo;
+	}
 
 </script>
 

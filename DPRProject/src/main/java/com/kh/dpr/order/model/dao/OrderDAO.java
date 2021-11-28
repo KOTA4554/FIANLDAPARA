@@ -1,5 +1,7 @@
 package com.kh.dpr.order.model.dao;
 
+import java.util.Map;
+
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
 import com.kh.dpr.product.model.vo.Product;
@@ -15,5 +17,7 @@ public interface OrderDAO {
 	Product selectProduct(int prodcutNo);
 
 	String selectImg(int productNo);
+
+	int deleteCart(Map<String, Object> map);
 	
 }

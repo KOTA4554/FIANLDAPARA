@@ -1,7 +1,9 @@
 package com.kh.dpr.order.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,7 +60,7 @@ public class OrderController {
 		
 		String totalName = "";
 		for(int i = 0; i < productList.size(); i++) {
-			totalName = productList.get(i).getProductName();
+			totalName += productList.get(i).getProductName();
 		}
 		
 		model.addAttribute("productList", productList);
@@ -78,7 +80,8 @@ public class OrderController {
 									@RequestParam int[] productNo,
 									@RequestParam int[] detailAmount,
 									@RequestParam int[] detailPrice,
-									@RequestParam String[] detailSize, Model model) {
+									@RequestParam String[] detailSize,
+									Model model) {
 		
 		System.out.println("order : " + order);
 		
@@ -87,6 +90,9 @@ public class OrderController {
 		
 		// orderDetail 생성
 		OrderDetail orderDetail = null;
+		
+		String userId = order.getUserId();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		String loc = "/order/orderComplete.do";
 		String msg = "";
@@ -103,12 +109,22 @@ public class OrderController {
 				orderDetail.setDetailPrice(detailPrice[i]);
 				orderDetail.setDetailSize(detailSize[i]);
 				
-				System.out.println("주문상세 확인 : " + orderDetail);
 				
 				int result2 = orderService.orderDetailInsert(orderDetail);
 				
-				if(result2 > 0) {	
-					msg = "결제 완료";
+				if(result2 > 0) {
+					map.put("userId", userId);
+					map.put("productNo", productNo[i]);
+					
+					int result3 = orderService.deleteCart(map);
+					
+					if(result3 > 0) {
+						
+						msg = "결제 완료";
+					} else {
+						msg = "결제 실패";
+					}
+					
 				} else {
 					msg = "결제 실패";
 				}
