@@ -95,6 +95,7 @@
 
 	<select id="findId" parameterType="Seller" resultType="string">
 		SELECT SELLERID FROM SELLER WHERE SELLERNAME = #{sellerName} AND SELLERPHONE = #{sellerPhone} AND SELLERCOMPANY = #{sellerCompany}
+	</select>
 
 	<select id="getCalculate" parameterType="map" resultType="Calculate">
 		SELECT (SELECT SUM(DETAILPRICE) TOTALGROSS
