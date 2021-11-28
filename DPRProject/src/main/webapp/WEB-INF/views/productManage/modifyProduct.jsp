@@ -271,7 +271,7 @@ textarea {
                   	 <c:forEach items="${image}" var="img">
                   	 <c:if test="${img.imageCategoryNo == 0}">
                      <div class="productMainImg">
-                        <img src="${pageContext.request.contextPath}/resources/productUpload/${image.productNewImage}" alt="상품추가" id="mainImg"  width="555" height="555"/>
+                        <img src="${pageContext.request.contextPath}/resources/productUpload/${img.productNewImage}" alt="상품추가" id="mainImg"  width="555" height="555"/>
                         <input type="file" class="fileSelector" name="mainImg" id="mainProductImg" onchange="loadImg(this);"/>
                      </div>
                      </c:if>
