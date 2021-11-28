@@ -70,8 +70,10 @@ public class MyPageDAOImpl implements MyPageDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("myPageSQL.selectClaimList", detailNo);
 	}
-	
-  @Override
+
+
+
+	@Override
 	public List<Review> selectReviewList(String userId, int cPage, int numPerPage) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
 		return sqlSession.selectList("myPageSQL.selectReviewList", userId, rows);
@@ -102,7 +104,7 @@ public class MyPageDAOImpl implements MyPageDAO {
 
 	@Override
 	public Product selectQproduct(int qNo) {
-		return sqlSession.selectOne("myPageSQL.selectRproduct", qNo);
+		return sqlSession.selectOne("myPageSQL.selectQproduct", qNo);
 
 	}
 

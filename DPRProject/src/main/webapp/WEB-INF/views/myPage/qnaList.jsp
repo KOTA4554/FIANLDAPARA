@@ -5,24 +5,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MY리뷰 : DAPARA</title>
+<title>MY문의 : DAPARA</title>
 <link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myPage.css"/>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/reviewForm.css"/>
 
 <style>
-#reviewListTable {
+
+#qnaArea {
+	width : 850px;
+}
+#qnaListTable {
 	width : 100%;
 	border-collapse : collapse;
 }
 
-#reviewListTable td{
+#qnaListTable td{
 	border-top : 1px solid lightgray;
 	height : 50px;
 }
 
-.reviewListRows:hover{
+.qnaListRows:hover{
 	background-color : lightgray;
 	cursor : pointer
 }
@@ -76,33 +80,36 @@
 	
 					</div>
 	
-					<div id="reviewArea">
+					<div id="qnaArea">
 						
-						<div id="reviewTitle">
-							<h3>내가 작성한 리뷰</h3>
+						<div id="qnaTitle">
+							<h3>내가 작성한 문의</h3>
 						</div>
 
 						<div class="tableArea">
-                			<table id="reviewListTable" border="0">
-							    <tr id="reviewListTitle">
-							       <th style="width: 60px;">리뷰번호</th>
+                			<table id="qnaListTable" border="0">
+							    <tr id="qnaListTitle">
+							       <th style="width: 60px;">문의번호</th>
 							        <th style="width: 60px;">상품번호</th>
-							        <th style="width: 100px;">주문상세번호</th>
 							        <th style="width: 100px;">브랜드</th>
-							        <th style="width: 200px;">상품명</th>
-							        <th style="width: 60px;">평점</th>
-							        <th style="width: 85px;">리뷰 날짜</th>
+							        <th style="width: 150px;">상품명</th>
+							        <th style="width: 150px;">문의글 제목</th>
+							        <th style="width: 85px;">USERID</th>
+							        <th style="width: 85px;">문의 날짜</th>
+							        <th style="width: 85px;">답변여부</th>
 						
 							    </tr>
-							    <c:forEach items="${reviewList}" var="review" varStatus="status">
-								    <tr class="reviewListRows" id="${review.reviewNo}" onclick="reviewDetail(${review.reviewNo});">
-								    	<td class="reviewRowRno">${review.reviewNo}</td>
-										<td class="reviewRowPno">${rpList[status.index].productNo}</td>
-										<td class="reviewRowDno">${review.detailNo}</td>
-										<td class="reviewRowBrand">${rpList[status.index].productBrand}</td>
-										<td class="reviewRowName">${rpList[status.index].productName}</td>
-										<td class="reviewRowScore">${review.reviewScore}</td>
-										<td class="reviewRowDate">${review.reviewDate}</td>
+							    <c:forEach items="${qnaList}" var="qna" varStatus="status">
+								  
+								    <tr onclick="goQnA(${qna.getQNo()}, ${qpList[status.index].productNo});"; class="qnaListRows" id="${qna.getQNo()}">
+								    	<td class="qnaRowQno">${qna.getQNo()}</td>
+										<td class="qnaRowPno">${qpList[status.index].productNo}</td>
+										<td class="qnaRowBrand">${qpList[status.index].productBrand}</td>
+										<td class="qnaRowName">${qpList[status.index].productName}</td>
+										<td class="qnaRowTitle">${qna.getQTitle()}</td>
+										<td class="qnaRowId">${qna.userId}</td>
+										<td class="qnaRowDate">${qna.qdate}</td>
+										<td class="qnaRowDate">${qna.getQStatus()}</td>
 							
 									</tr>
 								</c:forEach>
@@ -123,8 +130,8 @@
 
 <script>
 	
-	function reviewDetail(reviewNo){
-		location.href="${pageContext.request.contextPath}/review/reviewDetail.do?reviewNo=" + reviewNo;
+	function goQnA(qNo, qProductNo){
+		location.href="${pageContext.request.contextPath}//prod_detail.do?prodNo=" + qProductNo;
 	}
 </script>
 </html>
