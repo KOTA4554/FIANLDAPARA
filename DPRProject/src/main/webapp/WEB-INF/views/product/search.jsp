@@ -41,8 +41,9 @@
                 <p name="productBrand" id="productBrand" value="${row.productBrand }">'${row.productBrand}' </p>
             </div>
             <div class="productname">
+             	<a href="<%=request.getContextPath()%>/prod_detail.do?prodNo=${row.productNo}">
                 <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
-												
+				</a>								
             </div>
             <div class="productprice">
                <p  name="productPrice" id="product-price" value="" ><fmt:formatNumber value="${row.productPrice}" pattern="#,###"/> </p>
