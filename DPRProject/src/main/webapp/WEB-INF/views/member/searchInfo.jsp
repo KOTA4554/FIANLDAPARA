@@ -100,6 +100,11 @@ input[type="radio"] {
 	font-size: 12px;
 	color: gray;
 }
+
+.formLine{
+	margin-bottom: 10px;
+	margin-top: 30px;
+}
 </style>
 </head>
 <body>
@@ -118,21 +123,15 @@ input[type="radio"] {
 				</div>
 			</div>
 			<div class="formLine">
-				<label for="sellerId"> <i class="fas fa-user-tag fa-lg"></i>
-					<span class="inputFormTitle">이름</span>
 				</label> <input type="text" name="userName" id="userName"
 					placeholder="이름을 입력하세요." required />
 			</div>
 
 			<div class="formLine">
-				<label for="sellerPw"> <i class="fas fa-phone fa-lg"></i> <span
-					class="inputFormTitle">전화번호</span>
 				</label> <input type="text" name="userPhone" id="userPhone"
-					placeholder="전화번호를 입력하세요." required />
+					onKeyup="addHypenPhone(this);" placeholder="전화번호를 입력하세요." required />
 			</div>
 			<div class="formLine">
-				<label for="sellerPw"> <i class="fas fa-phone fa-lg"></i> <span
-					class="inputFormTitle">이메일</span>
 				</label> <input type="text" name="userEmail" id="userEmail"
 					placeholder="이메일를 입력하세요." required />
 			</div>
@@ -171,21 +170,49 @@ input[type="radio"] {
 				$("#userEmail").attr({
 					'name' : 'userEmail'
 				});
-				$('#kakaoLogin').show();
 			} else {
-				console.log("seller : sellerLogin.do 로 이동합니다.");
+				console.log("seller : sellerSearchInfo.do 로 이동합니다.");
 				$('form').attr({
-					'action' : 'sellerLogin.do'
+					'action' : 'sellerSearchInfo.do'
 				});
-				$('#userId').attr({
-					'name' : 'sellerId'
+				$('#userName').attr({
+					'name' : 'sellerName'
 				});
-				$('#userPw').attr({
-					'name' : 'sellerPw'
+				$('#userPhone').attr({
+					'name' : 'sellerPhone'
 				});
-				$('#kakaoLogin').hide();
+				$("#userEmail").attr({
+					'name' : 'sellerCompany'
+				});
+				$('#userEmail').attr('placeholder', '회사명을 입력하세요.');
 			}
 		});
+		
+		function addHypenPhone(obj) {
+		    var number = obj.value.replace(/[^0-9]/g, "");
+		    var phone = "";
+
+		    if(number.length < 4) {
+		        return number;
+		    } else if(number.length < 7) {
+		        phone += number.substr(0, 3);
+		        phone += "-";
+		        phone += number.substr(3);
+		    } else if(number.length < 11) {
+		        phone += number.substr(0, 3);
+		        phone += "-";
+		        phone += number.substr(3, 3);
+		        phone += "-";
+		        phone += number.substr(6);
+		    } else {
+		        phone += number.substr(0, 3);
+		        phone += "-";
+		        phone += number.substr(3, 4);
+		        phone += "-";
+		        phone += number.substr(7, 4);
+		    }
+		    obj.value = phone;
+		}
 	</script>
 
 

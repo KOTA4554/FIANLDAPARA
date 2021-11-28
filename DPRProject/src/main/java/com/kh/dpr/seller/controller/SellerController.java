@@ -409,4 +409,24 @@ public class SellerController {
 		
     	return "seller/delivery";
     }
+    
+    @RequestMapping("member/sellerSearchInfo.do")
+    public String searchInfo(@RequestParam String sellerName, @RequestParam String sellerPhone, @RequestParam String sellerCompany, Model model) {
+    	
+    	Seller s = new Seller(sellerName, sellerCompany, sellerPhone);
+    	System.out.println(s);
+    	String result = sellerService.findId(s);
+    	System.out.println(result);
+    	
+    	if(result == null) {
+    		msg = "일치하지 않습니다!";
+    	} else {
+    		msg = "아이디는" + result + "입니다!";
+    	}
+    	
+    	model.addAttribute("msg", msg);
+    	
+    	return "common/msg";
+    }
+    
 }

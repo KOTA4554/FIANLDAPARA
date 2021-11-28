@@ -91,5 +91,9 @@
 		]]>
 		<!-- 날짜 추가 필요? AND PAYDATE <= SYSDATE-1  -->
 	</select>
+	
+	<select id="findId" parameterType="Seller" resultType="string">
+		SELECT SELLERID FROM SELLER WHERE SELLERNAME = #{sellerName} AND SELLERPHONE = #{sellerPhone} AND SELLERCOMPANY = #{sellerCompany}
+	</select>
 
 </mapper>

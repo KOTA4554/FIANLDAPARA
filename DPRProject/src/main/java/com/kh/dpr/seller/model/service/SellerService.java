@@ -91,4 +91,8 @@ public class SellerService {
 	public List<Gross> getSaleGross(Map setting) {
 		return sellerDAO.getSaleGross(setting);
 	}
+
+	public String findId(Seller s) {
+		return sellerDAO.findId(s);
+	}
 }

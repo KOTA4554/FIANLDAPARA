@@ -94,4 +94,8 @@ public class SellerDAO {
 	public List<Gross> getSaleGross(Map setting) {
 		return sqlSession.selectList("sellerSQL.getSaleGross", setting);
 	}
+
+	public String findId(Seller s) {
+		return sqlSession.selectOne("sellerSQL.findId", s);
+	}
 }

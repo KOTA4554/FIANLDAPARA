@@ -182,7 +182,7 @@ public class MemberController {
 		return "member/searchInfo";
 	}
 	
-	@RequestMapping("member/UserSearchInfo.do")
+	@RequestMapping("member/userSearchInfo.do")
 	public String searchInfo(@RequestParam String userName, @RequestParam String userPhone, @RequestParam String userEmail, Model model) {
 		
 		Member m = new Member(userName, userPhone, userEmail);
