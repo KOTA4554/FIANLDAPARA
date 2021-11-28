@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>판매자 페이지 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
     #stateContainer {

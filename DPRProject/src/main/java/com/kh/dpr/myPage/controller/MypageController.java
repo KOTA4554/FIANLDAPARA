@@ -2,7 +2,6 @@ package com.kh.dpr.myPage.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.kh.dpr.claim.model.vo.Claim;
 import com.kh.dpr.common.Utils;
 import com.kh.dpr.member.model.vo.Member;
@@ -20,6 +20,7 @@ import com.kh.dpr.myPage.model.vo.DeliveryAPI;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
 import com.kh.dpr.product.model.vo.Product;
+import com.kh.dpr.qna.model.vo.QnA;
 import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
@@ -173,6 +174,45 @@ public class MypageController {
 		return "myPage/reviewList";
 	}
 	
-	
+	@RequestMapping("/myPage/qnaList.do")
+	public String qnaList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+							 HttpServletRequest request, Model model) {
+		
+		HttpSession session = request.getSession(false);
+		
+		Member m = (Member)session.getAttribute("member");
+		
+		String userId = m.getUserId();
+		
+		int numPerPage = 15;
+		List<QnA> qnaList = myPageService.selectQnAList(userId, cPage, numPerPage);
+		
+		 // 해당 리뷰의 상품
+	    List<Product> qpList = new ArrayList<Product>();
+
+	      for(int i = 0; i < qnaList.size(); i++) {
+	         
+	         int qNo = qnaList.get(i).getQNo();
+	         
+	         Product qp = myPageService.selectQproduct(qNo);
+	         
+	         qpList.add(qp);
+	         
+	    }
+	      
+	      System.out.println(qpList);
+		
+		int totalQna = myPageService.selectTotalQnA(userId);
+		
+		String pageBar = Utils.getPageBar(totalQna, cPage, numPerPage, "qnaList.do");
+		
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("qpList", qpList);
+		model.addAttribute("totalQna", totalQna);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+		
+		return "myPage/qnaList";
+	}
 	
 }

@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>의류 - 니트</title>
+<title>의류 - 니트 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jeongho.css"/>
 </head>
 <body>

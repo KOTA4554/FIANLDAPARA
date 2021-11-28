@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<title>주문/배송 관리 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 </head>
 <style>
 #tekbeCompnayList, #invoiceNumberText {

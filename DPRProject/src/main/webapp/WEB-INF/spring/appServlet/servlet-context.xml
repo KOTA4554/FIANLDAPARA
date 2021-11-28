@@ -44,12 +44,13 @@
          <mapping path="/order/*.do"/>
          <mapping path="/qnaInsert.do"/>
          
-         <!-- <exclude-mapping path="/board/boardList.do"/> -->
+         <exclude-mapping path="/myPage/sellerInfo.do"/>
          <beans:bean id="loginCheck" class="com.kh.dpr.common.LoginInterceptor"/>
       </interceptor>
       
       <interceptor>
          <mapping path="/seller/*.do"/>
+         <mapping path="/myPage/sellerInfo.do"/>
         
          <beans:bean id="SellerloginCheck" class="com.kh.dpr.common.SellerLoginInterceptor"/>
       </interceptor>

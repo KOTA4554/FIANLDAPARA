@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>의류</title>
+<title>검색결과 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jeongho.css"/>
 </head>
 <body>

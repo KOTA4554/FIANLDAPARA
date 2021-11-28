@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>배송관리 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 
 <style>
 .mainSectionForm {

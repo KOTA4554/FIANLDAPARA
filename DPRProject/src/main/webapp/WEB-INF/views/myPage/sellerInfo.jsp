@@ -8,7 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>판매자 정보 수정 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
 .input {
@@ -211,7 +212,7 @@ function searchSellerAddress(){
 }
 
 </script>
-
+</div>
 <c:import url="../common/footer.jsp"/>
 </body>
 </html>
