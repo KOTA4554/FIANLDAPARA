@@ -69,6 +69,7 @@ public class MyPageDAOImpl implements MyPageDAO {
 	public Claim selectClaimList(int detailNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("myPageSQL.selectClaimList", detailNo);
+	}
 
   @Override
 	public List<Review> selectReviewList(String userId, int cPage, int numPerPage) {
