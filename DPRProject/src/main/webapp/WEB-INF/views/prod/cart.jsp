@@ -526,7 +526,7 @@ $('.deleteCart').click(function(){
         <td style="font-size: 40px;">+</td>
         <td style="text-align: center; font-size: 25px;">0원</td>
         <td style="font-size: 40px;">=</td>
-        <td style="text-align: center; font-size: 25px; color: #D10024;"><div style="display: flex; width: 100%;"><input id= totalprice2 type=number value=${total} readonly  style ="text-align : center; border-style:none; outline:none; width:150px;"></input>원</div></td>
+        <td style="text-align: center; font-size: 25px; color: #D10024;"><div style="display: flex; width: 100%;"><input id= totalprice2 type=text value=${total} readonly  style ="text-align : center; border-style:none; outline:none; width:150px;"></input>원</div></td>
     </tr>
 
 

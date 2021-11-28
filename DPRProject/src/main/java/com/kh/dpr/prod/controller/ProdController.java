@@ -2,7 +2,6 @@ package com.kh.dpr.prod.controller;
 
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.dpr.prod.model.service.ProdService;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.qna.model.vo.QnA;
+import com.kh.dpr.qnaComment.model.vo.qnaComment;
 import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
@@ -40,6 +40,7 @@ public class ProdController {
 		List<Product> random = ProdService.random();
 		List<String> rImage = new ArrayList<String>();
 		List<QnA> qna = ProdService.qna(prodNo);
+		List<String> detailImage = ProdService.detailImage(prodNo);
 
 		for (int i = 0; i < random.size() ; i ++) {
 			
@@ -59,6 +60,7 @@ public class ProdController {
 		model.addAttribute("prod", prod);
 		model.addAttribute("seller2", seller2);
 		model.addAttribute("image", image);
+		model.addAttribute("detailImage", detailImage);
 		model.addAttribute("review", review);
 		model.addAttribute("rCount", rCount);
 	
@@ -90,6 +92,66 @@ public class ProdController {
 		
 		return "common/msg";
 	}
+	
+	
+	@RequestMapping("/answer.do")
+	public String qnaAnswer(@RequestParam int qNo, String qstatus, Model model) {
+		
+		QnA q = ProdService.qnaAnswer(qNo);
+		
+		Product p = ProdService.selectProduct(qNo);
+		
+		qnaComment c = ProdService.loadQnaComment(qNo);
+		
+		model.addAttribute("qna", q);
+		model.addAttribute("comment", c);
+		model.addAttribute("qstatus", qstatus);
+		model.addAttribute("product", p);
+		
+		
+		
+		
+		return "productManage/qnaAnswer";
+		
+	}
+	
+	@RequestMapping("/qnaReturn.do")
+	public String qnaReturn(@RequestParam int qNo, String sellerId, String cContent, Model model) {
+		
+		qnaComment c = new qnaComment(qNo, sellerId, cContent);	
+		int result = ProdService.qnaReturn(c); 
+		
+		String loc = "/seller/qnaList.do";
+		String msg = "";
+		
+		
+		
+		
+		if (result != 1) {
+			
+		
+			msg = "답변 등록 오류입니다.";
+			
+			
+		} else {
+			
+
+			int result2 = ProdService.qnaStatus(qNo);
+
+			msg="답변 등록에 성공하였습니다.";
+							
+			
+		}
+		
+		model.addAttribute("loc", loc);
+		model.addAttribute("msg", msg);
+		
+		return "common/msg";
+		
+		
+	}
+	
+	
 	
 	
 	

@@ -2,6 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +15,7 @@
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 <title>DAPARA : 상품 상세보기</title>
-
+ <link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 
 <!-- Google font -->
 <link
@@ -163,10 +166,10 @@
                      <h2 class="product-name">${prod.productName}</h2>
                      <div>
 
-                        <a class="review-link" href="#">${rCount}개의 리뷰가 있습니다! </a>
+                        <a ><i class="fas fa-star" style="color:#D10024"> ${prod.productScore }</i>&nbsp;&nbsp; ${rCount}개의 리뷰가 있습니다! </a>
                      </div>
                      <div>
-                        <h3 class="product-price">${prod.productPrice}원
+                        <h3 class="product-price"> <fmt:formatNumber value="${prod.productPrice}" pattern="#,###"/>원
                            <del class="product-old-price"></del>
                         </h3>
                      </div>
@@ -286,7 +289,10 @@
                   <!-- tab1  -->
                   <div id="tab1" class="tab-pane fade in active">
                      <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12" style="text-align:center;">
+                        <c:forEach var="detail" items="${detailImage}" varStatus="status">
+                        <img src="${pageContext.request.contextPath}/resources/productUpload/${detail}"/>
+                        </c:forEach>
                            <p>${prod.productContent}</p>
                         </div>
                      </div>
@@ -324,7 +330,12 @@
             <td style="background-color:rgb(237, 237, 240); border-bottom: 1px solid black;"></td>
         
             <td style="background-color:rgb(237, 237, 240); border-bottom: 1px solid black; padding-top:7px; padding-bottom:7px;">                        
-                ${ qnaList.getQContent()}
+                ${ qnaList.getQContent()} <br /><br />
+                <c:if test="${qnaList.getQStatus() == 'Y'}">
+                <h5>답변내용</h5>
+                <span>${qnaList.getCContent() }</span>
+                
+                </c:if>
             </td>
             <td style="background-color:rgb(237, 237, 240);border-bottom: 1px solid black;"></td>
             <td style="background-color:rgb(237, 237, 240);border-bottom: 1px solid black;"></td>
@@ -381,14 +392,15 @@
                         <!-- Reviews -->
                         <div class="col-md-6">
                            <div class="tableArea" style="text-align: center;">
-                              <table cellspacing="100" id="listArea" align="center"
-                                 style="width: max-content;">
+                              <table cellspacing="100" id="listArea" align="center" style="width: max-content;">
                                  <thead>
                                     <tr>
                                        <th width="80px" style="text-align: center;">작성자</th>
                                        <th width="200px" style="text-align: center;">사진</th>
 
                                        <th width="782px" style="text-align: center;">내용</th>
+                                       
+                                       <th width= "100px">별점</th>
 
                                        <th width="80px" style="text-align: center;">작성일</th>
 
@@ -397,32 +409,32 @@
                                  <tbody align="center">
                                     <c:forEach var="rev" items="${review}" varStatus="status">
                                        <tr>
-                                          <td
-                                             style="height: 150px; border-top: solid; border-color: rgb(237, 237, 240);">${rev.userId}</td>
-                                          <td
-                                             style="height: 225px; border-top: solid; border-color: rgb(237, 237, 240);">
-                                             <img
-                                             src="${pageContext.request.contextPath}/resources/reviewImg/${rev.reviewNewImage}"
-                                             style="height: 190px; width: 180px">
+                                          <td style="height: 150px; border-top: solid; border-color: rgb(237, 237, 240);">${rev.userId}</td>
+                                          <td style="height: 225px; border-top: solid; border-color: rgb(237, 237, 240);"> 
+                                          
+                                          
+                                          <c:if test="${not empty rev.reviewNewImage}">
+                              <img id="reviewImg" src="${pageContext.request.contextPath}/resources/reviewImg/${rev.reviewNewImage}" width="180" height="190" >
+                           </c:if>
+                           <c:if test="${empty rev.reviewNewImage || rev.reviewNewImage == ''}">
+                              <img id="reviewImg" src="${pageContext.request.contextPath}/resources/img/noImage.jpg" width="180" height="190" >
+                           </c:if>
+                                          
+                                          
                                           </td>
-                                          <td
-                                             style="border-top: solid; border-color: rgb(237, 237, 240); text-align: left; padding-left: 20px;">${rev.reviewContent}</td>
-                                          <td
-                                             style="border-top: solid; border-color: rgb(237, 237, 240);">${rev.reviewDate}</td>
+                                          <td style="border-top: solid; border-color: rgb(237, 237, 240); text-align: left; padding-left: 20px;">${rev.reviewContent}</td>
+                                          <td style="border-top: solid; border-color: rgb(237, 237, 240); padding-right:65px"><i class="fas fa-star" style="color:#D10024"></i>${rev.reviewScore }</td>
+                                          <td style="border-top: solid; border-color: rgb(237, 237, 240);">${rev.reviewDate}</td>
 
                                        </tr>
                                     </c:forEach>
 
                                     <tr>
-                                       <td
-                                          style="border-top: solid; border-color: rgb(237, 237, 240);"></td>
-                                       <td
-                                          style="border-top: solid; border-color: rgb(237, 237, 240);"></td>
-                                       <td
-                                          style="border-top: solid; border-color: rgb(237, 237, 240);"></td>
-                                       <td
-                                          style="border-top: solid; border-color: rgb(237, 237, 240);"></td>
-
+                                       <td style="border-top: solid; border-color: rgb(237, 237, 240);"></td>
+                                       <td style="border-top: solid; border-color: rgb(237, 237, 240);"></td>
+                                       <td style="border-top: solid; border-color: rgb(237, 237, 240);"></td>
+                                       <td style="border-top: solid; border-color: rgb(237, 237, 240);"></td>         
+                                       <td style="border-top: solid; border-color: rgb(237, 237, 240);"></td>
 
                                     </tr>
 
@@ -476,14 +488,14 @@
                         <h3 class="product-name">
                            <a>${random.productName}</a>
                         </h3>
-                        <h4 class="product-price">${random.productPrice}원</h4>
+                        <h4 class="product-price"><fmt:formatNumber value="${random.productPrice}" pattern="#,###"/>원</h4>
 
 
                      </div>
                      <div class="add-to-cart">
                         <button class="add-to-cart-btn">
                            <i class="fas fa-arrow-left"></i><a
-                              href="<%=request.getContextPath()%>/prod_detail.do?prodNo=${random.productNo}">보러가기
+                              href="<%=request.getContextPath()%>/prod_detail.do?prodNo=${random.productNo}"><span style="font-weight:bolder">보러가기</span>
                         </button>
                      </div>
                   </div>
