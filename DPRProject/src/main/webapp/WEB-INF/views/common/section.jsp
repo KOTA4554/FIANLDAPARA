@@ -127,7 +127,7 @@ $(function(){
                  +'<p style="font-weight:bold;" class="productname"><a href="<%=request.getContextPath()%>/prod_detail.do?prodNo='+product.productNo +'">' + product.productName + '</a></p>'                  
                  +'</div>'
                  +'<div class="productprice">'
-                 +'<p  name="productPrice" value="${product.productPrice }" >'+ product.productPrice +' </p>'
+                 +'<p class="product-price" name="productPrice" value="${product.productPrice }" >'+ product.productPrice +' </p>'
                  +'</div>'
                  +'<br>'
                  +'<br>'
@@ -135,7 +135,12 @@ $(function(){
                  }
                  $('.firstPar').html(result); 
                  
-
+                 $('.product-price').each(function(){
+                 	var price = $(this);
+                 	price.text(price.text().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                 	console.log(price.text());
+                 	
+                 })
                  
              },
              error: function(error) {
