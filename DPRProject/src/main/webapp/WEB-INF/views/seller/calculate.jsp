@@ -162,7 +162,7 @@ li {
 	    <tr id="prodListTitle">
 			<th style="padding: 8px 20px;">기준월</th>
 			<th style="padding: 8px 20px;">판매대금</th>
-			<th style="padding: 8px 20px;">수수료</th>
+			<th style="padding: 8px 20px;">공제금</th>
 			<th style="padding: 8px 20px;">정산액</th>
 	    </tr>
 	    <c:forEach items="${monthly}" var="mon" varStatus="status">
