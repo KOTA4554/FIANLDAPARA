@@ -96,7 +96,7 @@ public class SellerService {
 
 	public String findId(Seller s) {
 		return sellerDAO.findId(s);
-
+	}
 	public Calculate getCalculate(Map<String, Object> setting) {
 		return sellerDAO.getCalculate(setting);
 	}

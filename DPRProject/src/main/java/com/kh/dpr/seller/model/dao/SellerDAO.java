@@ -99,6 +99,7 @@ public class SellerDAO {
 
 	public String findId(Seller s) {
 		return sqlSession.selectOne("sellerSQL.findId", s);
+	}
 
 	public Calculate getCalculate(Map<String, Object> setting) {
 		return sqlSession.selectOne("sellerSQL.getCalculate", setting);
