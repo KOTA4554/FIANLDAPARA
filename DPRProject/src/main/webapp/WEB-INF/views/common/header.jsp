@@ -12,7 +12,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-      <title>main page</title>
+      <title>DAPARA</title>
+      <link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
       <!-- Google font -->
       <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 

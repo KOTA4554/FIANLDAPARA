@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>주문완료 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 	
 	<!-- css -->
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/orderComplete.css"/>

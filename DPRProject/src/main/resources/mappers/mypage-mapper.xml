@@ -61,7 +61,7 @@
 		SELECT COUNT(*) FROM REVIEW WHERE USERID = #{userId}
 	</select>
 	
-	<select id="selectQnAList" parameterType="string" resultType="Review">
+	<select id="selectQnAList" parameterType="string" resultType="QnA">
 		SELECT * FROM QNA WHERE USERID = #{userId} ORDER BY QDATE DESC, QNO DESC
 	</select>
 	

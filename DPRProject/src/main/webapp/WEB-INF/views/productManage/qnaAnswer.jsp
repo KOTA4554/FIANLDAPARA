@@ -8,7 +8,8 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>DAPARA : 문의답변</title>
+    <title>문의답변 : DAPARA</title>
+    <link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 </head>
 <body>
 <c:import url="../common/header.jsp"/>

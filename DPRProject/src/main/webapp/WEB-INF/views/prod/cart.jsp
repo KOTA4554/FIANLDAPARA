@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>DAPARA : 장바구니</title>
+    <link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
     <script src="https://kit.fontawesome.com/c10cbac54f.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
   

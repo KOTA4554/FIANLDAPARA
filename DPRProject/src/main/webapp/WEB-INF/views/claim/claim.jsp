@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 	
 	<!-- css -->
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myPage.css"/>

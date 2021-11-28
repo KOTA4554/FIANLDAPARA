@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>의류 - 탑 </title>
+<title>의류 - 탑 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jeongho.css"/>
 </head>
 <body>
@@ -44,7 +47,7 @@
 												
             </div>
             <div class="productprice">
-               <p  name="productPrice" value="${product.productPrice }" >'${row.productPrice }' </p>
+                <p  name="productPrice" id="product-price" value="" ><fmt:formatNumber value="${row.productPrice}" pattern="#,###"/> </p>
             </div>
 
             <br>
@@ -79,7 +82,7 @@
                 </a>
             </div>
             <div class="productprice">
-               <p  name="productPrice" value="${product.productPrice }" >'${row.productPrice }' </p>
+                <p  name="productPrice" id="product-price" value="" ><fmt:formatNumber value="${row.productPrice}" pattern="#,###"/> </p>
             </div>
 
             <br>
@@ -115,7 +118,7 @@
                 </a>							
             </div>
             <div class="productprice">
-               <p  name="productPrice" value="${product.productPrice }" >'${row.productPrice }' </p>
+                <p  name="productPrice" id="product-price" value="" ><fmt:formatNumber value="${row.productPrice}" pattern="#,###"/> </p>
             </div>
 
             <br>

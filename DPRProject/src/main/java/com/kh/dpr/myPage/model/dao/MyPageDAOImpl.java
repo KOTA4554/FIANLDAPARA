@@ -102,7 +102,7 @@ public class MyPageDAOImpl implements MyPageDAO {
 
 	@Override
 	public Product selectQproduct(int qNo) {
-		return sqlSession.selectOne("myPageSQL.selectRproduct", qNo);
+		return sqlSession.selectOne("myPageSQL.selectQproduct", qNo);
 
 	}
 
