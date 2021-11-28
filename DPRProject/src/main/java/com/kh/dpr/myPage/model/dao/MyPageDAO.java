@@ -2,6 +2,7 @@ package com.kh.dpr.myPage.model.dao;
 
 import java.util.List;
 
+import com.kh.dpr.claim.model.vo.Claim;
 import com.kh.dpr.myPage.model.vo.DeliveryAPI;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
@@ -27,6 +28,8 @@ public interface MyPageDAO {
 
 	DeliveryAPI selectDelivery(int detailNo);
 
+	Claim selectClaimList(int detailNo);
+
 	List<Review> selectReviewList(String userId, int cPage, int numPerPage);
 
 	int selectTotalReview(String userId);
@@ -38,5 +41,6 @@ public interface MyPageDAO {
 	Product selectRproduct(int reviewNo);
 
 	Product selectQproduct(int qNo);
+
 	
 }

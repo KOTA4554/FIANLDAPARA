@@ -177,7 +177,7 @@ public class ClaimController {
       
       
       if(result > 0) {
-         msg = " 취소 등록 성공!";
+         msg = "클레임 등록 성공!";
       } else {
          msg = "클레임 등록 실패!";
       }

@@ -2,6 +2,7 @@ package com.kh.dpr.myPage.model.service;
 
 import java.util.List;
 
+import com.kh.dpr.claim.model.vo.Claim;
 import com.kh.dpr.myPage.model.vo.DeliveryAPI;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
@@ -26,6 +27,8 @@ public interface MyPageService {
 
 	DeliveryAPI selectDelivery(int detailNo);
 
+	Claim selectClaimList(int detailNo);
+
 	List<Review> selectReviewList(String userId, int cPage, int numPerPage);
 
 	int selectTotalReview(String userId);
@@ -37,5 +40,6 @@ public interface MyPageService {
 	Product selectRproduct(int reviewNo);
 	
 	Product selectQproduct(int qNo);
+
 	
 }

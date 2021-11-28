@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.dpr.claim.model.vo.Claim;
 import com.kh.dpr.myPage.model.vo.DeliveryAPI;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
@@ -65,6 +66,11 @@ public class MyPageDAOImpl implements MyPageDAO {
 	}
 
 	@Override
+	public Claim selectClaimList(int detailNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("myPageSQL.selectClaimList", detailNo);
+
+  @Override
 	public List<Review> selectReviewList(String userId, int cPage, int numPerPage) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
 		return sqlSession.selectList("myPageSQL.selectReviewList", userId, rows);
@@ -96,6 +102,7 @@ public class MyPageDAOImpl implements MyPageDAO {
 	@Override
 	public Product selectQproduct(int qNo) {
 		return sqlSession.selectOne("myPageSQL.selectRproduct", qNo);
+
 	}
 
 }
