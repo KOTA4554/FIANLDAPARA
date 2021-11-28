@@ -110,7 +110,7 @@ div#userId-container span.error, span.invalid {
 						</div>
 						<div class="form-group">
 							<input class="input" type="tel" name="userPhone" 
-								onkeyup="addHypenPhone(this);"placeholder="연착처를 '-' 없이 입력하세요." required >
+								onkeyup="addHypenPhone(this);"placeholder="연락처를 '-' 없이 입력하세요." required >
 						</div>
 						<div class="form-group">
 							<input type="text" name="userEmail" placeholder="이메일을 입력해주세요" class="input">
