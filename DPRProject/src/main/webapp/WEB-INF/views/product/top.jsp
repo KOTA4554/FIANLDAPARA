@@ -38,7 +38,9 @@
                 <p name="productBrand" id="productBrand" value="${row.productBrand }">'${row.productBrand}' </p>
             </div>
             <div class="productname">
+                <a href="<%=request.getContextPath()%>/prod_detail.do?prodNo=${row.productNo}">
                 <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
+                </a>
 												
             </div>
             <div class="productprice">
@@ -72,8 +74,9 @@
                 <p name="productBrand" id="productBrand" value="${row.productBrand }">'${row.productBrand}' </p>
             </div>
             <div class="productname">
-                <p name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
-												
+               <a href="<%=request.getContextPath()%>/prod_detail.do?prodNo=${row.productNo}">
+                <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
+                </a>
             </div>
             <div class="productprice">
                <p  name="productPrice" value="${product.productPrice }" >'${row.productPrice }' </p>
@@ -107,8 +110,9 @@
                 <p name="productBrand" id="productBrand" value="${row.productBrand }">'${row.productBrand}' </p>
             </div>
             <div class="productname">
+                <a href="<%=request.getContextPath()%>/prod_detail.do?prodNo=${row.productNo}">
                 <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
-												
+                </a>							
             </div>
             <div class="productprice">
                <p  name="productPrice" value="${product.productPrice }" >'${row.productPrice }' </p>
