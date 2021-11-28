@@ -267,6 +267,7 @@ textarea {
                   <span class="imageSectionTitles">메인 이미지 및 추가 이미지 등록</span>
                   
                   <div class="productImgSection">
+
                   	 <c:forEach items="${image}" var="img">
                   	 <c:if test="${img.imageCategoryNo == 0}">
                      <div class="productMainImg">
