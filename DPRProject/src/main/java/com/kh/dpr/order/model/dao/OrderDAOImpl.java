@@ -1,5 +1,7 @@
 package com.kh.dpr.order.model.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -44,6 +46,12 @@ public class OrderDAOImpl implements OrderDAO {
 	public String selectImg(int productNo) {
 		
 		return sqlSession.selectOne("orderSQL.selectImg", productNo);
+	}
+
+	@Override
+	public int deleteCart(Map<String, Object> map) {
+		
+		return sqlSession.delete("orderSQL.deleteCart", map);
 	}
 
 }

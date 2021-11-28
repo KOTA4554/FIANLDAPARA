@@ -138,68 +138,7 @@ li {
 <body>
 <c:import url="../common/header.jsp"/>	
 <div class="mainSectionForm">
-	<form action="${pageContext.request.contextPath}/seller/searchProd.do" method="get">
-		<table border="0">
-			<tr>
-				<th colspan="4" class="sectionTitles">검색 조건 설정</th>
-			</tr>
-		    <tr>
-		        <th>상품명</th>
-		        <td><input type="text" name="searchNm" id="searchProdName"></td>
-		        <th>카테고리</th>
-			        <td>
-			        <div id="categorySelects">
-		                    <select name="searchCate1" id="categoryNo" class="cateSelector">
-		                        <option value="999">대분류</option>
-		                        <option value="0">의류</option>
-		                        <option value="1">슈즈</option>
-		                        <option value="2">가방</option>
-		                        <option value="3">액세서리</option>
-		                        <option value="4">주얼리</option>
-		                    </select>
-		                    <select name="searchCate2" id="categoryNo2" class="cateSelector">
-		                    	<option value="999">소분류</option>
-		                        <option value="1">탑</option>
-		                        <option value="2">니트웨어</option>
-		                        <option value="3">셔츠/자켓</option>
-		                        <option value="4">셔츠</option>
-		                        <option value="5">수트</option>
-		                        <option value="6">팬츠</option>
-		                        <option value="7">언더웨어</option>
-		                        <option value="8">비치웨어</option>
-		                        <option value="9">기능성의류</option>
-		                    </select>
-		                </div>
-			        </td>
-		    </tr>
-		    <tr>
-		        <th>판매기간</th>
-		        <td><input type="text" class="datepicker" name="startDate" id="startDate" placeholder="판매 시작일">
-		        	<span style="display: inline-block; margin: 0px 25px;"> ~ </span> 
-		        	<input type="text" class="datepicker" name="endDate" id="endDate" placeholder="판매 종료일"></td>
-		        <th>판매상태</th>
-		        <td>
-		            <select name="saleState" id="searchProdState">
-		            	<option value="999">선택</option>
-		                <option value="1">판매대기</option>
-		                <option value="2">판매중</option>
-		                <option value="3">판매종료</option>
-		            </select>
-		        </td>
-		    </tr>
-		    <tr>
-		        <th>브랜드</th>
-		        <td><input type="text" name="searchBrand" id="searchProdBrand"></td>
-		        <th>상품번호</th>
-		        <td>
-		        	<input type="text" name="searchPno" id="searchProdNo" />
-		        </td>
-		    </tr>
-		</table>
-		<div class="searchBtnSection">
-			<button id="searchBtn">검색</button>
-		</div>
-	</form>
+	
 	
 	<div class="charArea">
 		<!--차트가 그려질 부분-->
@@ -215,7 +154,7 @@ li {
 					<div class="stateTitleName">상품 별 총 매출액, 총 판매량</div>
 			</div>
 		
-			<canvas id="productSaleRate" width="1100" height="400"></canvas>	
+			<canvas id="productSaleRate" width="1100" height="500"></canvas>	
 		</div>
 		
 		<div class=chart id="charArea2" style="display:flex; justify-content: space-between;">

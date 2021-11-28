@@ -1,5 +1,7 @@
 package com.kh.dpr.order.model.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,12 @@ public class OrderServiceImpl implements OrderService {
 	public String selectImg(int productNo) {
 		
 		return orderDAO.selectImg(productNo);
+	}
+
+	@Override
+	public int deleteCart(Map<String, Object> map) {
+		
+		return orderDAO.deleteCart(map);
 	}
 
 }
