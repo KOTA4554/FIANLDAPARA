@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.dpr.order.model.vo.Delivery;
+import com.kh.dpr.seller.model.vo.Calculate;
 import com.kh.dpr.seller.model.vo.Gross;
 import com.kh.dpr.seller.model.vo.Seller;
 import com.kh.dpr.seller.model.vo.SellerStat;
@@ -93,5 +94,13 @@ public class SellerDAO {
 
 	public List<Gross> getSaleGross(Map setting) {
 		return sqlSession.selectList("sellerSQL.getSaleGross", setting);
+	}
+
+	public Calculate getCalculate(Map<String, Object> setting) {
+		return sqlSession.selectOne("sellerSQL.getCalculate", setting);
+	}
+
+	public List<Calculate> getMontlyGross(Map<String, Object> setting) {
+		return sqlSession.selectList("sellerSQL.getMonthlyGross", setting);
 	}
 }

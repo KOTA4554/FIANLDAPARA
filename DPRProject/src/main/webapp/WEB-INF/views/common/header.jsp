@@ -13,7 +13,6 @@
        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
       <title>main page</title>
-
       <!-- Google font -->
       <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
@@ -255,11 +254,7 @@
                         <li><a href="${pageContext.request.contextPath}/seller/reviewList.do">리뷰 관리</a></li>
                      </ul>
                   </li>
-                  <li><a href="#">정산조회</a>
-                     <ul>
-                        <li><a href="">판매 현황</a></li>
-                        <li><a href="">정산 내역</a></li>
-                     </ul>
+                  <li><a href="${pageContext.request.contextPath}/seller/calculate.do">정산조회</a>
                   </li>
                   <li><a href="${pageContext.request.contextPath}/statistic/statisticPage.do">통계</a>
                   </li>

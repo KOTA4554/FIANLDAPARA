@@ -2,6 +2,7 @@ package com.kh.dpr.myPage.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,14 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.kh.dpr.claim.model.vo.Claim;
+import com.kh.dpr.common.Utils;
 import com.kh.dpr.member.model.vo.Member;
 import com.kh.dpr.myPage.model.service.MyPageService;
 import com.kh.dpr.myPage.model.vo.DeliveryAPI;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
 import com.kh.dpr.product.model.vo.Product;
+import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
 @Controller
@@ -131,6 +133,46 @@ public class MypageController {
 		
 		return "common/msg";
 	}
+	
+	@RequestMapping("/myPage/reviewList.do")
+	public String reviewList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+							 HttpServletRequest request, Model model) {
+		
+		HttpSession session = request.getSession(false);
+		
+		Member m = (Member)session.getAttribute("member");
+		
+		String userId = m.getUserId();
+		
+		int numPerPage = 15;
+		List<Review> reviewList = myPageService.selectReviewList(userId, cPage, numPerPage);
+		
+		 // 해당 리뷰의 상품
+	    List<Product> rpList = new ArrayList<Product>();
+
+	      for(int i = 0; i < reviewList.size(); i++) {
+	         
+	         int reviewNo = reviewList.get(i).getReviewNo();
+	         
+	         Product rp = myPageService.selectRproduct(reviewNo);
+	         
+	         rpList.add(rp);
+	         
+	    }
+		
+		int totalReivew = myPageService.selectTotalReview(userId);
+		
+		String pageBar = Utils.getPageBar(totalReivew, cPage, numPerPage, "reviewList.do");
+		
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("rpList", rpList);
+		model.addAttribute("totalReivew", totalReivew);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+		
+		return "myPage/reviewList";
+	}
+	
 	
 	
 }
