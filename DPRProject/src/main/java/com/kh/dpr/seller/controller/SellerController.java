@@ -79,6 +79,7 @@ public class SellerController {
 	  model.addAttribute("delivery", delivery);
 	  model.addAttribute("review", review);
 	  model.addAttribute("qna", qna);
+	  System.out.println(product);
 	  
 	  Map setting = new HashMap();
 	  // String currentDate = new SimpleDateFormat("yy-MM-dd").format(new java.util.Date());

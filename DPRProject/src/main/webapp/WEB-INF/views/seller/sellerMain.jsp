@@ -160,7 +160,7 @@
             <li>
                 <div class="titles">판매 중 상품</div>
                 <strong><a href="${pageContext.request.contextPath}/seller/searchProd.do?searchNm=&searchCate1=999&searchCate2=999&
-                startDate=&endDate=&saleState=1&searchBrand=&searchPno=" class="sellerInfoAtag">${product.sellProduct} 건</a></strong>
+                startDate=&endDate=&saleState=2&searchBrand=&searchPno=" class="sellerInfoAtag">${product.sellProduct} 건</a></strong>
             </li>
             <li>
                 <div class="titles">종료임박 상품</div>
@@ -168,13 +168,13 @@
             </li>
             <li>
                 <div class="titles">판매 대기 상품</div>
-                <strong><a href="${pageContext.request.contextPath}/seller/searchProd.do?searchNm=&searchCate1=999&searchCate2=999&
-                startDate=&endDate=&saleState=2&searchBrand=&searchPno=" class="sellerInfoAtag">${product.impendProduct} 건</a></strong>
+                <strong><a href="${pageContext.request.contextPath}/seller/searchProd.do?searchNm=&searchCate1=999&searchCate2=999
+                &startDate=&endDate=&saleState=1&searchBrand=&searchPno=" class="sellerInfoAtag">${product.waitProduct} 건</a></strong>
             </li>
             <li>
                 <div class="titles">판매 종료 상품</div>
-                <strong><a href="${pageContext.request.contextPath}/seller/searchProd.do?searchNm=&searchCate2=999&searchCate2=999&
-                startDate=&endDate=&saleState=3&searchBrand=&searchPno=" class="sellerInfoAtag">${product.endProduct} 건</a></strong>
+                <strong><a href="${pageContext.request.contextPath}/seller/searchProd.do?searchNm=&searchCate1=999&searchCate2=999
+                &startDate=&endDate=&saleState=3&searchBrand=&searchPno=" class="sellerInfoAtag">${product.endProduct} 건</a></strong>
             </li>
             
         </ul>
