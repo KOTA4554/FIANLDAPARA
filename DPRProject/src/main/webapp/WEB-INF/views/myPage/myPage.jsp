@@ -93,7 +93,7 @@
 												<button type="button" class="qnaBtn">문의하기</button>
 											</td>
 											<td rowspan="4" align="center" class="btnArea2">
-
+												
 												<c:if test="${orderDetailList.claimNo == 0}">
 												<button type="button" onclick="goClaim(${orderDetailList.detailNo});">취소, 교환, 반품 신청</button>													
 												</c:if>
@@ -115,16 +115,17 @@
 												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimNo == 5}">
 													<p>취소 완료</p>
 												</c:if>
+												
 												<form action="http://info.sweettracker.co.kr/tracking/5" method="post" target="_blank">
-		                                          <div class="form-group">
+		                                         
 		                                            <input type="hidden" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY" value="3SlDxD7VoJflx2sI2jOO1Q">
-		                                          </div>
-		                                          <div class="form-group">
+		                                      
+		                                          
 		                                            <input type="hidden" class="form-control" name="t_code" id="t_code" placeholder="택배사 코드" value="${deliveryList[status.index].deliveryCode2}">
-		                                          </div>
-		                                          <div class="form-group">
+		                                      
+		                                          
 		                                            <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호" value="${deliveryList[status.index].deliveryNo}">
-		                                          </div>
+		                                         
 		                                       <button type="submit">배송 조회</button>
 		                                      </form>
 												<!-- processCode가 4 인 orderDetail일 경우 -->
