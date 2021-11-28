@@ -401,7 +401,6 @@ textarea {
          var productBrand = $('#productBrand').val();
          $('.optionBrand').val(productBrand);
       });
-      
    });
    
    
