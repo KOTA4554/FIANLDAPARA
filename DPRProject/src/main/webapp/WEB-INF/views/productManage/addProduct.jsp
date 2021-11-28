@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품등록 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 
 <style>
 .mainSectionForm {
@@ -401,7 +402,6 @@ textarea {
          var productBrand = $('#productBrand').val();
          $('.optionBrand').val(productBrand);
       });
-      
    });
    
    

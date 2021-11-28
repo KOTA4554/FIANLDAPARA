@@ -12,12 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.dpr.claim.model.vo.Claim;
+import com.kh.dpr.common.Utils;
 import com.kh.dpr.member.model.vo.Member;
 import com.kh.dpr.myPage.model.service.MyPageService;
 import com.kh.dpr.myPage.model.vo.DeliveryAPI;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
 import com.kh.dpr.product.model.vo.Product;
+import com.kh.dpr.qna.model.vo.QnA;
+import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
 @Controller
@@ -41,6 +45,15 @@ public class MypageController {
 		
 		// orderNo 일치하는 orderDetail
 		List<OrderDetail> orderDetailList = myPageService.selectOrderDetailList(userId); 
+		
+		List<Claim> claimList = new ArrayList<Claim>();
+		for(int i = 0; i < orderDetailList.size(); i ++) {
+			int detailNo = orderDetailList.get(i).getDetailNo();
+			
+			Claim claim = myPageService.selectClaimList(detailNo);
+			
+			claimList.add(claim);
+		}
 		
 		//seller 조회
 		List<Seller> sellerList = new ArrayList<Seller>();
@@ -87,6 +100,10 @@ public class MypageController {
 			productImgList.add(productImg);
 		}
 		
+		System.out.println(claimList);
+		System.out.println(orderDetailList);
+		
+		model.addAttribute("claimList", claimList);
 		model.addAttribute("deliveryList", deliveryList);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("orderDetailList", orderDetailList);
@@ -118,5 +135,84 @@ public class MypageController {
 		return "common/msg";
 	}
 	
+	@RequestMapping("/myPage/reviewList.do")
+	public String reviewList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+							 HttpServletRequest request, Model model) {
+		
+		HttpSession session = request.getSession(false);
+		
+		Member m = (Member)session.getAttribute("member");
+		
+		String userId = m.getUserId();
+		
+		int numPerPage = 15;
+		List<Review> reviewList = myPageService.selectReviewList(userId, cPage, numPerPage);
+		
+		 // 해당 리뷰의 상품
+	    List<Product> rpList = new ArrayList<Product>();
+
+	      for(int i = 0; i < reviewList.size(); i++) {
+	         
+	         int reviewNo = reviewList.get(i).getReviewNo();
+	         
+	         Product rp = myPageService.selectRproduct(reviewNo);
+	         
+	         rpList.add(rp);
+	         
+	    }
+		
+		int totalReivew = myPageService.selectTotalReview(userId);
+		
+		String pageBar = Utils.getPageBar(totalReivew, cPage, numPerPage, "reviewList.do");
+		
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("rpList", rpList);
+		model.addAttribute("totalReivew", totalReivew);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+		
+		return "myPage/reviewList";
+	}
+	
+	@RequestMapping("/myPage/qnaList.do")
+	public String qnaList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+							 HttpServletRequest request, Model model) {
+		
+		HttpSession session = request.getSession(false);
+		
+		Member m = (Member)session.getAttribute("member");
+		
+		String userId = m.getUserId();
+		
+		int numPerPage = 15;
+		List<QnA> qnaList = myPageService.selectQnAList(userId, cPage, numPerPage);
+		
+		 // 해당 리뷰의 상품
+	    List<Product> qpList = new ArrayList<Product>();
+
+	      for(int i = 0; i < qnaList.size(); i++) {
+	         
+	         int qNo = qnaList.get(i).getQNo();
+	         
+	         Product qp = myPageService.selectQproduct(qNo);
+	         
+	         qpList.add(qp);
+	         
+	    }
+	      
+	      System.out.println(qpList);
+		
+		int totalQna = myPageService.selectTotalQnA(userId);
+		
+		String pageBar = Utils.getPageBar(totalQna, cPage, numPerPage, "qnaList.do");
+		
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("qpList", qpList);
+		model.addAttribute("totalQna", totalQna);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+		
+		return "myPage/qnaList";
+	}
 	
 }

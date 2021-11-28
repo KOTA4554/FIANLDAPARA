@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.dpr.order.model.vo.Delivery;
 import com.kh.dpr.seller.model.dao.SellerDAO;
+import com.kh.dpr.seller.model.vo.Calculate;
 import com.kh.dpr.seller.model.vo.Gross;
 import com.kh.dpr.seller.model.vo.Seller;
 import com.kh.dpr.seller.model.vo.SellerStat;
@@ -92,7 +93,16 @@ public class SellerService {
 		return sellerDAO.getSaleGross(setting);
 	}
 
+
 	public String findId(Seller s) {
 		return sellerDAO.findId(s);
+
+	public Calculate getCalculate(Map<String, Object> setting) {
+		return sellerDAO.getCalculate(setting);
+	}
+
+	public List<Calculate> getMontlyGross(Map<String, Object> setting) {
+		return sellerDAO.getMontlyGross(setting);
+
 	}
 }

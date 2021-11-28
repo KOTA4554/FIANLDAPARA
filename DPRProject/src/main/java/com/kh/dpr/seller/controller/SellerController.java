@@ -3,7 +3,6 @@ package com.kh.dpr.seller.controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.dpr.common.Utils;
 import com.kh.dpr.order.model.vo.Delivery;
 import com.kh.dpr.seller.model.service.SellerService;
+import com.kh.dpr.seller.model.vo.Calculate;
 import com.kh.dpr.seller.model.vo.Gross;
 import com.kh.dpr.seller.model.vo.Seller;
 import com.kh.dpr.seller.model.vo.SellerStat;
@@ -410,6 +410,7 @@ public class SellerController {
     	return "seller/delivery";
     }
     
+
     @RequestMapping("member/sellerSearchInfo.do")
     public String searchInfo(@RequestParam String sellerName, @RequestParam String sellerPhone, @RequestParam String sellerCompany, Model model) {
     	
@@ -429,4 +430,51 @@ public class SellerController {
     	return "common/msg";
     }
     
+
+    @RequestMapping("/seller/calculate.do")
+    public String sellerCalculate() {
+    	
+    	return "seller/calculate";
+    }
+    
+    @RequestMapping("/seller/inquireCal.do")
+    public String inquireCalculate(Seller seller, Model model,
+    							@RequestParam(value="startDate", required=false) String startDate,
+    							@RequestParam(value="endDate", required=false) String endDate) {
+    	
+    	System.out.println(seller);
+    	System.out.println(startDate);
+    	System.out.println(endDate);
+		
+		Map<String, Object> setting= new HashMap<>();
+
+		String sellerId = seller.getSellerId();
+		setting.put("sellerId", sellerId);
+		
+		if( startDate != null && !startDate.equals("")) {
+			Date startD = Date.valueOf(startDate);			
+			setting.put("startDate", startD);
+		}
+		
+		if( endDate != null && !endDate.equals("")) {
+			Date endD = Date.valueOf(endDate);
+			setting.put("endDate", endD);
+		}
+		
+		List<Calculate> monthly = sellerService.getMontlyGross(setting);
+		System.out.println(monthly);
+		model.addAttribute("monthly", monthly);
+		
+		Calculate total = sellerService.getCalculate(setting);
+		System.out.println(total);
+		
+		total.setRealGross(total.getTotalGross() - total.getCancleGross());
+		total.setCommission((int)(total.getRealGross() * 0.1));
+		total.setDiscount(0);
+		
+		model.addAttribute("total", total);
+		
+		return "seller/calculate";
+    }
+
 }

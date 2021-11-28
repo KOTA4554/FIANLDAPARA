@@ -26,6 +26,8 @@ public interface ProductService {
 
 	String selectImage(int productNo);
 
+	int selectProductsearchTotalContents(String sresult);
+
 	
 	
 	

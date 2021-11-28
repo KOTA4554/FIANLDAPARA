@@ -8,7 +8,8 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>회원가입</title>
+<title>회원가입 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

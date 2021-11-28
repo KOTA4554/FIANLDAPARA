@@ -12,11 +12,11 @@
 	</select>
 	
 	<select id="selectOrderDetailList" parameterType="string" resultType="OrderDetail">
-		SELECT * FROM ORDERDETAIL
+		SELECT * FROM ORDERDETAIL LEFT JOIN CLAIMINFO USING(DETAILNO)
 		WHERE ORDERNO IN (SELECT ORDERNO 
                  		  FROM "ORDER"
                  		  WHERE USERID = #{ userId })
-        ORDER BY DETAILNO DESC
+        ORDER BY DETAILNO DESC 
 	</select>
 	
 	<select id="selectSeller" parameterType="int" resultType="Seller">
@@ -49,4 +49,42 @@
 			
 	</select>
 	
+	<select id ="selectClaimList" parameterType="int" resultType="Claim">
+			SELECT * FROM CLAIMINFO WHERE DETAILNO = #{detailNo}
+	</select>
+	
+	<select id="selectReviewList" parameterType="string" resultType="Review">
+		SELECT * FROM REVIEW WHERE USERID = #{userId} ORDER BY REVIEWDATE DESC, REVIEWNO DESC
+	</select>
+	
+	<select id="selectTotalReview" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM REVIEW WHERE USERID = #{userId}
+	</select>
+	
+	<select id="selectQnAList" parameterType="string" resultType="QnA">
+		SELECT * FROM QNA WHERE USERID = #{userId} ORDER BY QDATE DESC, QNO DESC
+	</select>
+	
+	<select id="selectTotalQnA" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM QNA WHERE USERID = #{userId}
+	</select>
+	
+	<select id="selectRproduct" parameterType="int" resultType="Product">
+      SELECT *
+      FROM PRODUCT_DETAIL
+      WHERE PRODUCTNO = (SELECT PRODUCTNO
+                                     FROM ORDERDETAIL
+                                     WHERE DETAILNO = (select DETAILNO
+                                                               FROM REVIEW
+                                                               WHERE REVIEWNO = #{reviewNo}))
+   </select>
+   
+   <select id="selectQproduct" parameterType="int" resultType="Product">
+      SELECT *
+      FROM PRODUCT_DETAIL
+      WHERE PRODUCTNO = (SELECT PRODUCTNO
+                     FROM QNA
+                     WHERE QNO = #{qno})
+   </select>
+
 </mapper>

@@ -80,5 +80,11 @@ public class ProductDAOImpl implements ProductDAO {
 		return sqlSession.selectOne("product.selectImg", productNo);
 	}
 
+	@Override
+	public int selectProductsearchTotalContents(String sresult) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("product.searchTotalContents", sresult);
+	}
+
 	
 }

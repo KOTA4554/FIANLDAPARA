@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매자 리뷰관리</title>
+<title>판매자 리뷰관리 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 
 <style>
 .mainSectionForm {

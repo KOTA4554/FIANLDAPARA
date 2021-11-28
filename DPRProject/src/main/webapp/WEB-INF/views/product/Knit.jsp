@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>의류 - 니트</title>
+<title>의류 - 니트 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jeongho.css"/>
 </head>
 <body>
@@ -38,11 +41,12 @@
                <p name="productBrand" id="productBrand" value="${row.productBrand }">'${row.productBrand}' </p>
             </div>
             <div class="productname">
+               <a href="<%=request.getContextPath()%>/prod_detail.do?prodNo=${row.productNo}">
                 <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
-												
+                </a>						
             </div>
             <div class="productprice">
-               <p  name="productPrice" value="${product.productPrice }" >'${row.productPrice }' </p>
+               <p  name="productPrice" id="product-price" value="" ><fmt:formatNumber value="${row.productPrice}" pattern="#,###"/> </p>
             </div>
 
             <br>
@@ -72,11 +76,12 @@
                <p name="productBrand" id="productBrand" value="${row.productBrand }">'${row.productBrand}' </p>
             </div>
             <div class="productname">
-                <p name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
-												
+               <a href="<%=request.getContextPath()%>/prod_detail.do?prodNo=${row.productNo}">
+                <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
+                </a>						
             </div>
             <div class="productprice">
-               <p  name="productPrice" value="${product.productPrice }" >'${row.productPrice }' </p>
+                <p  name="productPrice" id="product-price" value="" ><fmt:formatNumber value="${row.productPrice}" pattern="#,###"/> </p>
             </div>
 
             <br>
@@ -107,11 +112,12 @@
                 <p name="productBrand" id="productBrand" value="${row.productBrand }">'${row.productBrand}' </p>
             </div>
             <div class="productname">
+               <a href="<%=request.getContextPath()%>/prod_detail.do?prodNo=${row.productNo}">
                 <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
-												
+                </a>					
             </div>
             <div class="productprice">
-               <p  name="productPrice" value="${product.productPrice }" >'${row.productPrice }' </p>
+                <p  name="productPrice" id="product-price" value="" ><fmt:formatNumber value="${row.productPrice}" pattern="#,###"/> </p>
             </div>
 
             <br>

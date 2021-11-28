@@ -222,17 +222,17 @@ public class MainController {
          List<Map<String, String>> list = productService.selectSearchList(cPage, numPerPage, sresult);
          
          // 전체 게시글 수
-         int totalContents = productService.selectProductTotalContents();
+         int searchContents = productService.selectProductsearchTotalContents(sresult);
          
          // 페이지 처리 Utils 사용하기
-         String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "search.do");
+         String pageBar = Utils.getPageBar(searchContents, cPage, numPerPage, "search.do");
          
          System.out.println("list : " + list);
          System.out.println("pageBar : " + pageBar);
          
          
          model.addAttribute("list", list);
-         model.addAttribute("totalContents", totalContents);
+         model.addAttribute("totalContents", searchContents);
          model.addAttribute("numPerPage", numPerPage);
          model.addAttribute("pageBar", pageBar);
          

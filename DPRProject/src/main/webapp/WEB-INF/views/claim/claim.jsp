@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 	
 	<!-- css -->
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myPage.css"/>
@@ -60,44 +61,7 @@
 	
 					</div>
 	
-					<div id="orderListArea">
-	
-						<div id="deliCountSection">
-							<div id="deliCount">
-								<table id="deliCountTable">
-									<tr>
-										<td>배송중</td>
-										<td>취소/교환/반품</td>
-									</tr>
-	
-									<tr>
-										<td class="iconTr">
-											<i class="fas fa-truck"></i>
-											<span>1</span> <!-- userId가 user01인 회원의 배송중 상태 개수 -->
-										</td>
-										<td class="iconTr">
-											<i class="fas fa-undo-alt"></i>
-											<span>0</span> <!-- userId가 user01인 회원의 취소 반품 교환 상태 개수 -->
-										</td>
-									</tr>
-								</table>
-							</div>
-	
-							<div id="searchDate">
-								<div id="btnArea">
-									<button type="button" class="dateBtn">1개월</button>
-									<button type="button" class="dateBtn">3개월</button>
-									<button type="button" class="dateBtn">6개월</button>
-									<button type="button" class="dateBtn">1년</button>
-								</div>
-								<div id="calArea">
-									<input type="date" name="" id=""> - 
-									<input type="date" name="" id="">
-									<button type="button" id="searchBtn">조회</button>
-								</div>
-							</div>
-	
-						</div>
+					<div id="orderListArea">	
 	
 						<div id="orderList">
 							<div id="orderList-header">

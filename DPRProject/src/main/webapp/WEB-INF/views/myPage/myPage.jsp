@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 	
 	<!-- css -->
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myPage.css"/>
@@ -51,8 +52,8 @@
 								<li class="listTitle">
 									MY 활동
 									<ul>
-										<li class="menu"><a href="">문의내역 확인</a></li>
-										<li class="menu"><a href="">리뷰 관리</a></li>
+										<li class="menu"><a href="${pageContext.request.contextPath}/myPage/qnaList.do">문의내역 확인</a></li>
+										<li class="menu"><a href="${pageContext.request.contextPath}/myPage/reviewList.do">리뷰 관리</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -79,6 +80,7 @@
 										<input type="hidden" name="detailNo" id="detailNo" value="${orderDetailList.detailNo}" /> <!-- orderDetail.getDetailNo -->
 										</c:if>
 									</div>
+									
 									<table class="orderTable">
 										<tr>
 											<td rowspan="4" class="productImg"><img src="${pageContext.request.contextPath}/resources/productUpload/${productImgList[status.index]}" alt="상품이미지" width=100 height=100></td>
@@ -92,22 +94,41 @@
 												<button type="button" class="qnaBtn">문의하기</button>
 											</td>
 											<td rowspan="4" align="center" class="btnArea2">
-
+												
+												<c:if test="${orderDetailList.claimNo == 0}">
+												<button type="button" onclick="goClaim(${orderDetailList.detailNo});">취소, 교환, 반품 신청</button>													
+												</c:if>
+												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimNo == 0}">
+													<p>교환 처리 중</p>
+												</c:if>
+												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimNo == 1}">
+													<p>환불 처리 중</p>
+												</c:if>
+												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimNo == 2}">
+													<p>취소 처리 중</p>
+												</c:if>
+												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimNo == 3}">
+													<p>교환 완료</p>
+												</c:if>
+												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimNo == 4}">
+													<p>환불 완료</p>
+												</c:if>
+												<c:if test="${orderDetailList.claimNo != 0 && orderDetailList.claimNo == 5}">
+													<p>취소 완료</p>
+												</c:if>
+												
 												<form action="http://info.sweettracker.co.kr/tracking/5" method="post" target="_blank">
-		                                          <div class="form-group">
+		                                         
 		                                            <input type="hidden" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY" value="3SlDxD7VoJflx2sI2jOO1Q">
-		                                          </div>
-		                                          <div class="form-group">
+		                                      
+		                                          
 		                                            <input type="hidden" class="form-control" name="t_code" id="t_code" placeholder="택배사 코드" value="${deliveryList[status.index].deliveryCode2}">
-		                                          </div>
-		                                          <div class="form-group">
+		                                      
+		                                          
 		                                            <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호" value="${deliveryList[status.index].deliveryNo}">
-		                                          </div>
+		                                         
 		                                       <button type="submit">배송 조회</button>
 		                                      </form>
-
-												<button type="button" onclick="goClaim(${orderDetailList.detailNo});">취소, 교환, 반품 신청</button>
-
 												<!-- processCode가 4 인 orderDetail일 경우 -->
 												<c:if test="${ orderDetailList.processCode == 1 }">
 													<button type="button" onclick="complete(${orderDetailList.detailNo});">구매 확정</button>
@@ -127,6 +148,7 @@
 										<tr>
 											<td>${ orderDetailList.detailPrice }원 ${ orderDetailList.detailAmount }개</td>
 										</tr>
+										
 									</table>
 								</div>
 							</c:forEach>

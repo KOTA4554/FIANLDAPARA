@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리뷰작성 : DAPARA</title>
+<title>리뷰상세 : DAPARA</title>
 <link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myPage.css"/>
@@ -41,7 +41,7 @@
 								<li class="listTitle">
 									MY 쇼핑
 									<ul>
-										<li class="menu"><a href="">주문목록 / 배송조회</a></li>
+										<a href="${pageContext.request.contextPath}/myPage/myPage.do">주문목록 / 배송조회</a>
 									</ul>
 								</li>
 							</ul>
@@ -50,7 +50,7 @@
 									MY 활동
 									<ul>
 										<li class="menu"><a href="">문의내역 확인</a></li>
-										<li class="menu"><a href="">리뷰 관리</a></li>
+										<li class="menu"><a href="${pageContext.request.contextPath}/myPage/reviewList.do">리뷰 관리</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -61,7 +61,7 @@
 					<div id="reviewArea">
 						
 						<div id="reviewTitle">
-							<h3>리뷰 작성</h3>
+							<h3>리뷰 상세/수정</h3>
 						</div>
 
 						<div id="productArea">
@@ -81,8 +81,8 @@
 							</table>
 						</div>
 
-						<form action="${pageContext.request.contextPath}/review/reviewInsert.do" id="reviewForm" method="post" onsubmit="return validate();" enctype="multipart/form-data">
-							<input type="hidden" name="detailNo" value="${ detailNo }">
+						<form action="${pageContext.request.contextPath}/review/reviewUpdate.do" id="reviewForm" method="post" onsubmit="return validate();" enctype="multipart/form-data">
+							<input type="hidden" name="reviewNo" value="${ review.reviewNo }">
 							<input type="hidden" name="userId" value="${ member.userId }">
 							<div id="starArea">
 								<span class="text">별점</span>
@@ -92,28 +92,30 @@
 								<i class="fas fa-star"></i>
 								<i class="fas fa-star"></i>
 								<select name="reviewScore" id="star" hidden>
-									<option value="0">0</option>
-									<option value="5">5</option>
-									<option value="4">4</option>
-									<option value="3">3</option>
-									<option value="2">2</option>
-									<option value="1">1</option>
+									<option value="0" <c:if test ="${reivew.reviewScore eq 0}">selected="selected"</c:if>>0</option>
+									<option value="5" <c:if test ="${reivew.reviewScore eq 5}">selected="selected"</c:if>>5</option>
+									<option value="4" <c:if test ="${reivew.reviewScore eq 4}">selected="selected"</c:if>>4</option>
+									<option value="3" <c:if test ="${reivew.reviewScore eq 3}">selected="selected"</c:if>>3</option>
+									<option value="2" <c:if test ="${reivew.reviewScore eq 2}">selected="selected"</c:if>>2</option>
+									<option value="1" <c:if test ="${reivew.reviewScore eq 1}">selected="selected"</c:if>>1</option>
 								</select>
 							</div>
 
 							<div id="imgArea">
 								<span class="text">사진 등록</span>
 								<div id="imgInput">
-									<!-- <img id="reviewImg"  width="200" height="250" > -->
-									<div id="imgBtn">
-										<i class="fas fa-plus"></i>
-									</div>
+									<c:if test="${not empty review.reviewNewImage}">
+										<img id="reviewImg" src="${pageContext.request.contextPath}/resources/reviewImg/${review.reviewNewImage}" width="200" height="250" >
+									</c:if>
+									<c:if test="${empty review.reviewNewImage || review.reviewNewImage == ''}">
+										<img id="reviewImg" src="${pageContext.request.contextPath}/resources/img/noImage.jpg" width="200" height="250" >
+									</c:if>
 								</div>
 							</div>
 
 							<div id="contentArea">
 								<p class="text">상품에 대한 평가를 남겨주세요.</p>
-								<textarea name="reviewContent" id="reviewContent" cols="90" rows="10" style="resize: none;"></textarea>
+								<textarea name="reviewContent" id="reviewContent" cols="90" rows="10" style="resize: none;">${review.reviewContent}</textarea>
 							</div>
 
 							<div class="fileArea" id="fileArea">
@@ -124,7 +126,8 @@
 							</div>
 
 							<div id="btnArea">
-								<button type="submit" id="reviewBtn">리뷰 등록</button>
+								<button type="submit" id="reviewBtn">리뷰 수정</button>
+								<button type="button" id="reviewDelBtn" onclick="reviewDel(${review.reviewNo});">리뷰 삭제</button>
 							</div>
 
 						</form>
@@ -266,5 +269,15 @@
 	
 		return true;
 	}
+	
+	function reviewDel(reviewNo){
+		if(confirm("삭제 시 복구할 수 없습니다. 삭제하시겠습니까?") == true){
+			
+			location.href="${pageContext.request.contextPath}/review/reviewDel.do?reviewNo=" + reviewNo;
+		} else {
+			return false;
+		}
+	}
+	
 </script>
 </html>

@@ -27,4 +27,6 @@ public class OrderDetail implements Serializable{
 	private int detailPrice;
 	private Date payDate;
 	private String detailSize;
+	private int claimNo;
+	private int claimCode;
 }

@@ -8,7 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로그인 : DAPARA</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/img/logo.png" >
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/kakao.js"></script>
 
