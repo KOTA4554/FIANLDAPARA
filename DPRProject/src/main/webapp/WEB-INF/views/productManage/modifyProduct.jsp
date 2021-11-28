@@ -267,10 +267,14 @@ textarea {
                   <span class="imageSectionTitles">메인 이미지 및 추가 이미지 등록</span>
                   
                   <div class="productImgSection">
+                  	 <c:forEach items="${image}" var="img">
+                  	 <c:if test="${img.imageCategoryNo == 0}">
                      <div class="productMainImg">
-                        <img src="${pageContext.request.contextPath}/resources/productUpload/${image[0].productNewImage}" alt="상품추가" id="mainImg"  width="555" height="555"/>
+                        <img src="${pageContext.request.contextPath}/resources/productUpload/${image.productNewImage}" alt="상품추가" id="mainImg"  width="555" height="555"/>
                         <input type="file" class="fileSelector" name="mainImg" id="mainProductImg" onchange="loadImg(this);"/>
                      </div>
+                     </c:if>
+                     </c:forEach>
                
                      <div id="additionalImgSection">
                         <c:forEach items="${image}" var="img">
