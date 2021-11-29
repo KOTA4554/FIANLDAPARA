@@ -49,8 +49,8 @@
 								<li class="listTitle">
 									MY 활동
 									<ul>
-										<li class="menu"><a href="">문의내역 확인</a></li>
-										<li class="menu"><a href="">리뷰 관리</a></li>
+										<li class="menu"><a href="${pageContext.request.contextPath}/myPage/qnaList.do">문의내역 확인</a></li>
+										<li class="menu"><a href="${pageContext.request.contextPath}/myPage/reviewList.do">리뷰 관리</a></li>
 									</ul>
 								</li>
 							</ul>
